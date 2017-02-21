@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="GaoDi" />
+
+    <version value="1" />
+
+    <list>
+        <mapping class="com.example.stonewang.gaodi.db.JsonBean" />
+    </list>
+</litepal>
