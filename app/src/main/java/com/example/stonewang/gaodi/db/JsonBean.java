@@ -44,4 +44,5 @@ public class JsonBean {
     public void setError_code(int error_code) {
         this.error_code = error_code;
     }
+
 }
