@@ -4,12 +4,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+
+    <ScrollView
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        />
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                />
+            <Button
+                android:id="@+id/news_start_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="新闻"
+                />
+            <Button
+                android:id="@+id/test_Gson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TestGson"
+                android:textAllCaps="false"
+                />
+        </LinearLayout>
+    </ScrollView>
+
 </FrameLayout>

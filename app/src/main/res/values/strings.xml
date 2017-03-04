@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">GaoDi</string>
     <string name="mainActivity_title">主页</string>
+    <string name="newsTitle">新闻列表</string>
 </resources>

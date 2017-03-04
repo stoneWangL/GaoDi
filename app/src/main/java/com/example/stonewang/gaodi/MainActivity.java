@@ -1,10 +1,13 @@
 package com.example.stonewang.gaodi;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,6 +19,24 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Button newsButton = (Button) findViewById(R.id.news_start_button);
+        newsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NewsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button jsonButton = (Button) findViewById(R.id.test_Gson);
+        jsonButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TestGson.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     /**

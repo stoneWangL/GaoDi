@@ -5,6 +5,6 @@
     <version value="1" />
 
     <list>
-        <mapping class="com.example.stonewang.gaodi.db.JsonBean" />
+        <mapping class="com.example.stonewang.gaodi.gson.GaoDiNews" />
     </list>
 </litepal>

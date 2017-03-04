@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/buttonid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="开始Gson解析"
+        />
+    <Button
+        android:id="@+id/button_google_json_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="google_json_one"
+        android:textAllCaps="false"
+        />
+    <Button
+        android:id="@+id/button_google_json_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="google_json_two"
+        android:textAllCaps="false"
+        />
+</LinearLayout>
