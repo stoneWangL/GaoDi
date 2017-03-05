@@ -28,14 +28,7 @@
                 android:id="@+id/news_start_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="新闻"
-                />
-            <Button
-                android:id="@+id/test_Gson"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TestGson"
-                android:textAllCaps="false"
+                android:text="跳转进入新闻界面"
                 />
         </LinearLayout>
     </ScrollView>

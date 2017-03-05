@@ -3,17 +3,10 @@ package com.example.stonewang.gaodi.util;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-
 import com.example.stonewang.gaodi.db.GaoDiNews;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.reflect.TypeToken;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-import java.lang.reflect.Type;
-import java.util.Iterator;
-import java.util.LinkedList;
+
 
 /**
  * Created by stoneWang on 2017/3/4.
@@ -29,15 +22,11 @@ public class JsonUtil extends AppCompatActivity{
         if (!TextUtils.isEmpty(jsonData)){
             try{
                 JSONObject jsonObject = new JSONObject(jsonData);
-                String reason = jsonObject.getString("reason");
                 String result = jsonObject.getString("result");
-//                Log.d("JsonOneStep",reason);
                 Log.d("JsonOneStep",result);
 
                 JSONObject jsonObject2 = new JSONObject(result);
-                String stat = jsonObject2.getString("stat");
                 String data = jsonObject2.getString("data");
-//                Log.d("JsonTwoStep",stat);
                 Log.d("JsonTwoStep",data);
 
 
@@ -54,9 +43,6 @@ public class JsonUtil extends AppCompatActivity{
                     News.setThumbnail_pic_s(NewsObject.getString("thumbnail_pic_s"));
                     News.save();
                 }
-
-
-
                 return true;
             }
             catch (Exception e){
