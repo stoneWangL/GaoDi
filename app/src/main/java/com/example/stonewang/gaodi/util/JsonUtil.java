@@ -1,6 +1,10 @@
 package com.example.stonewang.gaodi.util;
 
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+
+import com.example.stonewang.gaodi.NewsActivity;
 import com.example.stonewang.gaodi.gson.GaoDiNews;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -16,7 +20,7 @@ import java.util.LinkedList;
  * 2.开始解析字符串
  */
 
-public class JsonUtil {
+public class JsonUtil extends AppCompatActivity{
     public void parseJson(String jsonData){
         try{
             JSONObject jsonObject = new JSONObject(jsonData);
@@ -50,13 +54,24 @@ public class JsonUtil {
             LinkedList<GaoDiNews> NewsData = gson.fromJson(jsonData, listType);
             for (Iterator iterator = NewsData.iterator(); iterator.hasNext(); ){
                 GaoDiNews News = (GaoDiNews) iterator.next();
-                Log.d("新闻标题","标题--->"+News.getTitle());
-                Log.d("新闻地址", "URL--->"+News.getUrl());
+                Log.d("xin新闻标题","标题--->"+News.getTitle());
+                Log.d("xin新闻地址", "URL--->"+News.getUrl());
             }
+
+            SendData(NewsData);
+
         }
         catch (Exception e){
             e.printStackTrace();
         }
     }
+
+    private void SendData(LinkedList<GaoDiNews> NewsData){
+        Intent intent = new Intent(JsonUtil.this, NewsActivity.class);
+        intent.putExtra("data", "数据先行者");
+        Log.d("News", "数据先行者");
+        startActivity(intent);
+    }
+
 
 }

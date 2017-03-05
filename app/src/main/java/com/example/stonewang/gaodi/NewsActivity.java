@@ -82,5 +82,9 @@ public class NewsActivity extends AppCompatActivity {
         JsonUtil jsonUtil = new JsonUtil();
         jsonUtil.parseJson(jsonData);
 
+
+        String get = getIntent().getStringExtra("data");
+        Log.d("News", get);
+
     }
 }
