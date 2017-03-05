@@ -28,15 +28,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button jsonButton = (Button) findViewById(R.id.test_Gson);
-        jsonButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TestGson.class);
-                startActivity(intent);
-            }
-        });
-
     }
 
     /**

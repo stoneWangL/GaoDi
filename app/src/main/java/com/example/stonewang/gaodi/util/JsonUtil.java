@@ -1,16 +1,11 @@
 package com.example.stonewang.gaodi.util;
 
-import android.util.JsonReader;
 import android.util.Log;
-
-import com.example.stonewang.gaodi.User;
 import com.example.stonewang.gaodi.gson.GaoDiNews;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
-
-import java.io.StringReader;
 import java.lang.reflect.Type;
 import java.util.Iterator;
 import java.util.LinkedList;
