@@ -1,14 +1,15 @@
 package com.example.stonewang.gaodi.util;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.stonewang.gaodi.NewsActivity;
-import com.example.stonewang.gaodi.gson.GaoDiNews;
+import com.example.stonewang.gaodi.db.GaoDiNews;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.Iterator;
@@ -18,60 +19,52 @@ import java.util.LinkedList;
  * Created by stoneWang on 2017/3/4.
  * 1.开始解析对象
  * 2.开始解析字符串
+ * 3.获取到一串数组的json对象
  */
 
 public class JsonUtil extends AppCompatActivity{
-    public void parseJson(String jsonData){
-        try{
-            JSONObject jsonObject = new JSONObject(jsonData);
-            String reason = jsonObject.getString("reason");
-            String result = jsonObject.getString("result");
-            Log.d("JsonOneStep",reason);
-            Log.d("JsonOneStep",result);
-            parseStepTwo(result);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-    private void parseStepTwo(String jsonData){
-        try{
-            JSONObject jsonObject = new JSONObject(jsonData);
-            String stat = jsonObject.getString("stat");
-            String data = jsonObject.getString("data");
-            Log.d("JsonTwoStep",stat);
-            Log.d("JsonTwoStep",data);
-            parseStepThree(data);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-    private void parseStepThree(String jsonData){
-        try{
-            Type listType = new TypeToken<LinkedList<GaoDiNews>>(){}.getType();
-            Gson gson = new Gson();
-            LinkedList<GaoDiNews> NewsData = gson.fromJson(jsonData, listType);
-            for (Iterator iterator = NewsData.iterator(); iterator.hasNext(); ){
-                GaoDiNews News = (GaoDiNews) iterator.next();
-                Log.d("xin新闻标题","标题--->"+News.getTitle());
-                Log.d("xin新闻地址", "URL--->"+News.getUrl());
+
+    public static boolean parseJson(String jsonData){
+
+        if (!TextUtils.isEmpty(jsonData)){
+            try{
+                JSONObject jsonObject = new JSONObject(jsonData);
+                String reason = jsonObject.getString("reason");
+                String result = jsonObject.getString("result");
+//                Log.d("JsonOneStep",reason);
+                Log.d("JsonOneStep",result);
+
+                JSONObject jsonObject2 = new JSONObject(result);
+                String stat = jsonObject2.getString("stat");
+                String data = jsonObject2.getString("data");
+//                Log.d("JsonTwoStep",stat);
+                Log.d("JsonTwoStep",data);
+
+
+                JSONArray allNews = new JSONArray(data);
+                for (int i=0; i<allNews.length(); i++){
+                    JSONObject NewsObject = allNews.getJSONObject(i);
+                    GaoDiNews News = new GaoDiNews();
+                    News.setUniquekey(NewsObject.getString("uniquekey"));
+                    News.setTitle(NewsObject.getString("title"));
+                    News.setDate(NewsObject.getString("date"));
+                    News.setCategory(NewsObject.getString("category"));
+                    News.setAuthor_name(NewsObject.getString("author_name"));
+                    News.setUrl(NewsObject.getString("url"));
+                    News.setThumbnail_pic_s(NewsObject.getString("thumbnail_pic_s"));
+                    News.save();
+                }
+
+
+
+                return true;
             }
-
-            SendData(NewsData);
-
+            catch (Exception e){
+                e.printStackTrace();
+            }
         }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
-    private void SendData(LinkedList<GaoDiNews> NewsData){
-        Intent intent = new Intent(JsonUtil.this, NewsActivity.class);
-        intent.putExtra("data", "数据先行者");
-        Log.d("News", "数据先行者");
-        startActivity(intent);
+        return false;
     }
-
 
 }

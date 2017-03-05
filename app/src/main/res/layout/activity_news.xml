@@ -20,7 +20,7 @@
                 android:text="获取新闻String"
                 />
             <!--<include layout="@layout/title" />-->
-            <include layout="@layout/news_content" />
+            <include layout="@layout/choose_area" />
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

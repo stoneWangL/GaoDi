@@ -1,7 +1,5 @@
 package com.example.stonewang.gaodi.db;
 
-import com.example.stonewang.gaodi.gson.GaoDiNews;
-
 import org.litepal.crud.DataSupport;
 
 import java.util.List;

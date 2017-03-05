@@ -6,6 +6,6 @@
 
     <list>
         <mapping class="com.example.stonewang.gaodi.db.NewsList" />
-        <mapping class="com.example.stonewang.gaodi.gson.GaoDiNews" />
+        <mapping class="com.example.stonewang.gaodi.db.GaoDiNews" />
     </list>
 </litepal>
