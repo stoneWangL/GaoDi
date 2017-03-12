@@ -15,24 +15,25 @@ import org.json.JSONObject;
  * 3.获取到一串数组的json对象
  */
 
-public class JsonUtil extends AppCompatActivity{
+public class JsonUtil{
 
     public static boolean parseJson(String jsonData){
-
+                Log.d("Json02", jsonData);
         if (!TextUtils.isEmpty(jsonData)){
             try{
                 JSONObject jsonObject = new JSONObject(jsonData);
                 String result = jsonObject.getString("result");
-                Log.d("JsonOneStep",result);
+                Log.d("Json03",result);
 
                 JSONObject jsonObject2 = new JSONObject(result);
                 String data = jsonObject2.getString("data");
-                Log.d("JsonTwoStep",data);
+                Log.d("Json04",data);
 
 
                 JSONArray allNews = new JSONArray(data);
                 for (int i=0; i<allNews.length(); i++){
                     JSONObject NewsObject = allNews.getJSONObject(i);
+                    Log.d("Json05"+i, NewsObject.toString());
                     GaoDiNews News = new GaoDiNews();
                     News.setUniquekey(NewsObject.getString("uniquekey"));
                     News.setTitle(NewsObject.getString("title"));

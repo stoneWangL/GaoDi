@@ -3,11 +3,13 @@ package com.example.stonewang.gaodi;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.stonewang.gaodi.db.GaoDiNews;
 import com.example.stonewang.gaodi.util.JsonUtil;
@@ -52,7 +54,7 @@ public class NewsActivity extends AppCompatActivity {
         //
         queryNews();
 
-        adapter = new ArrayAdapter<>(NewsActivity.this, android.R.layout.simple_list_item_1,dataList);
+        adapter = new ArrayAdapter<>(NewsActivity.this, android.R.layout.simple_list_item_1, dataList);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -65,16 +67,15 @@ public class NewsActivity extends AppCompatActivity {
      * 查询选中的News，去数据库上查询
      */
     private void queryNews(){
-        gaoDiNewsList = DataSupport.where("uniquekey = ?", String.valueOf(selectNews.getUniquekey())).find(GaoDiNews.class);
+        gaoDiNewsList = DataSupport.findAll(GaoDiNews.class);
         if (gaoDiNewsList.size() > 0){
             dataList.clear();
             for (GaoDiNews gaoDiNews : gaoDiNewsList){
                 dataList.add(gaoDiNews.getTitle());
+//                Log.d("Json06", gaoDiNews.getTitle());
             }
-            adapter.notifyDataSetChanged();
-            listView.setSelection(0);
         }else{
-
+            Toast.makeText(this, "本地数据库没有缓存新闻", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -94,6 +95,7 @@ public class NewsActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     //将服务器返回得到字符串传入处理函数
+                    Log.d("Json01", responseData);
                     JsonUtil jsonUtil = new JsonUtil();
                     jsonUtil.parseJson(responseData);
                 }catch (Exception e){
