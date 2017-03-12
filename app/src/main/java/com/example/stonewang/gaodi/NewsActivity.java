@@ -51,15 +51,16 @@ public class NewsActivity extends AppCompatActivity {
 
         //向服务器请求
         sendRequestWithOkHttp();
-        //
+
+        //查询选中的News，去数据库上查询
         queryNews();
 
-        adapter = new ArrayAdapter<>(NewsActivity.this, android.R.layout.simple_list_item_1, dataList);
+        adapter = new ArrayAdapter<>(NewsActivity.this, R.layout.news_title_item, dataList);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Toast.makeText(NewsActivity.this, "点击了标题", Toast.LENGTH_SHORT).show();
             }
         });
     }
