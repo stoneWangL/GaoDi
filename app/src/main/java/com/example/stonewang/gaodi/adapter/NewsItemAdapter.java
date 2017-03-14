@@ -67,4 +67,7 @@ public class NewsItemAdapter extends ArrayAdapter<GaoDiNews> {
 //          return convertView;
 //    }
 
+
+
+
 }
