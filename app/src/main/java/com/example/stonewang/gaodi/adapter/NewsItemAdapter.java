@@ -47,5 +47,24 @@ public class NewsItemAdapter extends ArrayAdapter<GaoDiNews> {
 
         return view;
 
+
     }
+
+//     public View getView(int position, View convertView, ViewGroup parent) {
+//          ViewHolder holder;
+//          if (convertView == null) {
+//              convertView = mInflater.inflate(R.layout.mission_itemview, null);
+//              holder = new ViewHolder();
+//              得到各个控件的对象
+//              holder.icon = (ImageView) convertView.findViewById(R.id.mission_pre_img);
+//              convertView.setTag(holder); //绑定ViewHolder对象
+//          }
+//          else {
+//               holder = (ViewHolder) convertView.getTag(); //取出ViewHolder对象
+//          }
+//          /**设置TextView显示的内容，即我们存放在动态数组中的数据*/
+//          asyncloadImage(holder.icon, mList.get(position).mAdvdefInfo3.mIcon);
+//          return convertView;
+//    }
+
 }
