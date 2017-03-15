@@ -64,6 +64,7 @@ public class NewsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         NewsItemAdapter adapter = new NewsItemAdapter(gaoDiNewsesList);
         recyclerView.setAdapter(adapter);
+
 //        adapter = new ArrayAdapter<>(NewsActivity.this, R.layout.news_title_item, dataList);
 //        listView.setAdapter(adapter);
 //        /**
