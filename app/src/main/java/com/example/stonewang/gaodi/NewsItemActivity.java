@@ -2,6 +2,7 @@ package com.example.stonewang.gaodi;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +36,8 @@ public class NewsItemActivity extends AppCompatActivity {
      */
     private List<GaoDiNews> gaoDiNewsList;
 
+    private SwipeRefreshLayout swipeRefresh;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,15 @@ public class NewsItemActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         NewsItemAdapter adapter = new NewsItemAdapter(gaoDiNewsList);
         recyclerView.setAdapter(adapter);
+
+        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshGaoDiNews();
+            }
+        });
     }
     /**
      * 查询选中的News，去数据库上查询,同时实例化gaoDiNewsList
@@ -102,6 +114,27 @@ public class NewsItemActivity extends AppCompatActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
+            }
+        }).start();
+    }
+
+    private void refreshGaoDiNews(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    Thread.sleep(2000);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        sendRequestWithOkHttp();
+                        queryNews();
+                        swipeRefresh.setRefreshing(false);
+                    }
+                });
             }
         }).start();
     }

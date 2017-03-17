@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //跳转进入新闻界面
         Button newsButton = (Button) findViewById(R.id.news_start_button);
         newsButton.setOnClickListener(new View.OnClickListener() {
             @Override
