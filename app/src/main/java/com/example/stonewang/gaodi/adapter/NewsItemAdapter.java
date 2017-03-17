@@ -1,6 +1,7 @@
 package com.example.stonewang.gaodi.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,109 +14,110 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.stonewang.gaodi.NewsActivity;
+import com.example.stonewang.gaodi.NewsItemActivity;
 import com.example.stonewang.gaodi.R;
 import com.example.stonewang.gaodi.db.GaoDiNews;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.List;
 
 /**
  * Created by stoneWang on 2017/3/12.
+ * RecyclerView 的所有点击事件交给View去注册
+ *
  */
 public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHolder>{
-    private List<GaoDiNews> mGaoDiNewsesList;
+    private Context mContext;
+    private List<GaoDiNews> mGaoDiNewsList;//全局变量mGaoDiNewsesList
 
     /**
      * View参数：通常就是RecyclerView子项的最外层布局，此处即choose_area.xml
      */
     static class ViewHolder extends RecyclerView.ViewHolder{
+        View GaoDiNewsView;
         ImageView NewsImage;
         TextView NewsTitle;
+        TextView NewsDate;
+        TextView NewsAuthor;
         public ViewHolder(View view){
             super(view);
+            GaoDiNewsView = view;
             NewsImage = (ImageView) view.findViewById(R.id.news_title_item_image);
             NewsTitle = (TextView) view.findViewById(R.id.news_title_item_name);
+            NewsDate = (TextView) view.findViewById(R.id.news_item_time);
+            NewsAuthor = (TextView) view.findViewById(R.id.news_item_author);
         }
     }
 
+    /**
+     * 构造函数
+     * @param gaoDiNewsesList 要展示的数据源(传入)
+     */
     public NewsItemAdapter(List<GaoDiNews> gaoDiNewsesList){
-        mGaoDiNewsesList = gaoDiNewsesList;
+        mGaoDiNewsList = gaoDiNewsesList;
     }
 
+    /**
+     * 由于NewsItemAdapter继承自RecyclerView.Adapter,所以必须重写onCreateViewHolder
+     * 用于创建ViewHolder实例，在这个实例中加载自定义item布局（news_title_item）
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_title_item, parent, false);
-        ViewHolder holder = new ViewHolder(view);
-        return holder;
+         if (mContext == null){
+             mContext = parent.getContext();
+         }
+        View view = LayoutInflater.from(mContext).inflate(R.layout.news_title_item, parent, false);//创建一个ViewHolder实例
+        final ViewHolder holder = new ViewHolder(view); //将加载的布局传入到构造函数ViewHolder中
+        holder.GaoDiNewsView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                GaoDiNews gaoDiNews = mGaoDiNewsList.get(position);
+                Toast.makeText(v.getContext(), "我点击了view", Toast.LENGTH_SHORT).show();
+            }
+        });
+        holder.NewsTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position  = holder.getAdapterPosition();
+                GaoDiNews gaoDiNews = mGaoDiNewsList.get(position);
+                Intent intent = new Intent(NewsItemActivity.mactivity, NewsActivity.class);
+                intent.putExtra("NewsUrl", gaoDiNews.getUrl());
+                NewsItemActivity.mactivity.startActivity(intent);
+            }
+        });
+        return holder;//返回ViewHolder实例
     }
 
+    /**
+     * 由于NewsItemAdapter继承自RecyclerView.Adapter,所以必须重写onBindViewHolder
+     * 用于对RecyclerView子项数据进行赋值，会在每个子项滚到屏幕内的时候执行，通过position参数得到当前项的GaoDiNews实例，
+     * 然后将数据设置到ViewHolder的ImageView和TextView即可
+     * @param holder ViewHolder实例
+     * @param position 当前屏幕内的位置
+     */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        GaoDiNews gaoDiNews = mGaoDiNewsesList.get(position);
-//        holder.NewsImage.setImageResource(gaoDiNews.getThumbnail_pic_s());
+        GaoDiNews gaoDiNews = mGaoDiNewsList.get(position);
         holder.NewsTitle.setText(gaoDiNews.getTitle());
+        Glide.with(mContext).load(gaoDiNews.getThumbnail_pic_s()).into(holder.NewsImage);
+        holder.NewsDate.setText("日期: "+gaoDiNews.getDate()+"    ");
+        holder.NewsAuthor.setText("来源: "+gaoDiNews.getAuthor_name());
     }
 
+    /**
+     * 由于NewsItemAdapter继承自RecyclerView.Adapter,所以必须重写getItemCount
+     * 告诉RecycleView一共有多少项
+     * @return 返回数据源的长度
+     */
     @Override
     public int getItemCount() {
-        return mGaoDiNewsesList.size();
+        return mGaoDiNewsList.size();
     }
 }
-
-
-//public class NewsItemAdapter extends ArrayAdapter<GaoDiNews> {
-//    private int resourceId;
-//
-//    /**
-//     *
-//     * @param context 上下文
-//     * @param textViewResourceId ListView子项布局id
-//     * @param objects 数据
-//     */
-//    public NewsItemAdapter(Context context, int textViewResourceId, List<GaoDiNews> objects){
-//        super(context, textViewResourceId, objects);
-//        resourceId = textViewResourceId;
-//    }
-//
-//    /**
-//     *getView 方法在每个子项被滚动到屏幕内的时候会被调用
-//     * @param position
-//     * @param convertView 用于将之前加载好的布局进行缓存
-//     * @param parent
-//     * @return
-//     */
-//    @NonNull
-//    @Override
-//    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//        GaoDiNews gaoDiNews = getItem(position);// 获取当前的GaoDiNews实例
-//        View view;
-//        ViewHolder viewHolder;
-//        //判断是否有缓存的布局
-//        if(convertView == null){
-//            view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
-//            viewHolder = new ViewHolder();
-//            viewHolder.NewsImage = (ImageView) view.findViewById(R.id.news_title_item_image);
-//            viewHolder.NewsTitle = (TextView) view.findViewById(R.id.news_title);
-//            view.setTag(viewHolder); //将viewHolder储存在View中
-//        }else{
-//            view = convertView;
-//            viewHolder = (ViewHolder) view.getTag(); //重新获取 ViewHolder
-//        }
-////        viewHolder.NewsImage.setImageResource(gaoDiNews.getThumbnail_pic_s());
-//        viewHolder.NewsTitle.setText(gaoDiNews.getTitle());
-//        return view;
-//    }
-//
-//    class ViewHolder{
-//        ImageView NewsImage;
-//
-//        TextView NewsTitle;
-//    }
-//
-//
-//}

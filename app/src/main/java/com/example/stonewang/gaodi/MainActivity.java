@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         newsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, NewsActivity.class);
+                Intent intent = new Intent(MainActivity.this, NewsItemActivity.class);
                 startActivity(intent);
             }
         });
