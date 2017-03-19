@@ -13,6 +13,7 @@ import org.json.JSONObject;
  * 1.开始解析对象
  * 2.开始解析字符串
  * 3.获取到一串数组的json对象
+ * 4.并存入数据库
  */
 
 public class JsonUtil{

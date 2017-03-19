@@ -74,11 +74,13 @@ public class NewsItemActivity extends AppCompatActivity {
     }
     /**
      * 查询选中的News，去数据库上查询,同时实例化gaoDiNewsList
+     * 如果有缓存，直接解析
+     * 如果没有，再去服务器查询
      */
     private void queryNews(){
         gaoDiNewsList = DataSupport.findAll(GaoDiNews.class);
         if (gaoDiNewsList.size() > 0){
-            dataList.clear();
+//            dataList.clear();
             for (GaoDiNews gaoDiNews : gaoDiNewsList){
                 dataList.add(gaoDiNews.getTitle());
                 dataList.add(gaoDiNews.getThumbnail_pic_s());
@@ -88,7 +90,7 @@ public class NewsItemActivity extends AppCompatActivity {
 //                Log.d("Json06", gaoDiNews.getTitle());
             }
         }else{
-            Toast.makeText(this, "本地数据库没有缓存新闻", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "no find db", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -130,9 +132,11 @@ public class NewsItemActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        DataSupport.deleteAll(GaoDiNews.class);
                         sendRequestWithOkHttp();
                         queryNews();
                         swipeRefresh.setRefreshing(false);
+                        Toast.makeText(NewsItemActivity.this, "新闻已更新", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
