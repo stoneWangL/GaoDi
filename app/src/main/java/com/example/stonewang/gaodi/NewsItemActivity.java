@@ -31,6 +31,7 @@ public class NewsItemActivity extends AppCompatActivity {
     public static NewsItemActivity mactivity;
     private Button backButton;
     private List<String> dataList = new ArrayList<>();
+    private NewsItemAdapter adapter;
     /**
      * News列表
      */
@@ -60,7 +61,10 @@ public class NewsItemActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        NewsItemAdapter adapter = new NewsItemAdapter(gaoDiNewsList);
+        //添加装饰类
+        recyclerView.addItemDecoration(new MyItemDecoration());
+
+        adapter = new NewsItemAdapter(gaoDiNewsList);
         recyclerView.setAdapter(adapter);
 
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
@@ -80,7 +84,7 @@ public class NewsItemActivity extends AppCompatActivity {
     private void queryNews(){
         gaoDiNewsList = DataSupport.findAll(GaoDiNews.class);
         if (gaoDiNewsList.size() > 0){
-//            dataList.clear();
+            dataList.clear();
             for (GaoDiNews gaoDiNews : gaoDiNewsList){
                 dataList.add(gaoDiNews.getTitle());
                 dataList.add(gaoDiNews.getThumbnail_pic_s());
@@ -89,8 +93,9 @@ public class NewsItemActivity extends AppCompatActivity {
                 dataList.add(gaoDiNews.getAuthor_name());
 //                Log.d("Json06", gaoDiNews.getTitle());
             }
+
         }else{
-            Toast.makeText(this, "no find db", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "no find db", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -135,6 +140,7 @@ public class NewsItemActivity extends AppCompatActivity {
                         DataSupport.deleteAll(GaoDiNews.class);
                         sendRequestWithOkHttp();
                         queryNews();
+                        adapter.notifyDataSetChanged();
                         swipeRefresh.setRefreshing(false);
                         Toast.makeText(NewsItemActivity.this, "新闻已更新", Toast.LENGTH_SHORT).show();
                     }

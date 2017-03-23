@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.stonewang.gaodi.MyItemDecoration;
 import com.example.stonewang.gaodi.NewsActivity;
 import com.example.stonewang.gaodi.NewsItemActivity;
 import com.example.stonewang.gaodi.R;
