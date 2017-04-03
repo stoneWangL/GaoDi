@@ -83,8 +83,9 @@ public class NewsItemActivity extends AppCompatActivity {
      */
     private void queryNews(){
         gaoDiNewsList = DataSupport.findAll(GaoDiNews.class);
+//        dataList.clear();
         if (gaoDiNewsList.size() > 0){
-            dataList.clear();
+
             for (GaoDiNews gaoDiNews : gaoDiNewsList){
                 dataList.add(gaoDiNews.getTitle());
                 dataList.add(gaoDiNews.getThumbnail_pic_s());
@@ -137,11 +138,19 @@ public class NewsItemActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        View cv = getWindow().getDecorView();//获取当前View
+
                         DataSupport.deleteAll(GaoDiNews.class);
+
                         sendRequestWithOkHttp();
+
                         queryNews();
-                        adapter.notifyDataSetChanged();
+
+                        cv.invalidate();//View 重构
+
+
                         swipeRefresh.setRefreshing(false);
+
                         Toast.makeText(NewsItemActivity.this, "新闻已更新", Toast.LENGTH_SHORT).show();
                     }
                 });
