@@ -83,9 +83,9 @@ public class NewsItemActivity extends AppCompatActivity {
      */
     private void queryNews(){
         gaoDiNewsList = DataSupport.findAll(GaoDiNews.class);
-//        dataList.clear();
-        if (gaoDiNewsList.size() > 0){
 
+        if (gaoDiNewsList.size() > 0){
+            dataList.clear();
             for (GaoDiNews gaoDiNews : gaoDiNewsList){
                 dataList.add(gaoDiNews.getTitle());
                 dataList.add(gaoDiNews.getThumbnail_pic_s());
