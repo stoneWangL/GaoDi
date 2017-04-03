@@ -54,7 +54,6 @@ public class NewsItemActivity extends AppCompatActivity {
         });
         //向服务器请求
         sendRequestWithOkHttp();
-
         //查询选中的News，去数据库上查询
         queryNews();
 
@@ -140,16 +139,15 @@ public class NewsItemActivity extends AppCompatActivity {
                     public void run() {
                         View cv = getWindow().getDecorView();//获取当前View
 
-                        DataSupport.deleteAll(GaoDiNews.class);
+                        DataSupport.deleteAll(GaoDiNews.class);//清空本地数据库缓存
 
                         sendRequestWithOkHttp();
-
                         queryNews();
 
                         cv.invalidate();//View 重构
 
 
-                        swipeRefresh.setRefreshing(false);
+                        swipeRefresh.setRefreshing(false);//耗时操作结束
 
                         Toast.makeText(NewsItemActivity.this, "新闻已更新", Toast.LENGTH_SHORT).show();
                     }
