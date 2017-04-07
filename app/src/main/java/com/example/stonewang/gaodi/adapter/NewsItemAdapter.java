@@ -9,10 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.example.stonewang.gaodi.NewsActivity;
-import com.example.stonewang.gaodi.NewsItemActivity;
 import com.example.stonewang.gaodi.R;
 import com.example.stonewang.gaodi.db.GaoDiNews;
 
@@ -73,7 +71,7 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
                 GaoDiNews gaoDiNews = mGaoDiNewsList.get(position);
-                Toast.makeText(v.getContext(), "我点击了view", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "图片不错吧", Toast.LENGTH_SHORT).show();
             }
         });
         holder.NewsTitle.setOnClickListener(new View.OnClickListener() {
@@ -81,9 +79,9 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
             public void onClick(View v) {
                 int position  = holder.getAdapterPosition();
                 GaoDiNews gaoDiNews = mGaoDiNewsList.get(position);
-                Intent intent = new Intent(NewsItemActivity.mactivity, NewsActivity.class);
+                Intent intent = new Intent(v.getContext(), NewsActivity.class);
                 intent.putExtra("NewsUrl", gaoDiNews.getUrl());
-                NewsItemActivity.mactivity.startActivity(intent);
+                v.getContext().startActivity(intent);
             }
         });
         return holder;//返回ViewHolder实例

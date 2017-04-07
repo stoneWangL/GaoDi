@@ -1,16 +1,24 @@
 package com.example.stonewang.gaodi;
 
-import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
+import com.ashokvarma.bottomnavigation.BottomNavigationBar;
+import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.example.stonewang.gaodi.fragment.Fragment3;
+import com.example.stonewang.gaodi.fragment.LocalFragment;
+import com.example.stonewang.gaodi.fragment.NewsItemFragment;
+
+import static com.ashokvarma.bottomnavigation.BottomNavigationBar.BACKGROUND_STYLE_STATIC;
+
 public class MainActivity extends AppCompatActivity {
+
+    private BottomNavigationBar bottom_navigation_bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,16 +28,55 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //跳转进入新闻界面
-        Button newsButton = (Button) findViewById(R.id.news_start_button);
-        newsButton.setOnClickListener(new View.OnClickListener() {
+        init();//底部导航初始化
+
+        bottom_navigation_bar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
+        bottom_navigation_bar.setMode(BottomNavigationBar.MODE_FIXED);
+        bottom_navigation_bar.setBackgroundStyle(BACKGROUND_STYLE_STATIC);
+        //设置默认颜色
+        bottom_navigation_bar
+                .setInActiveColor(R.color.colorInActive)//设置未选中的Item的颜色，包括图片和文字
+                .setActiveColor(R.color.colorActive)
+                .setBarBackgroundColor(R.color.colorBarBg);//设置整个控件的背景色
+        //添加选项
+        bottom_navigation_bar.addItem(new BottomNavigationItem(R.drawable.ic_stat_new, "新闻"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_stat_read, "资料"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_stat_read, "未定"))
+                .initialise();
+        bottom_navigation_bar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, NewsItemActivity.class);
-                startActivity(intent);
+            public void onTabSelected(int position) {//未选中 -> 选中
+                switch (position){
+                    case 0:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment, new NewsItemFragment()).commit();
+                        break;
+                    case 1:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment, new LocalFragment()).commit();
+                        break;
+                    case 2:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment,new Fragment3()).commit();
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(int position) {//选中 -> 未选中
+
+            }
+
+            @Override
+            public void onTabReselected(int position) {//选中 -> 选中
+
             }
         });
 
+    }
+
+    /**
+     * 底部导航初始化
+     */
+    private void init(){
+        NewsItemFragment firstFragment = new NewsItemFragment();
+        firstFragment.setArguments(getIntent().getExtras());
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.view_fragment, firstFragment).commit();
     }
 
     /**

@@ -18,9 +18,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NewsItemActivity">
-        </activity>
-        <activity
             android:name=".NewsActivity">
         </activity>
     </application>
