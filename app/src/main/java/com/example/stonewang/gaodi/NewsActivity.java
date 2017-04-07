@@ -21,7 +21,7 @@ public class NewsActivity extends AppCompatActivity {
         String url = intent.getStringExtra("NewsUrl");
 
         WebView mWebView = (WebView) findViewById(R.id.news_web_view);
-        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.getSettings().setJavaScriptEnabled(false);//如果设置为true，则JS广告则会影响阅读体验
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.loadUrl(url);
     }
