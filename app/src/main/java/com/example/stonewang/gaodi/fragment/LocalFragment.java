@@ -5,11 +5,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.stonewang.gaodi.MyItemDecoration;
 import com.example.stonewang.gaodi.R;
 import com.example.stonewang.gaodi.adapter.LocalItemAdapter;
 import com.example.stonewang.gaodi.mode.Local;
@@ -22,6 +22,7 @@ import java.util.List;
  */
 
 public class LocalFragment extends Fragment {
+    private String tab = "\b\b\b\b\b\b\b\b\b";
 
     private List<Local> localList = new ArrayList<>();
 
@@ -32,20 +33,21 @@ public class LocalFragment extends Fragment {
         initLocal();
 
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.local_recycler_view);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager (1,StaggeredGridLayoutManager.HORIZONTAL);
+        LinearLayoutManager layoutManager = new LinearLayoutManager (getContext());
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new MyItemDecoration());//添加装饰类,加横线
         LocalItemAdapter adapter = new LocalItemAdapter(localList);
         recyclerView.setAdapter(adapter);
 
         return v;
     }
-//this.getString(R.string.XXX);
+
     private void initLocal() {
-        Local Land = new Local("中国陆军", R.drawable.landarmy_item,this.getString(R.string.itemLandIntroduce));
+        Local Land = new Local(tab+"中\n"+tab+"国\n"+tab+"陆\n"+tab+"军", R.drawable.landarmy_item,tab+this.getString(R.string.itemLandIntroduce));
         localList.add(Land);
-        Local Navy = new Local("中国海军", R.drawable.navy_item, this.getString(R.string.itemNavyIntroduce));
+        Local Navy = new Local(tab+"中\n"+tab+"国\n"+tab+"海\n"+tab+"军", R.drawable.navy_item, tab+this.getString(R.string.itemNavyIntroduce));
         localList.add(Navy);
-        Local Air = new Local("中国空军", R.drawable.airarmy_item, this.getString(R.string.itemAirIntroduce));
+        Local Air = new Local(tab+"中\n"+tab+"国\n"+tab+"空\n"+tab+"军", R.drawable.airarmy_item, tab+this.getString(R.string.itemAirIntroduce));
         localList.add(Air);
     }
 }

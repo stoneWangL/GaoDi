@@ -3,31 +3,40 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
     android:paddingLeft="5dp"
+    android:paddingRight="5dp"
     android:background="@color/colorItem">
-    <ImageView
-        android:id="@+id/local_item_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"/>
 
-    <TextView
-        android:id="@+id/local_item_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/colorText"
-        android:textSize="@dimen/item_size"
-        />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/local_item_image"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:id="@+id/local_item_name"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/item_title_size"
+            android:textColor="@color/colorText"
+            />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/local_item_introduce"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/colorText"
-        android:textSize="@dimen/item_size"
+        android:layout_marginTop="2dp"
+        android:textSize="@dimen/item_size_small"
         />
 
 </LinearLayout>

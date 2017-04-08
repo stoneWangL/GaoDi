@@ -31,7 +31,6 @@ import okhttp3.Response;
  */
 
 public class NewsItemFragment extends Fragment {
-    public static NewsItemFragment mfragment;
     private SwipeRefreshLayout swipeRefresh;
     private NewsItemAdapter adapter;
     private List<GaoDiNews> gaoDiNewsList=new ArrayList<>(), All=new ArrayList<>();
