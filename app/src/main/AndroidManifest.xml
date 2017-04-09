@@ -20,6 +20,12 @@
         <activity
             android:name=".NewsActivity">
         </activity>
+        <activity
+            android:name=".LandItemActivity">
+        </activity>
+        <activity
+            android:name=".LandShowOneActivity">
+        </activity>
     </application>
 
 </manifest>

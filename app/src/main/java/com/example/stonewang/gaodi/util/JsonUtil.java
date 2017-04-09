@@ -1,8 +1,6 @@
 package com.example.stonewang.gaodi.util;
 
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import com.example.stonewang.gaodi.db.GaoDiNews;
 import org.json.JSONArray;
 import org.json.JSONObject;

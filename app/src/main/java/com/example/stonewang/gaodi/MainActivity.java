@@ -4,21 +4,31 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.example.stonewang.gaodi.db.LandArmyDescribe;
 import com.example.stonewang.gaodi.fragment.Fragment3;
 import com.example.stonewang.gaodi.fragment.LocalFragment;
 import com.example.stonewang.gaodi.fragment.NewsItemFragment;
+import com.example.stonewang.gaodi.util.LocalDBCreate;
+
+import org.litepal.crud.DataSupport;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.ashokvarma.bottomnavigation.BottomNavigationBar.BACKGROUND_STYLE_STATIC;
 
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationBar bottom_navigation_bar;
+    //数据库landArmy列表
+    private List<LandArmyDescribe> landArmyDescribesList =new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         init();//底部导航初始化
 
@@ -98,6 +109,30 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.set:
+                LandArmyDescribe landArmyDescribe = new LandArmyDescribe();
+                landArmyDescribe.setName("59式中型坦克");
+                landArmyDescribe.setImageId("R.drawable.land_tank59");
+                landArmyDescribe.setBaseParameter("59基本参数");
+                landArmyDescribe.setHistoricalBackground("1959年生产出首批59式中型坦克，并完成了生产定型。该坦克的主要性能指标和结构与苏式T54A中型坦克相同。60年代初，新型装甲钢的研制与应用为大批量生产59式中型坦克创造了条件。70年代，根据部队的反映及坦克技术的发展，逐步开展对59式中型坦克的改进，其间进行了很多试验型样车的研制，完成了59-1、59-2和59-2A式中型坦克的发展工作。80年代，59式中型坦克批量生产已经停止，但作为T式坦克的改进和现代化工作仍在继续");
+                landArmyDescribe.setDetailedInstroduction("59详细介绍");
+                landArmyDescribe.setSumUp("总结");
+                landArmyDescribe.save();
+                landArmyDescribesList = DataSupport.findAll(LandArmyDescribe.class);
+                if (landArmyDescribesList.size() > 0){
+
+                }else{
+                    LocalDBCreate localDBCreate = new LocalDBCreate();
+                    localDBCreate.CreatedLand();
+                }
+                //在onCreate方法中就创建Local数据库
+                landArmyDescribesList = DataSupport.findAll(LandArmyDescribe.class);
+                if (landArmyDescribesList.size() > 0){
+
+                }else{
+                    Log.d("haha", "数据库不存在");
+                    LocalDBCreate localDBCreate = new LocalDBCreate();
+                    localDBCreate.CreatedLand();
+                }
                 Toast.makeText(this, "你点击了Set按钮", Toast.LENGTH_SHORT).show();
                 break;
             default:

@@ -1,14 +1,19 @@
 package com.example.stonewang.gaodi.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.stonewang.gaodi.LandItemActivity;
+import com.example.stonewang.gaodi.NewsActivity;
 import com.example.stonewang.gaodi.R;
 import com.example.stonewang.gaodi.mode.Local;
 
@@ -22,12 +27,14 @@ public class LocalItemAdapter extends RecyclerView.Adapter<LocalItemAdapter.View
     private Context mContext;
     private List<Local> mLocalList;
     static class ViewHolder extends RecyclerView.ViewHolder{
+        View localView;
         ImageView localImage;
         TextView localName;
         TextView introduce;
 
         public ViewHolder(View view){
             super(view);
+            localView = view;
             localImage = (ImageView) view.findViewById(R.id.local_item_image);
             localName = (TextView) view.findViewById(R.id.local_item_name);
             introduce = (TextView) view.findViewById(R.id.local_item_introduce);
@@ -44,7 +51,26 @@ public class LocalItemAdapter extends RecyclerView.Adapter<LocalItemAdapter.View
             mContext = parent.getContext();
         }
         View view = LayoutInflater.from(mContext).inflate(R.layout.local_item, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+
+        final ViewHolder holder = new ViewHolder(view);
+
+        holder.localView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                if (position == 0)//点击陆军
+                {
+                    Intent intent = new Intent(v.getContext(), LandItemActivity.class);
+                    v.getContext().startActivity(intent);
+                }else if (position == 1)//点击空军
+                {
+                    Toast.makeText(mContext, "点击了空军", Toast.LENGTH_SHORT).show();
+                }else if (position == 2)//点击海军
+                {
+                    Toast.makeText(mContext, "点击了海军", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         return holder;
     }
 
