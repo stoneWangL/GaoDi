@@ -3,7 +3,6 @@ package com.example.stonewang.gaodi;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
@@ -12,8 +11,6 @@ import com.example.stonewang.gaodi.mode.Land;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.litepal.LitePalApplication.getContext;
 
 /**
  * Created by stoneWang on 2017/4/8.
@@ -46,5 +43,27 @@ public class LandItemActivity extends AppCompatActivity{
         landList.add(tank59);
         Land tank69 = new Land("69式中型坦克", R.drawable.land_tank69);
         landList.add(tank69);
+        Land tank79 = new Land("79式中型坦克", R.drawable.land_tank79);
+        landList.add(tank79);
+        Land tank80 = new Land("80式中型坦克", R.drawable.land_tank80);
+        landList.add(tank80);
+        Land tank85 = new Land("85式主战坦克", R.drawable.land_tank85);
+        landList.add(tank85);
+        Land tank90 = new Land("90式主战坦克", R.drawable.land_tank90);
+        landList.add(tank90);
+        Land tank96 = new Land("96式主战坦克", R.drawable.land_tank96);
+        landList.add(tank96);
+        Land tank98 = new Land("98式主战坦克", R.drawable.land_tank98);
+        landList.add(tank98);
+        Land tank99 = new Land("99式主战坦克", R.drawable.land_tank99);
+        landList.add(tank99);
+        Land tank62 = new Land("62式轻型坦克", R.drawable.land_tank62);
+        landList.add(tank62);
+        Land tank63 = new Land("63式水陆坦克", R.drawable.land_tank63);
+        landList.add(tank63);
+        Land tank09 = new Land("09式轮式装甲车", R.drawable.land_tank09);
+        landList.add(tank09);
+        Land tank10 = new Land("PLZ-05自行榴弹炮", R.drawable.land_plz05);
+        landList.add(tank10);
     }
 }

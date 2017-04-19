@@ -69,7 +69,7 @@
                     <TextView
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
-                        android:text="基本参数"
+                        android:text="*基本参数*"
                         android:layout_marginLeft="@dimen/show_title_text_pad"
                         android:textSize="@dimen/show_title_text_size"
                         />
@@ -95,7 +95,7 @@
                     <TextView
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
-                        android:text="历史背景"
+                        android:text="*历史背景*"
                         android:layout_marginLeft="@dimen/show_title_text_pad"
                         android:textSize="@dimen/show_title_text_size"
                         />
@@ -127,7 +127,7 @@
                     <TextView
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
-                        android:text="详细介绍"
+                        android:text="*详细介绍*"
                         android:layout_marginLeft="@dimen/show_title_text_pad"
                         android:textSize="@dimen/show_title_text_size"
                         />

@@ -44,7 +44,7 @@ public class LandShowOneActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");//武器名
         int imageId = intent.getIntExtra("imageId",0);//图片
-        String baseParameter = intent.getStringExtra("String baseParameter");//基本参数
+        String baseParameter = intent.getStringExtra("baseParameter");//基本参数
         String historicalBackground = intent.getStringExtra("historicalBackground");//研发历史背景
         String detailedInstroduction = intent.getStringExtra("detailedInstroduction");//详细介绍
         String sumUp = intent.getStringExtra("sumUp");//总结
