@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         init();//底部导航初始化
-
+        initLocalDB();//初始化本地数据库
         bottom_navigation_bar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
         bottom_navigation_bar.setMode(BottomNavigationBar.MODE_FIXED);
         bottom_navigation_bar.setBackgroundStyle(BACKGROUND_STYLE_STATIC);
@@ -79,6 +79,22 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    /**
+     * 初始化本地数据库(本地资料页面数据)
+     * 如果数据库存在则跳过，否者建立数据库
+     */
+    private void initLocalDB() {
+//        Log.d("ML01", "ML01");
+        //在onCreate方法中就创建Local数据库
+        landArmyDescribesList = DataSupport.findAll(LandArmyDescribe.class);
+        if (landArmyDescribesList.size() > 0){
+            //创建成功，跳过
+        }else{
+            LocalDBCreate localDBCreate = new LocalDBCreate();
+            localDBCreate.CreatedLand();
+        }
+//        Log.d("ML01", "ML02");
+    }
 
     /**
      * 底部导航初始化
@@ -109,30 +125,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.set:
-                LandArmyDescribe landArmyDescribe = new LandArmyDescribe();
-                landArmyDescribe.setName("59式中型坦克");
-                landArmyDescribe.setImageId("R.drawable.land_tank59");
-                landArmyDescribe.setBaseParameter("59基本参数");
-                landArmyDescribe.setHistoricalBackground("1959年生产出首批59式中型坦克，并完成了生产定型。该坦克的主要性能指标和结构与苏式T54A中型坦克相同。60年代初，新型装甲钢的研制与应用为大批量生产59式中型坦克创造了条件。70年代，根据部队的反映及坦克技术的发展，逐步开展对59式中型坦克的改进，其间进行了很多试验型样车的研制，完成了59-1、59-2和59-2A式中型坦克的发展工作。80年代，59式中型坦克批量生产已经停止，但作为T式坦克的改进和现代化工作仍在继续");
-                landArmyDescribe.setDetailedInstroduction("59详细介绍");
-                landArmyDescribe.setSumUp("总结");
-                landArmyDescribe.save();
-                landArmyDescribesList = DataSupport.findAll(LandArmyDescribe.class);
-                if (landArmyDescribesList.size() > 0){
-
-                }else{
-                    LocalDBCreate localDBCreate = new LocalDBCreate();
-                    localDBCreate.CreatedLand();
-                }
-                //在onCreate方法中就创建Local数据库
-                landArmyDescribesList = DataSupport.findAll(LandArmyDescribe.class);
-                if (landArmyDescribesList.size() > 0){
-
-                }else{
-                    Log.d("haha", "数据库不存在");
-                    LocalDBCreate localDBCreate = new LocalDBCreate();
-                    localDBCreate.CreatedLand();
-                }
                 Toast.makeText(this, "你点击了Set按钮", Toast.LENGTH_SHORT).show();
                 break;
             default:
@@ -140,4 +132,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
 }

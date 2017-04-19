@@ -8,7 +8,7 @@ import org.litepal.crud.DataSupport;
 
 public class LandArmyDescribe extends DataSupport{
     String name;//武器名
-    String imageId;//图片
+    int imageId;//图片
     String baseParameter;//基本参数
     String historicalBackground;//研发历史背景
     String detailedInstroduction;//详细介绍
@@ -22,11 +22,11 @@ public class LandArmyDescribe extends DataSupport{
         this.name = name;
     }
 
-    public String getImageId() {
+    public int getImageId() {
         return imageId;
     }
 
-    public void setImageId(String imageId) {
+    public void setImageId(int imageId) {
         this.imageId = imageId;
     }
 

@@ -45,13 +45,133 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="30dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorItem">
 
-            <TextView
-                android:id="@+id/land_show_content_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
+                <!--基本参数-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorBlack" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:background="@color/colorBarBg">
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:text="基本参数"
+                        android:layout_marginLeft="@dimen/show_title_text_pad"
+                        android:textSize="@dimen/show_title_text_size"
+                        />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/show_content_text_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/item_size"
+                    />
+
+                <!--研发历史背景-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorBlack" />
+                <LinearLayout
+                    android:id="@+id/show_on_off_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:background="@color/colorBarBg">
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:text="历史背景"
+                        android:layout_marginLeft="@dimen/show_title_text_pad"
+                        android:textSize="@dimen/show_title_text_size"
+                        />
+                </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/show_content_on_off_1"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    >
+                    <TextView
+                        android:id="@+id/show_content_text_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/item_size"
+                        />
+                </RelativeLayout>
+
+                <!--详细介绍-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorBlack" />
+                <LinearLayout
+                    android:id="@+id/show_on_off_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:background="@color/colorBarBg">
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:text="详细介绍"
+                        android:layout_marginLeft="@dimen/show_title_text_pad"
+                        android:textSize="@dimen/show_title_text_size"
+                        />
+                </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/show_content_on_off_2"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    >
+                    <TextView
+                        android:id="@+id/show_content_text_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/item_size"
+                        />
+                </RelativeLayout>
+
+                <!--总结-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorBlack" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:background="@color/colorBarBg">
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:text="*总结*"
+                        android:layout_marginLeft="@dimen/show_title_text_pad"
+                        android:textSize="@dimen/show_title_text_size"
+                        />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/show_content_text_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/item_size"
+                    />
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
@@ -60,7 +180,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:src="@drawable/land_tank69"
         app:layout_anchor="@id/appBar_land_show"
         app:layout_anchorGravity="bottom|end"
         />
