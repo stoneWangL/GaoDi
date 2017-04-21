@@ -1,5 +1,6 @@
 package com.example.stonewang.gaodi;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.example.stonewang.gaodi.db.LandArmyDescribe;
 import com.example.stonewang.gaodi.fragment.Fragment3;
 import com.example.stonewang.gaodi.fragment.LocalFragment;
 import com.example.stonewang.gaodi.fragment.NewsItemFragment;
+import com.example.stonewang.gaodi.util.JsonUtil;
 import com.example.stonewang.gaodi.util.LocalDBCreate;
 
 import org.litepal.crud.DataSupport;
@@ -22,9 +24,14 @@ import org.litepal.crud.DataSupport;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 import static com.ashokvarma.bottomnavigation.BottomNavigationBar.BACKGROUND_STYLE_STATIC;
 
 public class MainActivity extends AppCompatActivity {
+    public int firstTimes=1;
 
     private BottomNavigationBar bottom_navigation_bar;
     //数据库landArmy列表
@@ -51,19 +58,29 @@ public class MainActivity extends AppCompatActivity {
                 .setBarBackgroundColor(R.color.colorBarBg);//设置整个控件的背景色
         //添加选项
         bottom_navigation_bar.addItem(new BottomNavigationItem(R.drawable.ic_stat_new, "新闻"))
-                .addItem(new BottomNavigationItem(R.drawable.ic_stat_read, "资料"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_stat_read, "未定"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_stat_read, "资料"))
                 .initialise();
+//        bottom_navigation_bar.addItem(new BottomNavigationItem(R.drawable.ic_stat_new, "新闻"))
+//                .addItem(new BottomNavigationItem(R.drawable.ic_stat_read, "资料"))
+//                .addItem(new BottomNavigationItem(R.drawable.ic_stat_read, "未定"))
+//                .initialise();
         bottom_navigation_bar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position) {//未选中 -> 选中
                 switch (position){
                     case 0:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment, new NewsItemFragment()).commit();
                         break;
-                    case 1:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment, new LocalFragment()).commit();
+                    case 1:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment,new Fragment3()).commit();
                         break;
-                    case 2:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment,new Fragment3()).commit();
+                    case 2:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment, new LocalFragment()).commit();
                         break;
+//                    case 0:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment, new NewsItemFragment()).commit();
+//                        break;
+//                    case 1:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment, new LocalFragment()).commit();
+//                        break;
+//                    case 2:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment,new Fragment3()).commit();
+//                        break;
                 }
             }
 

@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.example.stonewang.gaodi.MainActivity;
 import com.example.stonewang.gaodi.MyItemDecoration;
 import com.example.stonewang.gaodi.R;
 import com.example.stonewang.gaodi.adapter.NewsItemAdapter;
@@ -31,6 +33,7 @@ import okhttp3.Response;
  */
 
 public class NewsItemFragment extends Fragment {
+    private int i=0;
     private SwipeRefreshLayout swipeRefresh;
     private NewsItemAdapter adapter;
     private List<GaoDiNews> gaoDiNewsList=new ArrayList<>(), All=new ArrayList<>();
@@ -38,6 +41,7 @@ public class NewsItemFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        i++;
     }
     @Nullable
     @Override
@@ -57,6 +61,14 @@ public class NewsItemFragment extends Fragment {
 
         swipeRefresh = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
+
+        if(i==1){
+            //手动调用,通知系统去测量
+            swipeRefresh.setRefreshing(true);
+            refreshGaoDiNews();//更新新闻列表
+        }
+
+
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -64,9 +76,9 @@ public class NewsItemFragment extends Fragment {
             }
         });
 
+
         return v;
     }
-
     /**
      * 初始化
      */
@@ -93,13 +105,14 @@ public class NewsItemFragment extends Fragment {
      * 更新新闻列表
      */
     private void refreshGaoDiNews() {
+        i++;
         DataSupport.deleteAll(GaoDiNews.class);//清空本地数据库缓存
         sendRequestWithOkHttp();//向服务器发送请求，并插入本地数据库
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try{
-                    Thread.sleep(4000);
+                    Thread.sleep(1000);
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }
@@ -118,7 +131,7 @@ public class NewsItemFragment extends Fragment {
                         adapter.notifyDataSetChanged();
                         swipeRefresh.setRefreshing(false);//耗时操作结束
 
-                        Toast.makeText(getActivity(), "新闻已更新", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(), "新闻已更新", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
