@@ -182,5 +182,6 @@
         android:layout_margin="16dp"
         app:layout_anchor="@id/appBar_land_show"
         app:layout_anchorGravity="bottom|end"
+        app:backgroundTint="@color/colorBarBg"
         />
 </android.support.design.widget.CoordinatorLayout>

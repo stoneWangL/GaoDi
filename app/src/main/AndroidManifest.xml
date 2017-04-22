@@ -26,6 +26,12 @@
         <activity
             android:name=".LandShowOneActivity">
         </activity>
+        <activity
+            android:name=".NavyItemActivity">
+        </activity>
+        <activity
+            android:name=".NavyShowOneActivity">
+        </activity>
     </application>
 
 </manifest>

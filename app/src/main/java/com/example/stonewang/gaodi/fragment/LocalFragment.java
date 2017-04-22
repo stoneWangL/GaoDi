@@ -26,7 +26,7 @@ import java.util.List;
  */
 
 public class LocalFragment extends Fragment {
-    private String tab = "\b\b\b\b\b\b\b\b\b";
+    private String tab = "\b\b\b\b\b\b";
 
     private List<Local> localList = new ArrayList<>();
 
@@ -47,11 +47,11 @@ public class LocalFragment extends Fragment {
     }
 
     private void initLocal() {
-        Local Land = new Local(tab+"中\n"+tab+"国\n"+tab+"陆\n"+tab+"军", R.drawable.landarmy_item,tab+this.getString(R.string.itemLandIntroduce));
+        Local Land = new Local("中国陆军", R.drawable.land_tank99,tab+this.getString(R.string.itemLandIntroduce));
         localList.add(Land);
-        Local Navy = new Local(tab+"中\n"+tab+"国\n"+tab+"海\n"+tab+"军", R.drawable.navy_item, tab+this.getString(R.string.itemNavyIntroduce));
+        Local Navy = new Local("中国海军", R.drawable.navy_item, tab+this.getString(R.string.itemNavyIntroduce));
         localList.add(Navy);
-        Local Air = new Local(tab+"中\n"+tab+"国\n"+tab+"空\n"+tab+"军", R.drawable.airarmy_item, tab+this.getString(R.string.itemAirIntroduce));
+        Local Air = new Local("中国空军", R.drawable.airarmy_item, tab+this.getString(R.string.itemAirIntroduce));
         localList.add(Air);
     }
 }
