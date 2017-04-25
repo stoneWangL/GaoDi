@@ -3,18 +3,16 @@ package com.example.stonewang.gaodi.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.stonewang.gaodi.LandItemActivity;
-import com.example.stonewang.gaodi.NavyItemActivity;
-import com.example.stonewang.gaodi.NewsActivity;
+import com.example.stonewang.gaodi.LocalShowActivity.AirforceItemActivity;
+import com.example.stonewang.gaodi.LocalShowActivity.LandItemActivity;
+import com.example.stonewang.gaodi.LocalShowActivity.NavyItemActivity;
 import com.example.stonewang.gaodi.R;
 import com.example.stonewang.gaodi.mode.Local;
 
@@ -63,14 +61,14 @@ public class LocalItemAdapter extends RecyclerView.Adapter<LocalItemAdapter.View
                 {
                     Intent intent = new Intent(v.getContext(), LandItemActivity.class);
                     v.getContext().startActivity(intent);
-                }else if (position == 1)//点击空军
+                }else if (position == 1)//点击海军
                 {
                     Intent intent = new Intent(v.getContext(), NavyItemActivity.class);
                     v.getContext().startActivity(intent);
-//                    Toast.makeText(mContext, "点击了空军", Toast.LENGTH_SHORT).show();
-                }else if (position == 2)//点击海军
+                }else if (position == 2)//点击空军
                 {
-                    Toast.makeText(mContext, "点击了海军", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(v.getContext(), AirforceItemActivity.class);
+                    v.getContext().startActivity(intent);
                 }
             }
         });

@@ -10,9 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.stonewang.gaodi.LandShowOneActivity;
+import com.example.stonewang.gaodi.LocalShowActivity.LandShowOneActivity;
 import com.example.stonewang.gaodi.R;
-import com.example.stonewang.gaodi.db.GaoDiNews;
 import com.example.stonewang.gaodi.db.LandArmyDescribe;
 import com.example.stonewang.gaodi.mode.Land;
 

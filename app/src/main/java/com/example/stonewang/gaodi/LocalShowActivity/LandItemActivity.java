@@ -1,4 +1,4 @@
-package com.example.stonewang.gaodi;
+package com.example.stonewang.gaodi.LocalShowActivity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
+import com.example.stonewang.gaodi.MyItemDecoration;
+import com.example.stonewang.gaodi.R;
 import com.example.stonewang.gaodi.adapter.LandItemAdapter;
 import com.example.stonewang.gaodi.mode.Land;
 

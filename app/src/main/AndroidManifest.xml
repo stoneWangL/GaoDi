@@ -21,16 +21,22 @@
             android:name=".NewsActivity">
         </activity>
         <activity
-            android:name=".LandItemActivity">
+            android:name=".LocalShowActivity.LandItemActivity">
         </activity>
         <activity
-            android:name=".LandShowOneActivity">
+            android:name=".LocalShowActivity.LandShowOneActivity">
         </activity>
         <activity
-            android:name=".NavyItemActivity">
+            android:name=".LocalShowActivity.NavyItemActivity">
         </activity>
         <activity
-            android:name=".NavyShowOneActivity">
+            android:name=".LocalShowActivity.NavyShowOneActivity">
+        </activity>
+        <activity
+            android:name=".LocalShowActivity.AirforceItemActivity">
+        </activity>
+        <activity
+            android:name=".LocalShowActivity.AirforceShowOneActivity">
         </activity>
     </application>
 

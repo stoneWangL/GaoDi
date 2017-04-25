@@ -1,4 +1,4 @@
-package com.example.stonewang.gaodi;
+package com.example.stonewang.gaodi.LocalShowActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,12 +15,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.stonewang.gaodi.R;
 
 /**
- * Created by stoneWang on 2017/4/22.
+ * Created by stoneWang on 2017/4/9.
  */
 
-public class NavyShowOneActivity extends AppCompatActivity {
+public class LandShowOneActivity extends AppCompatActivity {
     private boolean isVisible1 = true;
     private boolean isVisible2 = true;
 
@@ -111,8 +112,8 @@ public class NavyShowOneActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home:
                 finish();
-                return true;
-        }
+        return true;
+    }
         return super.onOptionsItemSelected(item);
     }
 }
