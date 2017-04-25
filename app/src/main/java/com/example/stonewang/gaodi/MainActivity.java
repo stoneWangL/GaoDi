@@ -1,6 +1,5 @@
 package com.example.stonewang.gaodi;
 
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,20 +12,14 @@ import android.widget.Toast;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.example.stonewang.gaodi.db.LandArmyDescribe;
+import com.example.stonewang.gaodi.db.NavyDescribe;
 import com.example.stonewang.gaodi.fragment.Fragment3;
 import com.example.stonewang.gaodi.fragment.LocalFragment;
 import com.example.stonewang.gaodi.fragment.NewsItemFragment;
-import com.example.stonewang.gaodi.util.JsonUtil;
 import com.example.stonewang.gaodi.util.LocalDBCreate;
-
 import org.litepal.crud.DataSupport;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 import static com.ashokvarma.bottomnavigation.BottomNavigationBar.BACKGROUND_STYLE_STATIC;
 
@@ -36,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationBar bottom_navigation_bar;
     //数据库landArmy列表
     private List<LandArmyDescribe> landArmyDescribesList =new ArrayList<>();
+    //数据库navyArmy列表
+    private List<NavyDescribe> navyDescribesList =new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 .addItem(new BottomNavigationItem(R.drawable.ic_stat_read, "未定"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_stat_read, "资料"))
                 .initialise();
-//        bottom_navigation_bar.addItem(new BottomNavigationItem(R.drawable.ic_stat_new, "新闻"))
-//                .addItem(new BottomNavigationItem(R.drawable.ic_stat_read, "资料"))
-//                .addItem(new BottomNavigationItem(R.drawable.ic_stat_read, "未定"))
-//                .initialise();
         bottom_navigation_bar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position) {//未选中 -> 选中
@@ -75,12 +66,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 2:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment, new LocalFragment()).commit();
                         break;
-//                    case 0:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment, new NewsItemFragment()).commit();
-//                        break;
-//                    case 1:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment, new LocalFragment()).commit();
-//                        break;
-//                    case 2:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment,new Fragment3()).commit();
-//                        break;
                 }
             }
 
@@ -101,16 +86,30 @@ public class MainActivity extends AppCompatActivity {
      * 如果数据库存在则跳过，否者建立数据库
      */
     private void initLocalDB() {
-//        Log.d("ML01", "ML01");
-        //在onCreate方法中就创建Local数据库
+
+        Log.d("ML01", "ML01 start");
+
         landArmyDescribesList = DataSupport.findAll(LandArmyDescribe.class);
         if (landArmyDescribesList.size() > 0){
             //创建成功，跳过
+//            Log.d("ML01", "land existed"+" size="+landArmyDescribesList.size());
         }else{
-            LocalDBCreate localDBCreate = new LocalDBCreate();
-            localDBCreate.CreatedLand();
+            LocalDBCreate localDBCreate1 = new LocalDBCreate();
+            localDBCreate1.CreatedLand();
+//            Log.d("ML01", "land  created");
         }
-//        Log.d("ML01", "ML02");
+
+        navyDescribesList = DataSupport.findAll(NavyDescribe.class);
+        if (navyDescribesList.size()>0){
+            //创建成功
+//            Log.d("ML01", "navy existed"+" size="+navyDescribesList.size());
+        }else{
+            LocalDBCreate localDBCreate2 = new LocalDBCreate();
+            localDBCreate2.CreatedNavy();
+//            Log.d("ML01", "navy  created");
+        }
+
+//        Log.d("ML01", "land and navy success");
     }
 
     /**

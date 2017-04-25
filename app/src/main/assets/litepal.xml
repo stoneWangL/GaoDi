@@ -8,5 +8,6 @@
         <mapping class="com.example.stonewang.gaodi.db.NewsList" />
         <mapping class="com.example.stonewang.gaodi.db.GaoDiNews" />
         <mapping class="com.example.stonewang.gaodi.db.LandArmyDescribe" />
+        <mapping class="com.example.stonewang.gaodi.db.NavyDescribe" />
     </list>
 </litepal>

@@ -3,6 +3,7 @@ package com.example.stonewang.gaodi.util;
 
 import com.example.stonewang.gaodi.R;
 import com.example.stonewang.gaodi.db.LandArmyDescribe;
+import com.example.stonewang.gaodi.db.NavyDescribe;
 
 /**
  * Created by stoneWang on 2017/4/9.
@@ -754,6 +755,188 @@ public class LocalDBCreate {
                 "    该炮在二十世纪90年代立项研制，由PLZ-45型自行加农榴弹炮发展而来。它与德国PzH2000相同，均采用52倍口径身管的第三代自行火炮。\n" +
                 "    该炮于2005年定型并装备部队。");
         lADe13.save();
+    }
+
+    public static void CreatedNavy(){
+        NavyDescribe Navy01 = new NavyDescribe();
+        Navy01.setName("001型航母");
+        Navy01.setImageId(R.drawable.navy_ship001);
+        Navy01.setBaseParameter("1");
+        Navy01.setHistoricalBackground("1");
+        Navy01.setDetailedInstroduction("1");
+        Navy01.setSumUp("1");
+        Navy01.save();
+
+        NavyDescribe Navy02 = new NavyDescribe();
+        Navy02.setName("051型驱逐舰");
+        Navy02.setImageId(R.drawable.navy_ship051);
+        Navy02.setBaseParameter("");
+        Navy02.setHistoricalBackground("");
+        Navy02.setDetailedInstroduction("");
+        Navy02.setSumUp("");
+        Navy02.save();
+
+        NavyDescribe Navy03 = new NavyDescribe();
+        Navy03.setName("051B型驱逐舰");
+        Navy03.setImageId(R.drawable.navy_ship051b);
+        Navy03.setBaseParameter("");
+        Navy03.setHistoricalBackground("");
+        Navy03.setDetailedInstroduction("");
+        Navy03.setSumUp("");
+        Navy03.save();
+
+        NavyDescribe Navy04 = new NavyDescribe();
+        Navy04.setName("051C型驱逐舰");
+        Navy04.setImageId(R.drawable.navy_ship051c);
+        Navy04.setBaseParameter("");
+        Navy04.setHistoricalBackground("");
+        Navy04.setDetailedInstroduction("");
+        Navy04.setSumUp("");
+        Navy04.save();
+
+        NavyDescribe Navy05 = new NavyDescribe();
+        Navy05.setName("052型驱逐舰");
+        Navy05.setImageId(R.drawable.navy_ship052);
+        Navy05.setBaseParameter("");
+        Navy05.setHistoricalBackground("");
+        Navy05.setDetailedInstroduction("");
+        Navy05.setSumUp("");
+        Navy05.save();
+
+        NavyDescribe Navy06 = new NavyDescribe();
+        Navy06.setName("052B型驱逐舰");
+        Navy06.setImageId(R.drawable.navy_ship052b);
+        Navy06.setBaseParameter("");
+        Navy06.setHistoricalBackground("");
+        Navy06.setDetailedInstroduction("");
+        Navy06.setSumUp("");
+        Navy06.save();
+
+        NavyDescribe Navy07 = new NavyDescribe();
+        Navy07.setName("052C型驱逐舰");
+        Navy07.setImageId(R.drawable.navy_ship052c);
+        Navy07.setBaseParameter("");
+        Navy07.setHistoricalBackground("");
+        Navy07.setDetailedInstroduction("");
+        Navy07.setSumUp("");
+        Navy07.save();
+
+        NavyDescribe Navy08 = new NavyDescribe();
+        Navy08.setName("052D型驱逐舰");
+        Navy08.setImageId(R.drawable.navy_ship052d);
+        Navy08.setBaseParameter("");
+        Navy08.setHistoricalBackground("");
+        Navy08.setDetailedInstroduction("");
+        Navy08.setSumUp("");
+        Navy08.save();
+
+        NavyDescribe Navy09 = new NavyDescribe();
+        Navy09.setName("053型护卫舰");
+        Navy09.setImageId(R.drawable.navy_ship053);
+        Navy09.setBaseParameter("");
+        Navy09.setHistoricalBackground("");
+        Navy09.setDetailedInstroduction("");
+        Navy09.setSumUp("");
+        Navy09.save();
+
+        NavyDescribe Navy10 = new NavyDescribe();
+        Navy10.setName("054型护卫舰");
+        Navy10.setImageId(R.drawable.navy_ship054);
+        Navy10.setBaseParameter("");
+        Navy10.setHistoricalBackground("");
+        Navy10.setDetailedInstroduction("");
+        Navy10.setSumUp("");
+        Navy10.save();
+
+        NavyDescribe Navy11 = new NavyDescribe();
+        Navy11.setName("056型护卫舰");
+        Navy11.setImageId(R.drawable.navy_ship056);
+        Navy11.setBaseParameter("");
+        Navy11.setHistoricalBackground("");
+        Navy11.setDetailedInstroduction("");
+        Navy11.setSumUp("");
+        Navy11.save();
+
+        NavyDescribe Navy12 = new NavyDescribe();
+        Navy12.setName("071型船坞登陆舰");
+        Navy12.setImageId(R.drawable.navy_ship071);
+        Navy12.setBaseParameter("");
+        Navy12.setHistoricalBackground("");
+        Navy12.setDetailedInstroduction("");
+        Navy12.setSumUp("");
+        Navy12.save();
+
+        NavyDescribe Navy13 = new NavyDescribe();
+        Navy13.setName("091型核潜艇");
+        Navy13.setImageId(R.drawable.navy_ship091);
+        Navy13.setBaseParameter("");
+        Navy13.setHistoricalBackground("");
+        Navy13.setDetailedInstroduction("");
+        Navy13.setSumUp("");
+        Navy13.save();
+
+        NavyDescribe Navy14 = new NavyDescribe();
+        Navy14.setName("092型核潜艇");
+        Navy14.setImageId(R.drawable.navy_ship092);
+        Navy14.setBaseParameter("");
+        Navy14.setHistoricalBackground("");
+        Navy14.setDetailedInstroduction("");
+        Navy14.setSumUp("");
+        Navy14.save();
+
+        NavyDescribe Navy15 = new NavyDescribe();
+        Navy15.setName("093型核潜艇");
+        Navy15.setImageId(R.drawable.navy_ship093);
+        Navy15.setBaseParameter("");
+        Navy15.setHistoricalBackground("");
+        Navy15.setDetailedInstroduction("");
+        Navy15.setSumUp("");
+        Navy15.save();
+
+        NavyDescribe Navy16 = new NavyDescribe();
+        Navy16.setName("094型核潜艇");
+        Navy16.setImageId(R.drawable.navy_ship094);
+        Navy16.setBaseParameter("");
+        Navy16.setHistoricalBackground("");
+        Navy16.setDetailedInstroduction("");
+        Navy16.setSumUp("");
+        Navy16.save();
+
+        NavyDescribe Navy17 = new NavyDescribe();
+        Navy17.setName("035型常规动力潜艇");
+        Navy17.setImageId(R.drawable.navy_ship035);
+        Navy17.setBaseParameter("");
+        Navy17.setHistoricalBackground("");
+        Navy17.setDetailedInstroduction("");
+        Navy17.setSumUp("");
+        Navy17.save();
+
+        NavyDescribe Navy18 = new NavyDescribe();
+        Navy18.setName("039型常规动力潜艇");
+        Navy18.setImageId(R.drawable.navy_ship039);
+        Navy18.setBaseParameter("");
+        Navy18.setHistoricalBackground("");
+        Navy18.setDetailedInstroduction("");
+        Navy18.setSumUp("");
+        Navy18.save();
+
+        NavyDescribe Navy19 = new NavyDescribe();
+        Navy19.setName("基洛级常规动力潜艇");
+        Navy19.setImageId(R.drawable.navy_shipjiluo);
+        Navy19.setBaseParameter("");
+        Navy19.setHistoricalBackground("");
+        Navy19.setDetailedInstroduction("");
+        Navy19.setSumUp("");
+        Navy19.save();
+
+        NavyDescribe Navy20 = new NavyDescribe();
+        Navy20.setName("中国野牛气垫船");
+        Navy20.setImageId(R.drawable.navy_shipyeniu);
+        Navy20.setBaseParameter("");
+        Navy20.setHistoricalBackground("");
+        Navy20.setDetailedInstroduction("");
+        Navy20.setSumUp("");
+        Navy20.save();
     }
 
 }
