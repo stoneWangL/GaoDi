@@ -57,5 +57,15 @@ public class NavyItemActivity extends AppCompatActivity {
         navyList.add(varship053);
         Navy varship054 = new Navy("054型护卫舰", R.drawable.navy_ship054);
         navyList.add(varship054);
+        Navy varship056 = new Navy("056型护卫舰", R.drawable.navy_ship056);
+        navyList.add(varship056);
+        Navy varship071 = new Navy("071型船坞登陆舰", R.drawable.navy_ship071);
+        navyList.add(varship071);
+        Navy varship091 = new Navy("091型核潜艇", R.drawable.navy_ship091);
+        navyList.add(varship091);
+        Navy varship092 = new Navy("092型核潜艇", R.drawable.navy_ship092);
+        navyList.add(varship092);
+        Navy varship093 = new Navy("093型核潜艇", R.drawable.navy_ship093);
+        navyList.add(varship093);
     }
 }
