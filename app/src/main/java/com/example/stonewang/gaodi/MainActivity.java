@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.example.stonewang.gaodi.db.AirforceDescribe;
 import com.example.stonewang.gaodi.db.LandArmyDescribe;
 import com.example.stonewang.gaodi.db.NavyDescribe;
 import com.example.stonewang.gaodi.fragment.Fragment3;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private List<LandArmyDescribe> landArmyDescribesList =new ArrayList<>();
     //数据库navyArmy列表
     private List<NavyDescribe> navyDescribesList =new ArrayList<>();
+    //数据库Airforce列表
+    private List<AirforceDescribe> airforceDescribesList =new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +109,16 @@ public class MainActivity extends AppCompatActivity {
         }else{
             LocalDBCreate localDBCreate2 = new LocalDBCreate();
             localDBCreate2.CreatedNavy();
+//            Log.d("ML01", "navy  created");
+        }
+
+        airforceDescribesList = DataSupport.findAll(AirforceDescribe.class);
+        if (airforceDescribesList.size()>0){
+            //创建成功
+//            Log.d("ML01", "navy existed"+" size="+navyDescribesList.size());
+        }else{
+            LocalDBCreate localDBCreate3 = new LocalDBCreate();
+            localDBCreate3.CreatedAirforce();
 //            Log.d("ML01", "navy  created");
         }
 

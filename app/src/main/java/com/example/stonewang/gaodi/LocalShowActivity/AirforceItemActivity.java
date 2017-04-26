@@ -72,8 +72,6 @@ public class AirforceItemActivity extends AppCompatActivity {
         airforceList.add(airforceJ11);
         Airforce airforceJ12 = new Airforce("歼12战斗机", R.drawable.airforce_j12);
         airforceList.add(airforceJ12);
-        Airforce airforceJ15 = new Airforce("歼15战斗机", R.drawable.airforce_j15);
-        airforceList.add(airforceJ15);
         Airforce airforceJ20 = new Airforce("歼20战斗机", R.drawable.airforce_j20);
         airforceList.add(airforceJ20);
         Airforce airforceJ31 = new Airforce("歼31战斗机", R.drawable.airforce_j31);
@@ -90,8 +88,23 @@ public class AirforceItemActivity extends AppCompatActivity {
         airforceList.add(airforceq5);
         Airforce airforceq6 = new Airforce("强-6强击机(方案)", R.drawable.airforce_q6);
         airforceList.add(airforceq6);
-
-
-
+        Airforce airforceh5 = new Airforce("轰5轰炸机", R.drawable.airforce_h5);
+        airforceList.add(airforceh5);
+        Airforce airforceh6 = new Airforce("轰6轰炸机", R.drawable.airforce_h6);
+        airforceList.add(airforceh6);
+        Airforce airforceyj200 = new Airforce("空警200预警机", R.drawable.airforce_yj200);
+        airforceList.add(airforceyj200);
+        Airforce airforceyj500 = new Airforce("空警500预警机", R.drawable.airforce_yj500);
+        airforceList.add(airforceyj500);
+        Airforce airforceyj2000 = new Airforce("空警2000预警机", R.drawable.airforce_yj2000);
+        airforceList.add(airforceyj2000);
+        Airforce airforcey5 = new Airforce("运5运输机", R.drawable.airforce_y5);
+        airforceList.add(airforcey5);
+        Airforce airforcey7 = new Airforce("运7运输机", R.drawable.airforce_y7);
+        airforceList.add(airforcey7);
+        Airforce airforcey8 = new Airforce("运8运输机", R.drawable.airforce_y8);
+        airforceList.add(airforcey8);
+        Airforce airforcey20 = new Airforce("运20运输机", R.drawable.airforce_y20);
+        airforceList.add(airforcey20);
     }
 }

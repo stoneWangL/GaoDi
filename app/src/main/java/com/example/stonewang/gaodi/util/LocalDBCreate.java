@@ -2,6 +2,7 @@ package com.example.stonewang.gaodi.util;
 
 
 import com.example.stonewang.gaodi.R;
+import com.example.stonewang.gaodi.db.AirforceDescribe;
 import com.example.stonewang.gaodi.db.LandArmyDescribe;
 import com.example.stonewang.gaodi.db.NavyDescribe;
 
@@ -755,6 +756,60 @@ public class LocalDBCreate {
                 "    该炮在二十世纪90年代立项研制，由PLZ-45型自行加农榴弹炮发展而来。它与德国PzH2000相同，均采用52倍口径身管的第三代自行火炮。\n" +
                 "    该炮于2005年定型并装备部队。");
         lADe13.save();
+
+        LandArmyDescribe Land14 = new LandArmyDescribe();
+        Land14.setName("直5直升机");
+        Land14.setImageId(R.drawable.airforce_z5);
+        Land14.setBaseParameter("1");
+        Land14.setHistoricalBackground("1");
+        Land14.setDetailedInstroduction("1");
+        Land14.setSumUp("1");
+        Land14.save();
+
+        LandArmyDescribe Land15 = new LandArmyDescribe();
+        Land15.setName("直8直升机");
+        Land15.setImageId(R.drawable.airforce_z8);
+        Land15.setBaseParameter("1");
+        Land15.setHistoricalBackground("1");
+        Land15.setDetailedInstroduction("1");
+        Land15.setSumUp("1");
+        Land15.save();
+
+        LandArmyDescribe Land16 = new LandArmyDescribe();
+        Land16.setName("直9直升机");
+        Land16.setImageId(R.drawable.airforce_z9);
+        Land16.setBaseParameter("1");
+        Land16.setHistoricalBackground("1");
+        Land16.setDetailedInstroduction("1");
+        Land16.setSumUp("1");
+        Land16.save();
+
+        LandArmyDescribe Land17 = new LandArmyDescribe();
+        Land17.setName("武直10武装直升机");
+        Land17.setImageId(R.drawable.airforce_wz10);
+        Land17.setBaseParameter("1");
+        Land17.setHistoricalBackground("1");
+        Land17.setDetailedInstroduction("1");
+        Land17.setSumUp("1");
+        Land17.save();
+
+        LandArmyDescribe Land18 = new LandArmyDescribe();
+        Land18.setName("武直19武装直升机");
+        Land18.setImageId(R.drawable.airforce_wz19);
+        Land18.setBaseParameter("1");
+        Land18.setHistoricalBackground("1");
+        Land18.setDetailedInstroduction("1");
+        Land18.setSumUp("1");
+        Land18.save();
+
+        LandArmyDescribe Land19 = new LandArmyDescribe();
+        Land19.setName("米-171直升机");
+        Land19.setImageId(R.drawable.airforce_m171);
+        Land19.setBaseParameter("1");
+        Land19.setHistoricalBackground("1");
+        Land19.setDetailedInstroduction("1");
+        Land19.setSumUp("1");
+        Land19.save();
     }
 
     public static void CreatedNavy(){
@@ -849,8 +904,8 @@ public class LocalDBCreate {
         Navy10.save();
 
         NavyDescribe Navy11 = new NavyDescribe();
-        Navy11.setName("056型护卫舰");
-        Navy11.setImageId(R.drawable.navy_ship056);
+        Navy11.setName("054A型护卫舰");
+        Navy11.setImageId(R.drawable.navy_ship0544a);
         Navy11.setBaseParameter("");
         Navy11.setHistoricalBackground("");
         Navy11.setDetailedInstroduction("");
@@ -858,8 +913,8 @@ public class LocalDBCreate {
         Navy11.save();
 
         NavyDescribe Navy12 = new NavyDescribe();
-        Navy12.setName("071型船坞登陆舰");
-        Navy12.setImageId(R.drawable.navy_ship071);
+        Navy12.setName("056型护卫舰");
+        Navy12.setImageId(R.drawable.navy_ship056);
         Navy12.setBaseParameter("");
         Navy12.setHistoricalBackground("");
         Navy12.setDetailedInstroduction("");
@@ -867,8 +922,8 @@ public class LocalDBCreate {
         Navy12.save();
 
         NavyDescribe Navy13 = new NavyDescribe();
-        Navy13.setName("091型核潜艇");
-        Navy13.setImageId(R.drawable.navy_ship091);
+        Navy13.setName("071型船坞登陆舰");
+        Navy13.setImageId(R.drawable.navy_ship071);
         Navy13.setBaseParameter("");
         Navy13.setHistoricalBackground("");
         Navy13.setDetailedInstroduction("");
@@ -876,8 +931,8 @@ public class LocalDBCreate {
         Navy13.save();
 
         NavyDescribe Navy14 = new NavyDescribe();
-        Navy14.setName("092型核潜艇");
-        Navy14.setImageId(R.drawable.navy_ship092);
+        Navy14.setName("091型核潜艇");
+        Navy14.setImageId(R.drawable.navy_ship091);
         Navy14.setBaseParameter("");
         Navy14.setHistoricalBackground("");
         Navy14.setDetailedInstroduction("");
@@ -885,8 +940,8 @@ public class LocalDBCreate {
         Navy14.save();
 
         NavyDescribe Navy15 = new NavyDescribe();
-        Navy15.setName("093型核潜艇");
-        Navy15.setImageId(R.drawable.navy_ship093);
+        Navy15.setName("092型核潜艇");
+        Navy15.setImageId(R.drawable.navy_ship092);
         Navy15.setBaseParameter("");
         Navy15.setHistoricalBackground("");
         Navy15.setDetailedInstroduction("");
@@ -894,8 +949,8 @@ public class LocalDBCreate {
         Navy15.save();
 
         NavyDescribe Navy16 = new NavyDescribe();
-        Navy16.setName("094型核潜艇");
-        Navy16.setImageId(R.drawable.navy_ship094);
+        Navy16.setName("093型核潜艇");
+        Navy16.setImageId(R.drawable.navy_ship093);
         Navy16.setBaseParameter("");
         Navy16.setHistoricalBackground("");
         Navy16.setDetailedInstroduction("");
@@ -903,8 +958,8 @@ public class LocalDBCreate {
         Navy16.save();
 
         NavyDescribe Navy17 = new NavyDescribe();
-        Navy17.setName("035型常规动力潜艇");
-        Navy17.setImageId(R.drawable.navy_ship035);
+        Navy17.setName("094型核潜艇");
+        Navy17.setImageId(R.drawable.navy_ship094);
         Navy17.setBaseParameter("");
         Navy17.setHistoricalBackground("");
         Navy17.setDetailedInstroduction("");
@@ -912,8 +967,8 @@ public class LocalDBCreate {
         Navy17.save();
 
         NavyDescribe Navy18 = new NavyDescribe();
-        Navy18.setName("039型常规动力潜艇");
-        Navy18.setImageId(R.drawable.navy_ship039);
+        Navy18.setName("035型常规动力潜艇");
+        Navy18.setImageId(R.drawable.navy_ship035);
         Navy18.setBaseParameter("");
         Navy18.setHistoricalBackground("");
         Navy18.setDetailedInstroduction("");
@@ -921,8 +976,8 @@ public class LocalDBCreate {
         Navy18.save();
 
         NavyDescribe Navy19 = new NavyDescribe();
-        Navy19.setName("基洛级常规动力潜艇");
-        Navy19.setImageId(R.drawable.navy_shipjiluo);
+        Navy19.setName("039型常规动力潜艇");
+        Navy19.setImageId(R.drawable.navy_ship039);
         Navy19.setBaseParameter("");
         Navy19.setHistoricalBackground("");
         Navy19.setDetailedInstroduction("");
@@ -930,13 +985,338 @@ public class LocalDBCreate {
         Navy19.save();
 
         NavyDescribe Navy20 = new NavyDescribe();
-        Navy20.setName("中国野牛气垫船");
-        Navy20.setImageId(R.drawable.navy_shipyeniu);
+        Navy20.setName("基洛级常规动力潜艇");
+        Navy20.setImageId(R.drawable.navy_shipjiluo);
         Navy20.setBaseParameter("");
         Navy20.setHistoricalBackground("");
         Navy20.setDetailedInstroduction("");
         Navy20.setSumUp("");
         Navy20.save();
+
+        NavyDescribe Navy21 = new NavyDescribe();
+        Navy21.setName("中国野牛气垫船");
+        Navy21.setImageId(R.drawable.navy_shipyeniu);
+        Navy21.setBaseParameter("");
+        Navy21.setHistoricalBackground("");
+        Navy21.setDetailedInstroduction("");
+        Navy21.setSumUp("");
+        Navy21.save();
+
+        NavyDescribe Navy22 = new NavyDescribe();
+        Navy22.setName("水轰5反潜轰炸机");
+        Navy22.setImageId(R.drawable.airforce_sh5);
+        Navy22.setBaseParameter("");
+        Navy22.setHistoricalBackground("");
+        Navy22.setDetailedInstroduction("");
+        Navy22.setSumUp("");
+        Navy22.save();
+
+        NavyDescribe Navy23 = new NavyDescribe();
+        Navy23.setName("歼15舰载战斗机");
+        Navy23.setImageId(R.drawable.airforce_j15);
+        Navy23.setBaseParameter("");
+        Navy23.setHistoricalBackground("");
+        Navy23.setDetailedInstroduction("");
+        Navy23.setSumUp("");
+        Navy23.save();
     }
 
+    public static void CreatedAirforce(){
+        AirforceDescribe Air01 = new AirforceDescribe();
+        Air01.setName("初教-5教练机");
+        Air01.setImageId(R.drawable.airforce_cjl5);
+        Air01.setBaseParameter("");
+        Air01.setHistoricalBackground("");
+        Air01.setDetailedInstroduction("");
+        Air01.setSumUp("");
+        Air01.save();
+
+        AirforceDescribe Air02 = new AirforceDescribe();
+        Air02.setName("初教-6教练机");
+        Air02.setImageId(R.drawable.airforce_cjl6);
+        Air02.setBaseParameter("");
+        Air02.setHistoricalBackground("");
+        Air02.setDetailedInstroduction("");
+        Air02.setSumUp("");
+        Air02.save();
+
+        AirforceDescribe Air03 = new AirforceDescribe();
+        Air03.setName("歼教-5教练机");
+        Air03.setImageId(R.drawable.airforce_jjl5);
+        Air03.setBaseParameter("");
+        Air03.setHistoricalBackground("");
+        Air03.setDetailedInstroduction("");
+        Air03.setSumUp("");
+        Air03.save();
+
+        AirforceDescribe Air04 = new AirforceDescribe();
+        Air04.setName("歼教-7教练机");
+        Air04.setImageId(R.drawable.airforce_jjl7);
+        Air04.setBaseParameter("");
+        Air04.setHistoricalBackground("");
+        Air04.setDetailedInstroduction("");
+        Air04.setSumUp("");
+        Air04.save();
+
+        AirforceDescribe Air05 = new AirforceDescribe();
+        Air05.setName("教-8教练机");
+        Air05.setImageId(R.drawable.airforce_jl8);
+        Air05.setBaseParameter("");
+        Air05.setHistoricalBackground("");
+        Air05.setDetailedInstroduction("");
+        Air05.setSumUp("");
+        Air05.save();
+
+        AirforceDescribe Air06 = new AirforceDescribe();
+        Air06.setName("教练-9教练机");
+        Air06.setImageId(R.drawable.airforce_jl9);
+        Air06.setBaseParameter("");
+        Air06.setHistoricalBackground("");
+        Air06.setDetailedInstroduction("");
+        Air06.setSumUp("");
+        Air06.save();
+
+        AirforceDescribe Air07 = new AirforceDescribe();
+        Air07.setName("L-15教练机");
+        Air07.setImageId(R.drawable.airforce_jl15);
+        Air07.setBaseParameter("");
+        Air07.setHistoricalBackground("");
+        Air07.setDetailedInstroduction("");
+        Air07.setSumUp("");
+        Air07.save();
+
+        AirforceDescribe Air08 = new AirforceDescribe();
+        Air08.setName("歼5战斗机");
+        Air08.setImageId(R.drawable.airforce_j5);
+        Air08.setBaseParameter("");
+        Air08.setHistoricalBackground("");
+        Air08.setDetailedInstroduction("");
+        Air08.setSumUp("");
+        Air08.save();
+
+        AirforceDescribe Air09 = new AirforceDescribe();
+        Air09.setName("歼6战斗机");
+        Air09.setImageId(R.drawable.airforce_j6);
+        Air09.setBaseParameter("");
+        Air09.setHistoricalBackground("");
+        Air09.setDetailedInstroduction("");
+        Air09.setSumUp("");
+        Air09.save();
+
+        AirforceDescribe Air10 = new AirforceDescribe();
+        Air10.setName("歼7战斗机");
+        Air10.setImageId(R.drawable.airforce_j7);
+        Air10.setBaseParameter("");
+        Air10.setHistoricalBackground("");
+        Air10.setDetailedInstroduction("");
+        Air10.setSumUp("");
+        Air10.save();
+
+        AirforceDescribe Air11 = new AirforceDescribe();
+        Air11.setName("歼8战斗机");
+        Air11.setImageId(R.drawable.airforce_j8);
+        Air11.setBaseParameter("");
+        Air11.setHistoricalBackground("");
+        Air11.setDetailedInstroduction("");
+        Air11.setSumUp("");
+        Air11.save();
+
+        AirforceDescribe Air12 = new AirforceDescribe();
+        Air12.setName("歼-8Ⅱ战斗机");
+        Air12.setImageId(R.drawable.airforce_j82);
+        Air12.setBaseParameter("");
+        Air12.setHistoricalBackground("");
+        Air12.setDetailedInstroduction("");
+        Air12.setSumUp("");
+        Air12.save();
+
+        AirforceDescribe Air13 = new AirforceDescribe();
+        Air13.setName("歼9战斗机(方案)");
+        Air13.setImageId(R.drawable.airforce_j9);
+        Air13.setBaseParameter("");
+        Air13.setHistoricalBackground("");
+        Air13.setDetailedInstroduction("");
+        Air13.setSumUp("");
+        Air13.save();
+
+        AirforceDescribe Air14 = new AirforceDescribe();
+        Air14.setName("歼10战斗机");
+        Air14.setImageId(R.drawable.airforce_j10);
+        Air14.setBaseParameter("");
+        Air14.setHistoricalBackground("");
+        Air14.setDetailedInstroduction("");
+        Air14.setSumUp("");
+        Air14.save();
+
+        AirforceDescribe Air15 = new AirforceDescribe();
+        Air15.setName("歼11战斗机");
+        Air15.setImageId(R.drawable.airforce_j11);
+        Air15.setBaseParameter("");
+        Air15.setHistoricalBackground("");
+        Air15.setDetailedInstroduction("");
+        Air15.setSumUp("");
+        Air15.save();
+
+        AirforceDescribe Air16 = new AirforceDescribe();
+        Air16.setName("歼12战斗机");
+        Air16.setImageId(R.drawable.airforce_j12);
+        Air16.setBaseParameter("");
+        Air16.setHistoricalBackground("");
+        Air16.setDetailedInstroduction("");
+        Air16.setSumUp("");
+        Air16.save();
+
+        AirforceDescribe Air17 = new AirforceDescribe();
+        Air17.setName("歼20战斗机");
+        Air17.setImageId(R.drawable.airforce_j20);
+        Air17.setBaseParameter("");
+        Air17.setHistoricalBackground("");
+        Air17.setDetailedInstroduction("");
+        Air17.setSumUp("");
+        Air17.save();
+
+        AirforceDescribe Air18 = new AirforceDescribe();
+        Air18.setName("歼31战斗机");
+        Air18.setImageId(R.drawable.airforce_j31);
+        Air18.setBaseParameter("");
+        Air18.setHistoricalBackground("");
+        Air18.setDetailedInstroduction("");
+        Air18.setSumUp("");
+        Air18.save();
+
+        AirforceDescribe Air19 = new AirforceDescribe();
+        Air19.setName("FC-1战斗机(枭龙)");
+        Air19.setImageId(R.drawable.airforce_fc1);
+        Air19.setBaseParameter("");
+        Air19.setHistoricalBackground("");
+        Air19.setDetailedInstroduction("");
+        Air19.setSumUp("");
+        Air19.save();
+
+        AirforceDescribe Air20 = new AirforceDescribe();
+        Air20.setName("苏27战斗机");
+        Air20.setImageId(R.drawable.airforce_su27);
+        Air20.setBaseParameter("");
+        Air20.setHistoricalBackground("");
+        Air20.setDetailedInstroduction("");
+        Air20.setSumUp("");
+        Air20.save();
+
+        AirforceDescribe Air21 = new AirforceDescribe();
+        Air21.setName("苏30战斗机");
+        Air21.setImageId(R.drawable.airforce_su30);
+        Air21.setBaseParameter("");
+        Air21.setHistoricalBackground("");
+        Air21.setDetailedInstroduction("");
+        Air21.setSumUp("");
+        Air21.save();
+
+        AirforceDescribe Air22 = new AirforceDescribe();
+        Air22.setName("歼轰7歼击轰炸机(飞豹)");
+        Air22.setImageId(R.drawable.airforce_jh7);
+        Air22.setBaseParameter("");
+        Air22.setHistoricalBackground("");
+        Air22.setDetailedInstroduction("");
+        Air22.setSumUp("");
+        Air22.save();
+
+        AirforceDescribe Air23 = new AirforceDescribe();
+        Air23.setName("强5强击机");
+        Air23.setImageId(R.drawable.airforce_q5);
+        Air23.setBaseParameter("");
+        Air23.setHistoricalBackground("");
+        Air23.setDetailedInstroduction("");
+        Air23.setSumUp("");
+        Air23.save();
+
+        AirforceDescribe Air24 = new AirforceDescribe();
+        Air24.setName("强-6强击机(方案)");
+        Air24.setImageId(R.drawable.airforce_q6);
+        Air24.setBaseParameter("");
+        Air24.setHistoricalBackground("");
+        Air24.setDetailedInstroduction("");
+        Air24.setSumUp("");
+        Air24.save();
+
+        AirforceDescribe Air25 = new AirforceDescribe();
+        Air25.setName("轰5轰炸机");
+        Air25.setImageId(R.drawable.airforce_h5);
+        Air25.setBaseParameter("");
+        Air25.setHistoricalBackground("");
+        Air25.setDetailedInstroduction("");
+        Air25.setSumUp("");
+        Air25.save();
+
+        AirforceDescribe Air26 = new AirforceDescribe();
+        Air26.setName("轰6轰炸机");
+        Air26.setImageId(R.drawable.airforce_h6);
+        Air26.setBaseParameter("");
+        Air26.setHistoricalBackground("");
+        Air26.setDetailedInstroduction("");
+        Air26.setSumUp("");
+        Air26.save();
+
+        AirforceDescribe Air27 = new AirforceDescribe();
+        Air27.setName("空警200预警机");
+        Air27.setImageId(R.drawable.airforce_yj200);
+        Air27.setBaseParameter("");
+        Air27.setHistoricalBackground("");
+        Air27.setDetailedInstroduction("");
+        Air27.setSumUp("");
+        Air27.save();
+
+        AirforceDescribe Air28 = new AirforceDescribe();
+        Air28.setName("空警500预警机");
+        Air28.setImageId(R.drawable.airforce_yj500);
+        Air28.setBaseParameter("");
+        Air28.setHistoricalBackground("");
+        Air28.setDetailedInstroduction("");
+        Air28.setSumUp("");
+        Air28.save();
+
+        AirforceDescribe Air29 = new AirforceDescribe();
+        Air29.setName("空警2000预警机");
+        Air29.setImageId(R.drawable.airforce_yj2000);
+        Air29.setBaseParameter("");
+        Air29.setHistoricalBackground("");
+        Air29.setDetailedInstroduction("");
+        Air29.setSumUp("");
+        Air29.save();
+
+        AirforceDescribe Air30 = new AirforceDescribe();
+        Air30.setName("运5运输机");
+        Air30.setImageId(R.drawable.airforce_y5);
+        Air30.setBaseParameter("");
+        Air30.setHistoricalBackground("");
+        Air30.setDetailedInstroduction("");
+        Air30.setSumUp("");
+        Air30.save();
+
+        AirforceDescribe Air31 = new AirforceDescribe();
+        Air31.setName("运7运输机");
+        Air31.setImageId(R.drawable.airforce_y7);
+        Air31.setBaseParameter("");
+        Air31.setHistoricalBackground("");
+        Air31.setDetailedInstroduction("");
+        Air31.setSumUp("");
+        Air31.save();
+
+        AirforceDescribe Air32 = new AirforceDescribe();
+        Air32.setName("运8运输机");
+        Air32.setImageId(R.drawable.airforce_y8);
+        Air32.setBaseParameter("");
+        Air32.setHistoricalBackground("");
+        Air32.setDetailedInstroduction("");
+        Air32.setSumUp("");
+        Air32.save();
+
+        AirforceDescribe Air33 = new AirforceDescribe();
+        Air33.setName("运20运输机");
+        Air33.setImageId(R.drawable.airforce_y20);
+        Air33.setBaseParameter("");
+        Air33.setHistoricalBackground("");
+        Air33.setDetailedInstroduction("");
+        Air33.setSumUp("");
+        Air33.save();
+    }
 }

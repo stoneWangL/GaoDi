@@ -67,5 +67,17 @@ public class LandItemActivity extends AppCompatActivity{
         landList.add(tank09);
         Land tank10 = new Land("PLZ-05自行榴弹炮", R.drawable.land_plz05);
         landList.add(tank10);
+        Land helicopterz5 = new Land("直5直升机", R.drawable.airforce_z5);
+        landList.add(helicopterz5);
+        Land helicopterz8 = new Land("直8直升机", R.drawable.airforce_z8);
+        landList.add(helicopterz8);
+        Land helicopterz9 = new Land("直9直升机", R.drawable.airforce_z9);
+        landList.add(helicopterz9);
+        Land helicopterwz10 = new Land("武直10武装直升机", R.drawable.airforce_wz10);
+        landList.add(helicopterwz10);
+        Land helicopterwz19 = new Land("武直19武装直升机", R.drawable.airforce_wz19);
+        landList.add(helicopterwz19);
+        Land helicopterm171 = new Land("米-171直升机", R.drawable.airforce_m171);
+        landList.add(helicopterm171);
     }
 }

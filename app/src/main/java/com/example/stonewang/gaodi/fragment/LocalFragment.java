@@ -49,9 +49,9 @@ public class LocalFragment extends Fragment {
     private void initLocal() {
         Local Land = new Local("中国陆军", R.drawable.land_tank99,tab+this.getString(R.string.itemLandIntroduce));
         localList.add(Land);
-        Local Navy = new Local("中国海军", R.drawable.navy_item, tab+this.getString(R.string.itemNavyIntroduce));
+        Local Navy = new Local("中国海军", R.drawable.navy_ship001, tab+this.getString(R.string.itemNavyIntroduce));
         localList.add(Navy);
-        Local Air = new Local("中国空军", R.drawable.airarmy_item, tab+this.getString(R.string.itemAirIntroduce));
+        Local Air = new Local("中国空军", R.drawable.airforce_j10, tab+this.getString(R.string.itemAirIntroduce));
         localList.add(Air);
     }
 }
