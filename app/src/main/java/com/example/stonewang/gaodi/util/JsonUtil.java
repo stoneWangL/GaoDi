@@ -2,6 +2,8 @@ package com.example.stonewang.gaodi.util;
 
 import android.text.TextUtils;
 import com.example.stonewang.gaodi.db.GaoDiNews;
+import com.example.stonewang.gaodi.db.GuojiNews;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -34,6 +36,41 @@ public class JsonUtil{
                     JSONObject NewsObject = allNews.getJSONObject(i);
 //                    Log.d("Json05"+i, NewsObject.toString());
                     GaoDiNews News = new GaoDiNews();
+                    News.setUniquekey(NewsObject.getString("uniquekey"));
+                    News.setTitle(NewsObject.getString("title"));
+                    News.setDate(NewsObject.getString("date"));
+                    News.setCategory(NewsObject.getString("category"));
+                    News.setAuthor_name(NewsObject.getString("author_name"));
+                    News.setUrl(NewsObject.getString("url"));
+                    News.setThumbnail_pic_s(NewsObject.getString("thumbnail_pic_s"));
+                    News.save();
+                }
+                return true;
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        return false;
+    }
+    public static boolean parseJsonGuoji(String jsonData){
+        if (!TextUtils.isEmpty(jsonData)){
+            try{
+                JSONObject jsonObject = new JSONObject(jsonData);
+                String result = jsonObject.getString("result");
+//                Log.d("Json03",result);
+
+                JSONObject jsonObject2 = new JSONObject(result);
+                String data = jsonObject2.getString("data");
+//                Log.d("Json04",data);
+
+
+                JSONArray allNews = new JSONArray(data);
+                for (int i=0; i<allNews.length(); i++){
+                    JSONObject NewsObject = allNews.getJSONObject(i);
+//                    Log.d("Json05"+i, NewsObject.toString());
+                    GuojiNews News = new GuojiNews();
                     News.setUniquekey(NewsObject.getString("uniquekey"));
                     News.setTitle(NewsObject.getString("title"));
                     News.setDate(NewsObject.getString("date"));

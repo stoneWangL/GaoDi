@@ -14,7 +14,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.example.stonewang.gaodi.db.AirforceDescribe;
 import com.example.stonewang.gaodi.db.LandArmyDescribe;
 import com.example.stonewang.gaodi.db.NavyDescribe;
-import com.example.stonewang.gaodi.fragment.Fragment3;
+import com.example.stonewang.gaodi.fragment.GuojiNewsFragment;
 import com.example.stonewang.gaodi.fragment.LocalFragment;
 import com.example.stonewang.gaodi.fragment.NewsItemFragment;
 import com.example.stonewang.gaodi.util.LocalDBCreate;
@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
                 .setActiveColor(R.color.colorActive)
                 .setBarBackgroundColor(R.color.colorBarBg);//设置整个控件的背景色
         //添加选项
-        bottom_navigation_bar.addItem(new BottomNavigationItem(R.drawable.ic_stat_new, "新闻"))
-                .addItem(new BottomNavigationItem(R.drawable.ic_stat_read, "未定"))
+        bottom_navigation_bar.addItem(new BottomNavigationItem(R.drawable.ic_stat_new, "军事新闻"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_stat_read, "国际新闻"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_stat_read, "资料"))
                 .initialise();
         bottom_navigation_bar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (position){
                     case 0:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment, new NewsItemFragment()).commit();
                         break;
-                    case 1:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment,new Fragment3()).commit();
+                    case 1:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment,new GuojiNewsFragment()).commit();
                         break;
                     case 2:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment, new LocalFragment()).commit();
                         break;
