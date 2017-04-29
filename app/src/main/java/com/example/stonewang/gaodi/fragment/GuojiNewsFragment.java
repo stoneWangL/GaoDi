@@ -138,6 +138,7 @@ public class GuojiNewsFragment extends Fragment {
 
     /**
      * 向服务器请求
+     * 并创建本地数据库
      */
     private static void sendRequestWithOkHttp(){
         new Thread(new Runnable() {

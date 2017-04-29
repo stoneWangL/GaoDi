@@ -12,11 +12,7 @@ import android.view.ViewGroup;
 import com.example.stonewang.gaodi.MyItemDecoration;
 import com.example.stonewang.gaodi.R;
 import com.example.stonewang.gaodi.adapter.LocalItemAdapter;
-import com.example.stonewang.gaodi.db.LandArmyDescribe;
 import com.example.stonewang.gaodi.mode.Local;
-import com.example.stonewang.gaodi.util.LocalDBCreate;
-
-import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -8,6 +8,7 @@
     <color name="colorItem">#d1cccc</color>
     <color name="colorText">#3b3b37</color>
 
+    <color name="colorTopItem">#696868</color>
     <color name="colorBarBg">#8f8c8c</color>
     <color name="colorActive">#96f151</color>
     <color name="colorInActive">#d1cccc</color>

@@ -33,7 +33,7 @@ import okhttp3.Response;
  */
 
 public class NewsItemFragment extends Fragment {
-    private int i=0;
+//    private int i=0;
     private SwipeRefreshLayout swipeRefresh;
     private NewsItemAdapter adapter;
     private List<GaoDiNews> gaoDiNewsList=new ArrayList<>(), All=new ArrayList<>();
@@ -41,7 +41,7 @@ public class NewsItemFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        i++;
+//        i++;
     }
     @Nullable
     @Override
@@ -62,11 +62,11 @@ public class NewsItemFragment extends Fragment {
         swipeRefresh = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
 
-        if(i==1){
-            //手动调用,通知系统去测量
-            swipeRefresh.setRefreshing(true);
-            refreshGaoDiNews();//更新新闻列表
-        }
+//        if(i==1){
+//            //手动调用,通知系统去测量
+//            swipeRefresh.setRefreshing(true);
+//            refreshGaoDiNews();//更新新闻列表
+//        }
 
 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -86,8 +86,8 @@ public class NewsItemFragment extends Fragment {
         gaoDiNewsList.clear();
         All.clear();
         All = DataSupport.findAll(GaoDiNews.class);
-        int i = All.size();String j = ""+i;
-        Log.d("num1", "size="+j);//打印信息
+//        int i = All.size();String j = ""+i;
+//        Log.d("num1", "size="+j);//打印信息
         if (All.size()>0){
             //有缓存
         }else{
@@ -105,7 +105,7 @@ public class NewsItemFragment extends Fragment {
      * 更新新闻列表
      */
     private void refreshGaoDiNews() {
-        i++;
+//        i++;
         DataSupport.deleteAll(GaoDiNews.class);//清空本地数据库缓存
         sendRequestWithOkHttp();//向服务器发送请求，并插入本地数据库
         new Thread(new Runnable() {
@@ -123,7 +123,7 @@ public class NewsItemFragment extends Fragment {
                         All.clear();
                         All = DataSupport.findAll(GaoDiNews.class);
 
-                        int ii = All.size();String jj = ""+ii;Log.d("num2", "size="+jj);//打印信息
+//                        int ii = All.size();String jj = ""+ii;Log.d("num2", "size="+jj);//打印信息
                         for (GaoDiNews all:All){
                             gaoDiNewsList.add(all);
                         }

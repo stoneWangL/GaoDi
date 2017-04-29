@@ -1,9 +1,17 @@
 package com.example.stonewang.gaodi;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,22 +19,29 @@ import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.example.stonewang.gaodi.LocalDBCreate.LocalDBCreate;
 import com.example.stonewang.gaodi.db.AirforceDescribe;
 import com.example.stonewang.gaodi.db.LandArmyDescribe;
 import com.example.stonewang.gaodi.db.NavyDescribe;
 import com.example.stonewang.gaodi.fragment.GuojiNewsFragment;
 import com.example.stonewang.gaodi.fragment.LocalFragment;
 import com.example.stonewang.gaodi.fragment.NewsItemFragment;
-import com.example.stonewang.gaodi.util.LocalDBCreate;
+import com.example.stonewang.gaodi.util.JsonUtil;
+
 import org.litepal.crud.DataSupport;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import static android.R.id.message;
 import static com.ashokvarma.bottomnavigation.BottomNavigationBar.BACKGROUND_STYLE_STATIC;
 
 public class MainActivity extends AppCompatActivity {
     public int firstTimes=1;
-
+    private DrawerLayout mDrawerLayout;
     private BottomNavigationBar bottom_navigation_bar;
     //数据库landArmy列表
     private List<LandArmyDescribe> landArmyDescribesList =new ArrayList<>();
@@ -42,7 +57,26 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
+        navView.setCheckedItem(R.id.nav_email);
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.nav_mail:
+                        Uri smsToUri = Uri.parse("smsto:15979109046");
+                        Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);
+                        startActivity(intent);
+                        break;
+                    case R.id.nav_email:
+                        Toast.makeText(MainActivity.this, "给这个邮箱发邮件吧", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                }
+                return true;
+            }
+        });
 
         init();//底部导航初始化
         initLocalDB();//初始化本地数据库
@@ -55,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
                 .setActiveColor(R.color.colorActive)
                 .setBarBackgroundColor(R.color.colorBarBg);//设置整个控件的背景色
         //添加选项
-        bottom_navigation_bar.addItem(new BottomNavigationItem(R.drawable.ic_stat_new, "军事新闻"))
-                .addItem(new BottomNavigationItem(R.drawable.ic_stat_read, "国际新闻"))
+        bottom_navigation_bar.addItem(new BottomNavigationItem(R.drawable.ic_stat_new, "军事"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_stat_new, "国际"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_stat_read, "资料"))
                 .initialise();
         bottom_navigation_bar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
@@ -89,6 +123,26 @@ public class MainActivity extends AppCompatActivity {
      * 如果数据库存在则跳过，否者建立数据库
      */
     private void initLocalDB() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            //指定访问服务器地址
+                            .url("http://v.juhe.cn/toutiao/index?type=junshi&key=3425b3b2cd4d3227f7455377f6276bab")
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+                    //将服务器返回得到字符串传入处理函数
+                    JsonUtil jsonUtil = new JsonUtil();
+                    jsonUtil.parseJson(responseData);
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
         Log.d("ML01", "ML01 start");
 
@@ -105,24 +159,19 @@ public class MainActivity extends AppCompatActivity {
         navyDescribesList = DataSupport.findAll(NavyDescribe.class);
         if (navyDescribesList.size()>0){
             //创建成功
-//            Log.d("ML01", "navy existed"+" size="+navyDescribesList.size());
         }else{
             LocalDBCreate localDBCreate2 = new LocalDBCreate();
             localDBCreate2.CreatedNavy();
-//            Log.d("ML01", "navy  created");
         }
 
         airforceDescribesList = DataSupport.findAll(AirforceDescribe.class);
         if (airforceDescribesList.size()>0){
             //创建成功
-//            Log.d("ML01", "navy existed"+" size="+navyDescribesList.size());
         }else{
             LocalDBCreate localDBCreate3 = new LocalDBCreate();
             localDBCreate3.CreatedAirforce();
-//            Log.d("ML01", "navy  created");
         }
 
-//        Log.d("ML01", "land and navy success");
     }
 
     /**
@@ -154,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.set:
-                Toast.makeText(this, "你点击了Set按钮", Toast.LENGTH_SHORT).show();
+                mDrawerLayout.openDrawer(GravityCompat.END);
                 break;
             default:
                 break;

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/set"
-        android:icon="@drawable/ic_set"
+        android:icon="@drawable/ic_menu"
         android:title="Set"
         app:showAsAction="always"
         />
