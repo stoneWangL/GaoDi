@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        daodi {
+            keyAlias 'wangLei'
+            keyPassword '1234456'
+            storeFile file('C:/Users/stoneWang/ASProjects/key/gaodi/stoneWang.jks')
+            storePassword '1234456'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {

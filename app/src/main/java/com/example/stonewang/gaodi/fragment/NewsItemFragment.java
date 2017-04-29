@@ -112,10 +112,12 @@ public class NewsItemFragment extends Fragment {
             @Override
             public void run() {
                 try{
-                    Thread.sleep(1500);
+                    Thread.sleep(2000);
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }
+                if (getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

@@ -32,6 +32,7 @@ import okhttp3.Response;
 
 public class GuojiNewsFragment extends Fragment {
 //    private int i=0;
+
     private SwipeRefreshLayout swipeRefresh;
     private GuojiItemAdapter adapter;
     private List<GuojiNews> guojiNewsList =new ArrayList<>(), All=new ArrayList<>();
@@ -114,6 +115,8 @@ public class GuojiNewsFragment extends Fragment {
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }
+                if (getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
