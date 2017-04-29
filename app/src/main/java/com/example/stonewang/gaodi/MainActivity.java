@@ -144,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
 
+
         Log.d("ML01", "ML01 start");
 
         landArmyDescribesList = DataSupport.findAll(LandArmyDescribe.class);
@@ -172,6 +173,26 @@ public class MainActivity extends AppCompatActivity {
             localDBCreate3.CreatedAirforce();
         }
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            //指定访问服务器地址
+                            .url("http://v.juhe.cn/toutiao/index?type=guoji&key=3425b3b2cd4d3227f7455377f6276bab")
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+                    //将服务器返回得到字符串传入处理函数
+                    JsonUtil jsonUtil = new JsonUtil();
+                    jsonUtil.parseJsonGuoji(responseData);
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     /**
