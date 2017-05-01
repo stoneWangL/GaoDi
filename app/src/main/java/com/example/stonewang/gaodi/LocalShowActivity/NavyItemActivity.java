@@ -40,7 +40,7 @@ public class NavyItemActivity extends AppCompatActivity {
      * 初始化列表数据
      */
     private void initNavyItem() {
-        Navy varship001 = new Navy("001型航母", R.drawable.navy_ship001);
+        Navy varship001 = new Navy("001A型航空母舰", R.drawable.navy_ship001);
         navyList.add(varship001);
         Navy varship051 = new Navy("051型驱逐舰", R.drawable.navy_ship051);
         navyList.add(varship051);
