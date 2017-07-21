@@ -59,7 +59,7 @@
                 <!--基本参数-->
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="2dp"
                     android:background="@color/colorBlack" />
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -84,7 +84,7 @@
                 <!--研发历史背景-->
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="2dp"
                     android:background="@color/colorBlack" />
                 <LinearLayout
                     android:id="@+id/show_on_off_1"
@@ -116,7 +116,7 @@
                 <!--详细介绍-->
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="2dp"
                     android:background="@color/colorBlack" />
                 <LinearLayout
                     android:id="@+id/show_on_off_2"
@@ -148,7 +148,7 @@
                 <!--总结-->
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="2dp"
                     android:background="@color/colorBlack" />
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -158,7 +158,7 @@
                     <TextView
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
-                        android:text="*总结*"
+                        android:text="总结"
                         android:layout_marginLeft="@dimen/show_title_text_pad"
                         android:textSize="@dimen/show_title_text_size"
                         />
