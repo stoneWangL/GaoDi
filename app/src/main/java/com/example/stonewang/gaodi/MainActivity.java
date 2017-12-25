@@ -1,6 +1,9 @@
 package com.example.stonewang.gaodi;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -29,6 +32,8 @@ import com.example.stonewang.gaodi.fragment.NewsItemFragment;
 import com.example.stonewang.gaodi.util.JsonUtil;
 
 import org.litepal.crud.DataSupport;
+
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,20 +60,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        isNetworkAvailable(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
+
         navView.setCheckedItem(R.id.nav_email);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.nav_mail:
-                        Uri smsToUri = Uri.parse("smsto:15979109046");
-                        Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);
-                        startActivity(intent);
-                        break;
                     case R.id.nav_email:
                         Toast.makeText(MainActivity.this, "给这个邮箱发邮件吧", Toast.LENGTH_SHORT).show();
                         break;
@@ -80,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
         init();//底部导航初始化
         initLocalDB();//初始化本地数据库
+
+        //底部导航设置
         bottom_navigation_bar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
         bottom_navigation_bar.setMode(BottomNavigationBar.MODE_FIXED);
         bottom_navigation_bar.setBackgroundStyle(BACKGROUND_STYLE_STATIC);
@@ -144,9 +150,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
 
-
-        Log.d("ML01", "ML01 start");
-
+        //陆军数据写入本地数据库
+//        Log.d("ML01", "ML01 start");
         landArmyDescribesList = DataSupport.findAll(LandArmyDescribe.class);
         if (landArmyDescribesList.size() > 0){
             //创建成功，跳过
@@ -156,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
             localDBCreate1.CreatedLand();
 //            Log.d("ML01", "land  created");
         }
-
+        //海军数据写入本地数据库
         navyDescribesList = DataSupport.findAll(NavyDescribe.class);
         if (navyDescribesList.size()>0){
             //创建成功
@@ -164,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
             LocalDBCreate localDBCreate2 = new LocalDBCreate();
             localDBCreate2.CreatedNavy();
         }
-
+        //空军数据写入本地数据库
         airforceDescribesList = DataSupport.findAll(AirforceDescribe.class);
         if (airforceDescribesList.size()>0){
             //创建成功
@@ -230,6 +235,27 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivity = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null) {
+            NetworkInfo info = connectivity.getActiveNetworkInfo();
+            if (info != null && info.isConnected())
+            {
+                // 当前网络是连接的
+                if (info.getState() == NetworkInfo.State.CONNECTED)
+                {
+                    Toast.makeText(context, "网络可用", Toast.LENGTH_SHORT).show();
+                    // 当前所连接的网络可用
+                    return true;
+                }
+            }else{
+                Toast.makeText(context, "网络不可用", Toast.LENGTH_SHORT).show();
+            }
+        }
+        return false;
     }
 
 }
