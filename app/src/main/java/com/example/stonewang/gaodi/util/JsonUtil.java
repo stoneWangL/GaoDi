@@ -1,11 +1,15 @@
 package com.example.stonewang.gaodi.util;
 
 import android.text.TextUtils;
+import android.util.Log;
+
 import com.example.stonewang.gaodi.db.GaoDiNews;
 import com.example.stonewang.gaodi.db.GuojiNews;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.net.URLDecoder;
 
 
 /**
@@ -18,6 +22,40 @@ import org.json.JSONObject;
 
 public class JsonUtil{
 
+    /**
+     * 将API返回的JSON数据中的Unicode编码的汉字，转码为utf-8格式的汉字
+     * @param unicodeStr
+     * @return
+     */
+    public static String decode(String unicodeStr) {
+        if (unicodeStr == null) {
+            return null;
+        }
+        StringBuffer retBuf = new StringBuffer();
+        int maxLoop = unicodeStr.length();
+        for (int i = 0; i < maxLoop; i++) {
+            if (unicodeStr.charAt(i) == '\\') {
+                if ((i < maxLoop - 5) && ((unicodeStr.charAt(i + 1) == 'u') || (unicodeStr.charAt(i + 1) == 'U')))
+                    try {
+                        retBuf.append((char) Integer.parseInt(unicodeStr.substring(i + 2, i + 6), 16));
+                        i += 5;
+                    } catch (NumberFormatException localNumberFormatException) {
+                        retBuf.append(unicodeStr.charAt(i));
+                    }
+                else
+                    retBuf.append(unicodeStr.charAt(i));
+            } else {
+                retBuf.append(unicodeStr.charAt(i));
+            }
+        }
+        return retBuf.toString();
+    }
+
+    /**
+     * 军事 JSON数据的解析，并存入数据库
+     * @param jsonData
+     * @return
+     */
     public static boolean parseJson(String jsonData){
 //                Log.d("Json02", jsonData);
         if (!TextUtils.isEmpty(jsonData)){
@@ -54,6 +92,12 @@ public class JsonUtil{
 
         return false;
     }
+
+    /**
+     * 国际 JSON数据的解析，并存入数据库
+     * @param jsonData
+     * @return
+     */
     public static boolean parseJsonGuoji(String jsonData){
         if (!TextUtils.isEmpty(jsonData)){
             try{
@@ -79,6 +123,59 @@ public class JsonUtil{
                     News.setUrl(NewsObject.getString("url"));
                     News.setThumbnail_pic_s(NewsObject.getString("thumbnail_pic_s"));
                     News.save();
+                }
+                return true;
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        return false;
+    }
+    /**
+     * 测试 京东云API返回的JSON转码
+     * @param jsonData
+     * @return
+     */
+    public static boolean testAPI(String jsonData){
+        if (!TextUtils.isEmpty(jsonData)){
+            try{
+                String jsonString = decode(jsonData);
+                Log.d("APIone", "testAPI: "+jsonData);
+
+                JSONArray allNews = new JSONArray(jsonString);
+                for (int i=0; i<allNews.length(); i++){
+
+                    JSONObject NewsObject = allNews.getJSONObject(i);
+                    //GuojiNews News = new GuojiNews();
+                    String id = NewsObject.getString("id");
+                    String uniquekey = NewsObject.getString("uniquekey");
+                    String title = NewsObject.getString("title");
+                    String date = NewsObject.getString("date");
+                    String category = NewsObject.getString("category");
+                    String author_name = NewsObject.getString("author_name");
+                    String url = NewsObject.getString("url");
+                    String thumbnail_pic_s = NewsObject.getString("thumbnail_pic_s");
+                    Log.d("APItwo", "testAPI: "+id+"======="
+                    +uniquekey+"======="
+                    +title+"======="
+                    +date+"======="
+                    +category+"======="
+                    +author_name+"======="
+                    +url+"======="
+                    +thumbnail_pic_s+"=======");
+
+
+
+//                    News.setUniquekey(NewsObject.getString("uniquekey"));
+//                    News.setTitle(NewsObject.getString("title"));
+//                    News.setDate(NewsObject.getString("date"));
+//                    News.setCategory(NewsObject.getString("category"));
+//                    News.setAuthor_name(NewsObject.getString("author_name"));
+//                    News.setUrl(NewsObject.getString("url"));
+//                    News.setThumbnail_pic_s(NewsObject.getString("thumbnail_pic_s"));
+//                    News.save();
                 }
                 return true;
             }

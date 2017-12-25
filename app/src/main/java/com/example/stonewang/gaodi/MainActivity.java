@@ -34,6 +34,7 @@ import com.example.stonewang.gaodi.util.JsonUtil;
 import org.litepal.crud.DataSupport;
 
 import java.net.InetAddress;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,6 +130,32 @@ public class MainActivity extends AppCompatActivity {
      * 如果数据库存在则跳过，否者建立数据库
      */
     private void initLocalDB() {
+
+        /**
+         * 测试京东云API的返回数据
+         */
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url("http://114.67.243.127/index.php/API/Test/test6")
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+                    //将API返回的json数据传递给处理函数
+                    JsonUtil jsonUtil = new JsonUtil();
+                    jsonUtil.testAPI(responseData);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+        /**军事
+         * 开个线程，向聚合数据API，发起请求，并处理返回的数据
+         */
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -178,6 +205,9 @@ public class MainActivity extends AppCompatActivity {
             localDBCreate3.CreatedAirforce();
         }
 
+        /**国际
+         * 开个线程，向聚合数据API，发起请求，并处理返回的数据
+         */
         new Thread(new Runnable() {
             @Override
             public void run() {
