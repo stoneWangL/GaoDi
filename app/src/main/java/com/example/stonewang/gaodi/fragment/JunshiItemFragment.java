@@ -6,17 +6,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.stonewang.gaodi.MainActivity;
 import com.example.stonewang.gaodi.MyItemDecoration;
 import com.example.stonewang.gaodi.R;
-import com.example.stonewang.gaodi.adapter.NewsItemAdapter;
+import com.example.stonewang.gaodi.adapter.JunshiItemAdapter;
 import com.example.stonewang.gaodi.db.GaoDiNews;
+import com.example.stonewang.gaodi.db.JunshiNews;
 import com.example.stonewang.gaodi.util.JsonUtil;
 
 import org.litepal.crud.DataSupport;
@@ -30,13 +28,14 @@ import okhttp3.Response;
 
 /**
  * Created by stoneWang on 2017/4/7.
+ * 军事页面的fragment
  */
 
-public class NewsItemFragment extends Fragment {
+public class JunshiItemFragment extends Fragment {
 //    private int i=0;
     private SwipeRefreshLayout swipeRefresh;
-    private NewsItemAdapter adapter;
-    private List<GaoDiNews> gaoDiNewsList=new ArrayList<>(), All=new ArrayList<>();
+    private JunshiItemAdapter adapter;
+    private List<JunshiNews> JunshiNewsList=new ArrayList<>(), All=new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +55,7 @@ public class NewsItemFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager (getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new MyItemDecoration());//添加装饰类,加横线
-        adapter = new NewsItemAdapter(gaoDiNewsList);
+        adapter = new JunshiItemAdapter(JunshiNewsList);
         recyclerView.setAdapter(adapter);
 
         swipeRefresh = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh);
@@ -83,9 +82,9 @@ public class NewsItemFragment extends Fragment {
      * 初始化
      */
     private void init(){
-        gaoDiNewsList.clear();
+        JunshiNewsList.clear();
         All.clear();
-        All = DataSupport.findAll(GaoDiNews.class);
+        All = DataSupport.findAll(JunshiNews.class);
 //        int i = All.size();String j = ""+i;
 //        Log.d("num1", "size="+j);//打印信息
         if (All.size()>0){
@@ -93,11 +92,11 @@ public class NewsItemFragment extends Fragment {
         }else{
             //向服务器请求
             sendRequestWithOkHttp();
-            All = DataSupport.findAll(GaoDiNews.class);
+            All = DataSupport.findAll(JunshiNews.class);
         }
 
-        for (GaoDiNews all:All){
-            gaoDiNewsList.add(all);
+        for (JunshiNews all:All){
+            JunshiNewsList.add(all);
         }
     }
 
@@ -121,13 +120,13 @@ public class NewsItemFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        gaoDiNewsList.clear();
+                        JunshiNewsList.clear();
                         All.clear();
-                        All = DataSupport.findAll(GaoDiNews.class);
+                        All = DataSupport.findAll(JunshiNews.class);
 
 //                        int ii = All.size();String jj = ""+ii;Log.d("num2", "size="+jj);//打印信息
-                        for (GaoDiNews all:All){
-                            gaoDiNewsList.add(all);
+                        for (JunshiNews all:All){
+                            JunshiNewsList.add(all);
                         }
 
                         adapter.notifyDataSetChanged();
@@ -151,13 +150,13 @@ public class NewsItemFragment extends Fragment {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
                             //指定访问服务器地址
-                            .url("http://v.juhe.cn/toutiao/index?type=junshi&key=3425b3b2cd4d3227f7455377f6276bab")
+                            .url("http://114.67.243.127/index.php/API/Api/junshi")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     //将服务器返回得到字符串传入处理函数
                     JsonUtil jsonUtil = new JsonUtil();
-                    jsonUtil.parseJson(responseData);
+                    jsonUtil.parseJsonJunshi(responseData);
 
                 }catch (Exception e){
                     e.printStackTrace();

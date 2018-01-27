@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,6 @@ import android.view.ViewGroup;
 import com.example.stonewang.gaodi.MyItemDecoration;
 import com.example.stonewang.gaodi.R;
 import com.example.stonewang.gaodi.adapter.GuojiItemAdapter;
-import com.example.stonewang.gaodi.adapter.NewsItemAdapter;
-import com.example.stonewang.gaodi.db.GaoDiNews;
 import com.example.stonewang.gaodi.db.GuojiNews;
 import com.example.stonewang.gaodi.util.JsonUtil;
 
