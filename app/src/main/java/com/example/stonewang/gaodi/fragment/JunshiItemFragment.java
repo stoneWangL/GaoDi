@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import com.example.stonewang.gaodi.util.JsonUtil;
 
 import org.litepal.crud.DataSupport;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +35,7 @@ import okhttp3.Response;
  */
 
 public class JunshiItemFragment extends Fragment {
-//    private int i=0;
+
     private SwipeRefreshLayout swipeRefresh;
     private JunshiItemAdapter adapter;
     private List<JunshiNews> JunshiNewsList=new ArrayList<>(), All=new ArrayList<>();
@@ -40,7 +43,6 @@ public class JunshiItemFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        i++;
     }
     @Nullable
     @Override
@@ -61,12 +63,6 @@ public class JunshiItemFragment extends Fragment {
         swipeRefresh = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
 
-//        if(i==1){
-//            //手动调用,通知系统去测量
-//            swipeRefresh.setRefreshing(true);
-//            refreshGaoDiNews();//更新新闻列表
-//        }
-
 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -85,8 +81,8 @@ public class JunshiItemFragment extends Fragment {
         JunshiNewsList.clear();
         All.clear();
         All = DataSupport.findAll(JunshiNews.class);
-//        int i = All.size();String j = ""+i;
-//        Log.d("num1", "size="+j);//打印信息
+        int i = All.size();
+        Log.d("num83","军事Fragment初始化size="+i);
         if (All.size()>0){
             //有缓存
         }else{
@@ -164,4 +160,9 @@ public class JunshiItemFragment extends Fragment {
             }
         }).start();
     }
+
+    /**
+     * 从文件中取出number
+     */
+
 }

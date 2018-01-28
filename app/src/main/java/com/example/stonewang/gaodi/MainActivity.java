@@ -28,6 +28,10 @@ import com.example.stonewang.gaodi.util.JsonUtil;
 
 import org.litepal.crud.DataSupport;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,9 +58,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //查看网络是否可用
-        isNetworkAvailable(this);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -78,53 +79,42 @@ public class MainActivity extends AppCompatActivity {
         });
 
         init();//底部导航初始化
+        isNetworkAvailable(this);//查看网络是否可用
         initLocalDB();//初始化本地数据库
 
-        //底部导航设置
-        bottom_navigation_bar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
-        bottom_navigation_bar.setMode(BottomNavigationBar.MODE_FIXED);
-        bottom_navigation_bar.setBackgroundStyle(BACKGROUND_STYLE_STATIC);
-        //设置默认颜色
-        bottom_navigation_bar
-                .setInActiveColor(R.color.colorInActive)//设置未选中的Item的颜色，包括图片和文字
-                .setActiveColor(R.color.colorActive)
-                .setBarBackgroundColor(R.color.colorBarBg);//设置整个控件的背景色
-        //添加选项
-        bottom_navigation_bar.addItem(new BottomNavigationItem(R.drawable.ic_stat_new, "军事"))
-                .addItem(new BottomNavigationItem(R.drawable.ic_stat_new, "国际"))
-                .addItem(new BottomNavigationItem(R.drawable.ic_stat_read, "资料"))
-                .initialise();
-        bottom_navigation_bar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(int position) {//未选中 -> 选中
-                switch (position){
-                    case 0:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment, new JunshiItemFragment()).commit();
-                        break;
-                    case 1:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment,new GuojiNewsFragment()).commit();
-                        break;
-                    case 2:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment, new LocalFragment()).commit();
-                        break;
-                }
-            }
-
-            @Override
-            public void onTabUnselected(int position) {//选中 -> 未选中
-
-            }
-
-            @Override
-            public void onTabReselected(int position) {//选中 -> 选中
-
-            }
-        });
-
     }
+
+    /**
+     * 用于创建保存文件
+     */
+    public void saveFile(int num){
+        int number = num;
+        FileOutputStream out = null;
+        BufferedWriter writer = null;
+        try{
+            out = openFileOutput("number", Context.MODE_PRIVATE);
+            writer = new BufferedWriter(new OutputStreamWriter(out));
+            writer.write(number);
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            try{
+                if(writer != null){
+                    writer.close();
+                }
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
     /**
      * 初始化本地数据库(本地资料页面数据)
      * 如果数据库存在则跳过，否者建立数据库
      */
     private void initLocalDB() {
 
+        saveFile(firstTimes);//记录number=1
         /**
          * 京东云API_Junshi的返回结果
          */
@@ -172,34 +162,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
 
-        //陆军数据写入本地数据库
-//        Log.d("ML01", "ML01 start");
-        landArmyDescribesList = DataSupport.findAll(LandArmyDescribe.class);
-        if (landArmyDescribesList.size() > 0){
-            //创建成功，跳过
-//            Log.d("ML01", "land existed"+" size="+landArmyDescribesList.size());
-        }else{
-            LocalDBCreate localDBCreate1 = new LocalDBCreate();
-            localDBCreate1.CreatedLand();
-//            Log.d("ML01", "land  created");
-        }
-        //海军数据写入本地数据库
-        navyDescribesList = DataSupport.findAll(NavyDescribe.class);
-        if (navyDescribesList.size()>0){
-            //创建成功
-        }else{
-            LocalDBCreate localDBCreate2 = new LocalDBCreate();
-            localDBCreate2.CreatedNavy();
-        }
-        //空军数据写入本地数据库
-        airforceDescribesList = DataSupport.findAll(AirforceDescribe.class);
-        if (airforceDescribesList.size()>0){
-            //创建成功
-        }else{
-            LocalDBCreate localDBCreate3 = new LocalDBCreate();
-            localDBCreate3.CreatedAirforce();
-        }
-
         /**国际
          * 开个线程，向聚合数据API，发起请求，并处理返回的数据
          */
@@ -223,6 +185,33 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }).start();
+
+        //陆军数据写入本地数据库
+//        Log.d("ML01", "ML01 start");
+        landArmyDescribesList = DataSupport.findAll(LandArmyDescribe.class);
+        if (landArmyDescribesList.size() > 0){
+            //创建成功，跳过
+//            Log.d("ML01", "land existed"+" size="+landArmyDescribesList.size());
+        }else{
+            LocalDBCreate localDBCreate1 = new LocalDBCreate();
+            localDBCreate1.CreatedLand();
+        }
+        //海军数据写入本地数据库
+        navyDescribesList = DataSupport.findAll(NavyDescribe.class);
+        if (navyDescribesList.size()>0){
+            //创建成功
+        }else{
+            LocalDBCreate localDBCreate2 = new LocalDBCreate();
+            localDBCreate2.CreatedNavy();
+        }
+        //空军数据写入本地数据库
+        airforceDescribesList = DataSupport.findAll(AirforceDescribe.class);
+        if (airforceDescribesList.size()>0){
+            //创建成功
+        }else{
+            LocalDBCreate localDBCreate3 = new LocalDBCreate();
+            localDBCreate3.CreatedAirforce();
+        }
     }
 
     /**
@@ -233,6 +222,44 @@ public class MainActivity extends AppCompatActivity {
         firstFragment.setArguments(getIntent().getExtras());
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.view_fragment, firstFragment).commit();
+
+        //底部导航设置
+        bottom_navigation_bar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
+        bottom_navigation_bar.setMode(BottomNavigationBar.MODE_FIXED);
+        bottom_navigation_bar.setBackgroundStyle(BACKGROUND_STYLE_STATIC);
+        //设置默认颜色
+        bottom_navigation_bar
+                .setInActiveColor(R.color.colorInActive)//设置未选中的Item的颜色，包括图片和文字
+                .setActiveColor(R.color.colorActive)
+                .setBarBackgroundColor(R.color.colorBarBg);//设置整个控件的背景色
+        //添加选项
+        bottom_navigation_bar.addItem(new BottomNavigationItem(R.drawable.ic_stat_new, "军事"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_stat_new, "国际"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_stat_read, "资料"))
+                .initialise();
+        bottom_navigation_bar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(int position) {//未选中 -> 选中
+                switch (position){
+                    case 0:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment, new JunshiItemFragment()).commit();
+                        break;
+                    case 1:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment,new GuojiNewsFragment()).commit();
+                        break;
+                    case 2:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment, new LocalFragment()).commit();
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(int position) {//选中 -> 未选中
+
+            }
+
+            @Override
+            public void onTabReselected(int position) {//选中 -> 选中
+
+            }
+        });
     }
 
     /**
@@ -262,6 +289,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * 查看网络是否可用
+     * @param context
+     * @return
+     */
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivity = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
