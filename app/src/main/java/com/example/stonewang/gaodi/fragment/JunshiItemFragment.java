@@ -1,5 +1,7 @@
 package com.example.stonewang.gaodi.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,11 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.stonewang.gaodi.MyItemDecoration;
 import com.example.stonewang.gaodi.R;
 import com.example.stonewang.gaodi.adapter.JunshiItemAdapter;
-import com.example.stonewang.gaodi.db.GaoDiNews;
 import com.example.stonewang.gaodi.db.JunshiNews;
 import com.example.stonewang.gaodi.util.JsonUtil;
 
@@ -29,6 +31,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by stoneWang on 2017/4/7.
  * 军事页面的fragment
@@ -38,7 +42,7 @@ public class JunshiItemFragment extends Fragment {
 
     private SwipeRefreshLayout swipeRefresh;
     private JunshiItemAdapter adapter;
-    private List<JunshiNews> JunshiNewsList=new ArrayList<>(), All=new ArrayList<>();
+    private List<JunshiNews> JunshiNewsList=new ArrayList<>(), Test=new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,43 +75,45 @@ public class JunshiItemFragment extends Fragment {
             }
         });
 
-
+        getNum();
         return v;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.recycler_view);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
     /**
      * 初始化
      */
     private void init(){
-        JunshiNewsList.clear();
-        All.clear();
-        All = DataSupport.findAll(JunshiNews.class);
-        int i = All.size();
-        Log.d("num83","军事Fragment初始化size="+i);
-        if (All.size()>0){
-            //有缓存
-        }else{
-            //向服务器请求
-            sendRequestWithOkHttp();
-            All = DataSupport.findAll(JunshiNews.class);
-        }
 
-        for (JunshiNews all:All){
-            JunshiNewsList.add(all);
-        }
+        JunshiNewsList.clear();
+        JunshiNewsList = DataSupport.findAll(JunshiNews.class);
+        Log.d("stone001","军事Fragment初始化size="+JunshiNewsList.size());
+        stoneLog();
+//        if (JunshiNewsList.size()==0){
+//            refreshGaoDiNews();
+//            //沒有緩存需要請求,啟動更新列表功能
+//        }
     }
 
     /**
      * 更新新闻列表
      */
     private void refreshGaoDiNews() {
-//        i++;
-        DataSupport.deleteAll(GaoDiNews.class);//清空本地数据库缓存
-        sendRequestWithOkHttp();//向服务器发送请求，并插入本地数据库
+
+//        sendRequestWithOkHttp();//向服务器发送请求，并插入本地数据库
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try{
-                    Thread.sleep(2000);
+                    Thread.sleep(5000);
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }
@@ -116,16 +122,25 @@ public class JunshiItemFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        JunshiNewsList.clear();
-                        All.clear();
-                        All = DataSupport.findAll(JunshiNews.class);
-
-//                        int ii = All.size();String jj = ""+ii;Log.d("num2", "size="+jj);//打印信息
-                        for (JunshiNews all:All){
-                            JunshiNewsList.add(all);
+                        int num = getNum();
+                        if(num == 10){
+                            Toast.makeText(getContext(), "暂时没有更新", Toast.LENGTH_SHORT).show();
+                        }else{
+                            sendRequestWithOkHttp(num);
                         }
+//                        JunshiNewsList.clear();
+//                        All.clear();
+//                        All = DataSupport.findAll(JunshiNews.class);
+//
+////                        int ii = All.size();String jj = ""+ii;Log.d("num2", "size="+jj);//打印信息
+//                        for (JunshiNews all:All){
+//                            JunshiNewsList.add(all);
+//                        }
+
+                        JunshiNewsList = DataSupport.findAll(JunshiNews.class);
 
                         adapter.notifyDataSetChanged();
+
                         swipeRefresh.setRefreshing(false);//耗时操作结束
 
 //                        Toast.makeText(getActivity(), "新闻已更新", Toast.LENGTH_SHORT).show();
@@ -133,12 +148,14 @@ public class JunshiItemFragment extends Fragment {
                 });
             }
         }).start();
+
     }
 
     /**
      * 向服务器请求
      */
-    private static void sendRequestWithOkHttp(){
+    private void sendRequestWithOkHttp(int num){
+        final String urlString = "http://114.67.243.127/index.php/API/Api/junshiTest/number/"+num;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -146,7 +163,7 @@ public class JunshiItemFragment extends Fragment {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
                             //指定访问服务器地址
-                            .url("http://114.67.243.127/index.php/API/Api/junshi")
+                            .url(urlString)
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
@@ -159,10 +176,36 @@ public class JunshiItemFragment extends Fragment {
                 }
             }
         }).start();
+        num++;
+        saveNum(num);
     }
 
     /**
      * 从文件中取出number
      */
+    public int getNum(){
+        SharedPreferences pref = getContext().getSharedPreferences("numPage", MODE_PRIVATE);
+        int num = pref.getInt("num",0);
+        Log.d("stone176","getNum="+num);
+        return num;
+    }
+
+    /**
+     * 用于创建保存文件
+     */
+    public void saveNum(int num){
+        Log.d("stone179","saveNum="+num);
+        SharedPreferences.Editor editor = getContext().getSharedPreferences("numPage",MODE_PRIVATE).edit();
+        editor.putInt("num",num);
+        editor.apply();
+    }
+
+    public void stoneLog(){
+        Test = DataSupport.findAll(JunshiNews.class);
+        for(JunshiNews Tests:Test){
+            Log.d("stone002"," JunshiNews id :"+Tests.getId());
+            Log.d("stone002"," JunshiNews title :"+Tests.getTitle());
+        }
+    }
 
 }

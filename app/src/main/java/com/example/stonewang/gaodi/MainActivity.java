@@ -1,6 +1,7 @@
 package com.example.stonewang.gaodi;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
@@ -87,25 +88,10 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 用于创建保存文件
      */
-    public void saveFile(int num){
-        int number = num;
-        FileOutputStream out = null;
-        BufferedWriter writer = null;
-        try{
-            out = openFileOutput("number", Context.MODE_PRIVATE);
-            writer = new BufferedWriter(new OutputStreamWriter(out));
-            writer.write(number);
-        }catch (IOException e){
-            e.printStackTrace();
-        }finally {
-            try{
-                if(writer != null){
-                    writer.close();
-                }
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-        }
+    public void saveNum(int num){
+        SharedPreferences.Editor editor = getSharedPreferences("numPage",MODE_PRIVATE).edit();
+        editor.putInt("num",num);
+        editor.apply();
     }
 
     /**
@@ -114,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void initLocalDB() {
 
-        saveFile(firstTimes);//记录number=1
+
         /**
          * 京东云API_Junshi的返回结果
          */
@@ -124,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 try{
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("http://114.67.243.127/index.php/API/Api/junshi")
+                            .url("http://114.67.243.127/index.php/API/Api/junshiTest/number/"+firstTimes)
                             .build();
 
                     Response response = client.newCall(request).execute();
@@ -137,6 +123,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }).start();
+        int num = firstTimes+1;
+        saveNum(num);//记录number=2,即已經請求了1頁，下次請求2頁
+
 
         /**军事
          * 开个线程，向聚合数据API，发起请求，并处理返回的数据
