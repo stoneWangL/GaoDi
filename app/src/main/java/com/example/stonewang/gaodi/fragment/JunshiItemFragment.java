@@ -3,6 +3,7 @@ package com.example.stonewang.gaodi.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -32,6 +33,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import static android.content.Context.MODE_PRIVATE;
+import static java.lang.Thread.sleep;
 
 /**
  * Created by stoneWang on 2017/4/7.
@@ -42,19 +44,31 @@ public class JunshiItemFragment extends Fragment {
 
     private SwipeRefreshLayout swipeRefresh;
     private JunshiItemAdapter adapter;
-    private List<JunshiNews> JunshiNewsList=new ArrayList<>(), Test=new ArrayList<>();
+    private List<JunshiNews> JunshiNewsList=new ArrayList<>(), Test=new ArrayList<>(), Temp=new ArrayList<>();
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d("stone00","声明周期->onAttach");
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("stone00","声明周期->onCreate");
+
+
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        Log.d("stone00","声明周期->onCreateView");
         View v =  inflater.inflate(R.layout.choose_area, container, false);
-
-        init();//初始化
+//        init();//初始化
+        JunshiNewsList.clear();
+        JunshiNewsList = DataSupport.order("id desc").find(JunshiNews.class);
+        stoneNum();
 
         //控件初始化，填充内容
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
@@ -68,40 +82,77 @@ public class JunshiItemFragment extends Fragment {
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
 
 
+
+
+        getNum();
+        return v;
+    }
+    /**
+     * 初始化
+     */
+    private void init(){
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d("stone00","声明周期->onActivityCreated");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("stone00","声明周期->onStart");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("stone00","声明周期->onResume");
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 refreshGaoDiNews();//更新新闻列表
             }
         });
+        stoneNum();
 
-        getNum();
-        return v;
+//        RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.recycler_view);
+//        recyclerView.setAdapter(adapter);
+//        adapter.notifyDataSetChanged();
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-        RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.recycler_view);
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+    public void onPause() {
+        super.onPause();
+        Log.d("stone00","声明周期->onPause");
     }
 
-    /**
-     * 初始化
-     */
-    private void init(){
-
-        JunshiNewsList.clear();
-        JunshiNewsList = DataSupport.findAll(JunshiNews.class);
-        Log.d("stone001","军事Fragment初始化size="+JunshiNewsList.size());
-        stoneLog();
-//        if (JunshiNewsList.size()==0){
-//            refreshGaoDiNews();
-//            //沒有緩存需要請求,啟動更新列表功能
-//        }
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("stone00","声明周期->onStop");
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("stone00","声明周期->onDestroyView");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("stone00","声明周期->onDestroy");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d("stone00","声明周期->onDetach");
+    }
+
+
 
     /**
      * 更新新闻列表
@@ -113,7 +164,7 @@ public class JunshiItemFragment extends Fragment {
             @Override
             public void run() {
                 try{
-                    Thread.sleep(5000);
+                    sleep(2000);
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }
@@ -127,21 +178,26 @@ public class JunshiItemFragment extends Fragment {
                             Toast.makeText(getContext(), "暂时没有更新", Toast.LENGTH_SHORT).show();
                         }else{
                             sendRequestWithOkHttp(num);
+                            try{
+                                sleep(1000);
+                            }catch (InterruptedException e){
+                                e.printStackTrace();
+                            }
                         }
-//                        JunshiNewsList.clear();
-//                        All.clear();
-//                        All = DataSupport.findAll(JunshiNews.class);
-//
-////                        int ii = All.size();String jj = ""+ii;Log.d("num2", "size="+jj);//打印信息
-//                        for (JunshiNews all:All){
-//                            JunshiNewsList.add(all);
-//                        }
+                        Temp.clear();JunshiNewsList.clear();
+                        Temp = DataSupport.order("id desc").find(JunshiNews.class);
+                        for (JunshiNews all:Temp){
+                            JunshiNewsList.add(all);
+                        }
 
-                        JunshiNewsList = DataSupport.findAll(JunshiNews.class);
-
+                        JunshiNewsList = DataSupport.order("id desc").find(JunshiNews.class);
                         adapter.notifyDataSetChanged();
 
+
                         swipeRefresh.setRefreshing(false);//耗时操作结束
+
+                        stoneNum();
+                        stoneLog();
 
 //                        Toast.makeText(getActivity(), "新闻已更新", Toast.LENGTH_SHORT).show();
                     }
@@ -186,7 +242,7 @@ public class JunshiItemFragment extends Fragment {
     public int getNum(){
         SharedPreferences pref = getContext().getSharedPreferences("numPage", MODE_PRIVATE);
         int num = pref.getInt("num",0);
-        Log.d("stone176","getNum="+num);
+//        Log.d("stone00176","getNum="+num);
         return num;
     }
 
@@ -194,18 +250,25 @@ public class JunshiItemFragment extends Fragment {
      * 用于创建保存文件
      */
     public void saveNum(int num){
-        Log.d("stone179","saveNum="+num);
+//        Log.d("stone00179","saveNum="+num);
         SharedPreferences.Editor editor = getContext().getSharedPreferences("numPage",MODE_PRIVATE).edit();
         editor.putInt("num",num);
         editor.apply();
     }
 
     public void stoneLog(){
-        Test = DataSupport.findAll(JunshiNews.class);
+        Test = DataSupport.order("id desc").find(JunshiNews.class);
         for(JunshiNews Tests:Test){
             Log.d("stone002"," JunshiNews id :"+Tests.getId());
             Log.d("stone002"," JunshiNews title :"+Tests.getTitle());
         }
     }
+
+    public void stoneNum(){
+        Test = DataSupport.order("id desc").find(JunshiNews.class);
+        Log.d("stone001","军事Fragment初始化size="+Test.size());
+    }
+
+
 
 }
