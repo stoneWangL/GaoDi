@@ -116,10 +116,6 @@ public class JunshiItemFragment extends Fragment {
             }
         });
         stoneNum();
-
-//        RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.recycler_view);
-//        recyclerView.setAdapter(adapter);
-//        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -150,6 +146,7 @@ public class JunshiItemFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         Log.d("stone00","声明周期->onDetach");
+
     }
 
 
@@ -174,7 +171,7 @@ public class JunshiItemFragment extends Fragment {
                     @Override
                     public void run() {
                         int num = getNum();
-                        if(num == 10){
+                        if(num > 10){
                             Toast.makeText(getContext(), "暂时没有更新", Toast.LENGTH_SHORT).show();
                         }else{
                             sendRequestWithOkHttp(num);
@@ -183,23 +180,23 @@ public class JunshiItemFragment extends Fragment {
                             }catch (InterruptedException e){
                                 e.printStackTrace();
                             }
+                            Temp.clear();JunshiNewsList.clear();
+                            Temp = DataSupport.order("id desc").find(JunshiNews.class);
+                            for (JunshiNews all:Temp){
+                                JunshiNewsList.add(all);
+                            }
+                            try{
+                                sleep(500);
+                            }catch (InterruptedException e){
+                                e.printStackTrace();
+                            }
+                            adapter.notifyDataSetChanged();
                         }
-                        Temp.clear();JunshiNewsList.clear();
-                        Temp = DataSupport.order("id desc").find(JunshiNews.class);
-                        for (JunshiNews all:Temp){
-                            JunshiNewsList.add(all);
-                        }
-
-                        JunshiNewsList = DataSupport.order("id desc").find(JunshiNews.class);
-                        adapter.notifyDataSetChanged();
-
-
                         swipeRefresh.setRefreshing(false);//耗时操作结束
 
-                        stoneNum();
-                        stoneLog();
 
-//                        Toast.makeText(getActivity(), "新闻已更新", Toast.LENGTH_SHORT).show();
+//                        stoneLog();
+                        stoneNum();
                     }
                 });
             }
@@ -242,7 +239,7 @@ public class JunshiItemFragment extends Fragment {
     public int getNum(){
         SharedPreferences pref = getContext().getSharedPreferences("numPage", MODE_PRIVATE);
         int num = pref.getInt("num",0);
-//        Log.d("stone00176","getNum="+num);
+        Log.d("stone0012","getNum="+num);
         return num;
     }
 
@@ -250,7 +247,7 @@ public class JunshiItemFragment extends Fragment {
      * 用于创建保存文件
      */
     public void saveNum(int num){
-//        Log.d("stone00179","saveNum="+num);
+        Log.d("stone0012","saveNum="+num);
         SharedPreferences.Editor editor = getContext().getSharedPreferences("numPage",MODE_PRIVATE).edit();
         editor.putInt("num",num);
         editor.apply();
@@ -265,7 +262,8 @@ public class JunshiItemFragment extends Fragment {
     }
 
     public void stoneNum(){
-        Test = DataSupport.order("id desc").find(JunshiNews.class);
+        Test.clear();
+        Test = DataSupport.findAll(JunshiNews.class);
         Log.d("stone001","军事Fragment初始化size="+Test.size());
     }
 

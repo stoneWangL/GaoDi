@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.example.stonewang.gaodi.LocalDBCreate.LocalDBCreate;
 import com.example.stonewang.gaodi.db.AirforceDescribe;
+import com.example.stonewang.gaodi.db.JunshiNews;
 import com.example.stonewang.gaodi.db.LandArmyDescribe;
 import com.example.stonewang.gaodi.db.NavyDescribe;
 import com.example.stonewang.gaodi.fragment.GuojiNewsFragment;
@@ -54,10 +56,12 @@ public class MainActivity extends AppCompatActivity {
     //数据库Airforce列表
     private List<AirforceDescribe> airforceDescribesList =new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("stone00","onCreate");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -85,6 +89,47 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("stone00","onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("stone00","onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("stone00","onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("stone00","onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("stone00","onDestroy");
+
+        DataSupport.deleteAll(JunshiNews.class);
+        Log.d("stone00","删除了JunshiNews.class");
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("stone00","onRestart");
+
+    }
+
     /**
      * 用于创建保存文件
      */
@@ -104,26 +149,38 @@ public class MainActivity extends AppCompatActivity {
         /**
          * 京东云API_Junshi的返回结果
          */
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    OkHttpClient client = new OkHttpClient();
-                    Request request = new Request.Builder()
-                            .url("http://114.67.243.127/index.php/API/Api/junshiTest/number/"+firstTimes)
-                            .build();
+        if (DataSupport.findAll(JunshiNews.class).size()==0){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        OkHttpClient client = new OkHttpClient();
+                        Request request = new Request.Builder()
+                                .url("http://114.67.243.127/index.php/API/Api/junshiTest/number/"+firstTimes)
+                                .build();
 
-                    Response response = client.newCall(request).execute();
-                    String responseData = response.body().string();
-                    //将API返回的json数据传递给处理函数
-                    JsonUtil jsonUtil = new JsonUtil();
-                    jsonUtil.parseJsonJunshi(responseData);
-                }catch(Exception e){
-                    e.printStackTrace();
+                        Response response = client.newCall(request).execute();
+                        String responseData = response.body().string();
+                        //将API返回的json数据传递给处理函数
+                        JsonUtil jsonUtil = new JsonUtil();
+                        jsonUtil.parseJsonJunshi(responseData);
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }).start();
-        int num = firstTimes+1;
+            }).start();
+        }
+
+
+        int num = 0;
+        num = DataSupport.findAll(JunshiNews.class).size();
+        Log.d("stone00","size的大小是"+num);
+        if (DataSupport.findAll(JunshiNews.class).size()==0 | DataSupport.findAll(JunshiNews.class).size() >10){
+            num = firstTimes+1;
+        }else{
+            num = (DataSupport.findAll(JunshiNews.class).size()/10)+1;
+        }
+
         saveNum(num);//记录number=2,即已經請求了1頁，下次請求2頁
 
 
