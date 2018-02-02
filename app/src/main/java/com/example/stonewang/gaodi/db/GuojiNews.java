@@ -7,7 +7,7 @@ import org.litepal.crud.DataSupport;
  */
 
 public class GuojiNews extends DataSupport {
-    private String uniquekey;
+    private int id;
     private String title;
     private String date;
     private String category;
@@ -15,12 +15,12 @@ public class GuojiNews extends DataSupport {
     private String url;
     private String thumbnail_pic_s;
 
-    public String getUniquekey() {
-        return uniquekey;
+    public int getId() {
+        return id;
     }
 
-    public void setUniquekey(String uniquekey) {
-        this.uniquekey = uniquekey;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

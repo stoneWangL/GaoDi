@@ -21,6 +21,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.example.stonewang.gaodi.LocalDBCreate.LocalDBCreate;
 import com.example.stonewang.gaodi.db.AirforceDescribe;
+import com.example.stonewang.gaodi.db.GuojiNews;
 import com.example.stonewang.gaodi.db.JunshiNews;
 import com.example.stonewang.gaodi.db.LandArmyDescribe;
 import com.example.stonewang.gaodi.db.NavyDescribe;
@@ -133,6 +134,14 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt("num",num);
         editor.apply();
     }
+    /**
+     * 用于创建保存Guoji页面的请求的，页面数
+     */
+    public void saveGuojiNum(int guojinum){
+        SharedPreferences.Editor editor = getSharedPreferences("numPage",MODE_PRIVATE).edit();
+        editor.putInt("guojinum",guojinum);
+        editor.apply();
+    }
 
     /**
      * 初始化本地数据库(本地资料页面数据)
@@ -165,52 +174,58 @@ public class MainActivity extends AppCompatActivity {
                 }
             }).start();
         }
-
-
         int num = 0;
         num = DataSupport.findAll(JunshiNews.class).size();
-        Log.d("stone00","size的大小是"+num);
+        Log.d("stone00","JunshiNews->size的大小是"+num);
         if (DataSupport.findAll(JunshiNews.class).size()==0 | DataSupport.findAll(JunshiNews.class).size() >10){
             num = firstTimes+1;
         }else{
             num = (DataSupport.findAll(JunshiNews.class).size()/10)+1;
         }
-
         saveNum(num);//记录number=2,即已經請求了1頁，下次請求2頁
 
-
-
-
-        /**国际
-         * 开个线程，向聚合数据API，发起请求，并处理返回的数据
+        /**
+         * 国际
+         * 京东云API->Guoji的返回结果
          */
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    OkHttpClient client = new OkHttpClient();
-                    Request request = new Request.Builder()
-                            //指定访问服务器地址
-                            .url("http://v.juhe.cn/toutiao/index?type=guoji&key=3425b3b2cd4d3227f7455377f6276bab")
-                            .build();
-                    Response response = client.newCall(request).execute();
-                    String responseData = response.body().string();
-                    //将服务器返回得到字符串传入处理函数
-                    JsonUtil jsonUtil = new JsonUtil();
-                    jsonUtil.parseJsonGuoji(responseData);
+        if (DataSupport.findAll(GuojiNews.class).size()==0){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        OkHttpClient client = new OkHttpClient();
+                        Request request = new Request.Builder()
+                                .url("http://114.67.243.127/index.php/API/Api/guojiTest/number/"+firstTimes)
+                                .build();
 
-                }catch (Exception e){
-                    e.printStackTrace();
+                        Response response = client.newCall(request).execute();
+                        String responseData = response.body().string();
+                        //将API返回的json数据传递给处理函数
+                        JsonUtil jsonUtil = new JsonUtil();
+                        jsonUtil.parseJsonGuoji(responseData);
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }).start();
+            }).start();
+        }
+        int guojinum = 0;
+        guojinum = DataSupport.findAll(GuojiNews.class).size();
+        Log.d("stone00","GuojiNews->size的大小是"+guojinum);
+        if (guojinum==0 | guojinum >8){
+            guojinum = firstTimes+1;
+        }else{
+            guojinum = (guojinum/10)+1;
+        }
+        saveGuojiNum(guojinum);//记录number=2,即已經請求了1頁，下次請求2頁
+
+
+
 
         //陆军数据写入本地数据库
-//        Log.d("ML01", "ML01 start");
         landArmyDescribesList = DataSupport.findAll(LandArmyDescribe.class);
         if (landArmyDescribesList.size() > 0){
-            //创建成功，跳过
-//            Log.d("ML01", "land existed"+" size="+landArmyDescribesList.size());
+            //创建成功
         }else{
             LocalDBCreate localDBCreate1 = new LocalDBCreate();
             localDBCreate1.CreatedLand();

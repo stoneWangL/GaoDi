@@ -79,8 +79,6 @@ public class JunshiItemFragment extends Fragment {
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
 
 
-
-
         getNum();
         return v;
     }

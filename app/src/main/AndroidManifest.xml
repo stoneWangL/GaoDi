@@ -21,7 +21,7 @@
         </activity>
 
         <activity
-            android:name=".NewsActivity">
+            android:name=".JunshiNewsActivity">
         </activity>
 
         <activity

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
-import com.example.stonewang.gaodi.NewsActivity;
+import com.example.stonewang.gaodi.JunshiNewsActivity;
 import com.example.stonewang.gaodi.R;
 import com.example.stonewang.gaodi.db.JunshiNews;
 
@@ -80,7 +80,7 @@ public class JunshiItemAdapter extends RecyclerView.Adapter<JunshiItemAdapter.Vi
             public void onClick(View v) {
                 int position  = holder.getAdapterPosition();
                 JunshiNews junshiNews = mJunshiNewsList.get(position);
-                Intent intent = new Intent(v.getContext(), NewsActivity.class);
+                Intent intent = new Intent(v.getContext(), JunshiNewsActivity.class);
                 intent.putExtra("NewsUrl", junshiNews.getUrl());
                 v.getContext().startActivity(intent);
             }

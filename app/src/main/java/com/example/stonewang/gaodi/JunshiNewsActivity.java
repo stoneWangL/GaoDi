@@ -11,7 +11,7 @@ import android.webkit.WebViewClient;
  * Created by stoneWang on 2017/3/17.
  */
 
-public class NewsActivity extends AppCompatActivity {
+public class JunshiNewsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

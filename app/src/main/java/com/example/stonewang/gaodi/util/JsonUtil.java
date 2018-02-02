@@ -52,34 +52,38 @@ public class JsonUtil{
 
 
     /**
-     * 国际 JSON数据的解析，并存入数据库
+     * 国际 京东云API返回的Guoji的JSON转码
      * @param jsonData
      * @return
      */
     public static boolean parseJsonGuoji(String jsonData){
         if (!TextUtils.isEmpty(jsonData)){
             try{
-                JSONObject jsonObject = new JSONObject(jsonData);
-                String result = jsonObject.getString("result");
-//                Log.d("Json03",result);
+                String jsonString = decode(jsonData);
 
-                JSONObject jsonObject2 = new JSONObject(result);
-                String data = jsonObject2.getString("data");
-//                Log.d("Json04",data);
+                JSONArray allNews = new JSONArray(jsonString);
 
-
-                JSONArray allNews = new JSONArray(data);
                 for (int i=0; i<allNews.length(); i++){
+
                     JSONObject NewsObject = allNews.getJSONObject(i);
-//                    Log.d("Json05"+i, NewsObject.toString());
+
+                    int id = NewsObject.getInt("id");
+                    String title = NewsObject.getString("title");
+                    String date = NewsObject.getString("date");
+                    String category = NewsObject.getString("category");
+                    String author_name = NewsObject.getString("author_name");
+                    String url = NewsObject.getString("url");
+                    String thumbnail_pic_s = NewsObject.getString("thumbnail_pic_s");
+
                     GuojiNews News = new GuojiNews();
-                    News.setUniquekey(NewsObject.getString("uniquekey"));
-                    News.setTitle(NewsObject.getString("title"));
-                    News.setDate(NewsObject.getString("date"));
-                    News.setCategory(NewsObject.getString("category"));
-                    News.setAuthor_name(NewsObject.getString("author_name"));
-                    News.setUrl(NewsObject.getString("url"));
-                    News.setThumbnail_pic_s(NewsObject.getString("thumbnail_pic_s"));
+
+                    News.setId(id);
+                    News.setTitle(title);
+                    News.setDate(date);
+                    News.setCategory(category);
+                    News.setAuthor_name(author_name);
+                    News.setUrl(url);
+                    News.setThumbnail_pic_s(thumbnail_pic_s);
                     News.save();
                 }
                 return true;
@@ -91,8 +95,11 @@ public class JsonUtil{
 
         return false;
     }
+
+
+
     /**
-     * 测试 京东云API返回的JSON转码
+     * 军事 京东云API返回Junshi的JSON转码
      * @param jsonData
      * @return
      */
