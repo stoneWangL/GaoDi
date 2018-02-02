@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class JunshiItemAdapter extends RecyclerView.Adapter<JunshiItemAdapter.ViewHolder>{
     private Context mContext;
-    private List<JunshiNews> mJunshiNewsList;//全局变量mGaoDiNewsesList
+    private List<JunshiNews> mJunshiNewsList;//全局变量mJunshiNewsesList
 
     /**
      * View参数：通常就是RecyclerView子项的最外层布局，此处即choose_area.xml

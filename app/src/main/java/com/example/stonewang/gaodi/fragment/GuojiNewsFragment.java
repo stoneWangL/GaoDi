@@ -58,17 +58,13 @@ public class GuojiNewsFragment extends Fragment {
         swipeRefresh = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
 
-//        if(i==1){
-//            //手动调用,通知系统去测量
-//            swipeRefresh.setRefreshing(true);
-//            refreshGaoDiNews();//更新新闻列表
-//        }
+
 
 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshGaoDiNews();//更新新闻列表
+                refreshGuojiNews();//更新新闻列表
             }
         });
 
@@ -100,7 +96,7 @@ public class GuojiNewsFragment extends Fragment {
     /**
      * 更新新闻列表
      */
-    private void refreshGaoDiNews() {
+    private void refreshGuojiNews() {
 //        i++;
         DataSupport.deleteAll(GuojiNews.class);//清空本地数据库缓存
         sendRequestWithOkHttp();//向服务器发送请求，并插入本地数据库

@@ -88,7 +88,7 @@ public class GuojiItemAdapter extends RecyclerView.Adapter<GuojiItemAdapter.View
 
     /**
      * 由于NewsItemAdapter继承自RecyclerView.Adapter,所以必须重写onBindViewHolder
-     * 用于对RecyclerView子项数据进行赋值，会在每个子项滚到屏幕内的时候执行，通过position参数得到当前项的GaoDiNews实例，
+     * 用于对RecyclerView子项数据进行赋值，会在每个子项滚到屏幕内的时候执行，通过position参数得到当前项的GuojiNews实例，
      * 然后将数据设置到ViewHolder的ImageView和TextView即可
      * @param holder ViewHolder实例
      * @param position 当前屏幕内的位置

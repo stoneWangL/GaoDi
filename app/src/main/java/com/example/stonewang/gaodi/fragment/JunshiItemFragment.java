@@ -3,7 +3,6 @@ package com.example.stonewang.gaodi.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -23,8 +22,6 @@ import com.example.stonewang.gaodi.util.JsonUtil;
 
 import org.litepal.crud.DataSupport;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,7 +109,7 @@ public class JunshiItemFragment extends Fragment {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshGaoDiNews();//更新新闻列表
+                refreshJunshiNews();//更新新闻列表
             }
         });
         stoneNum();
@@ -154,7 +151,7 @@ public class JunshiItemFragment extends Fragment {
     /**
      * 更新新闻列表
      */
-    private void refreshGaoDiNews() {
+    private void refreshJunshiNews() {
 
 //        sendRequestWithOkHttp();//向服务器发送请求，并插入本地数据库
         new Thread(new Runnable() {

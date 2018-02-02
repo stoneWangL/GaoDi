@@ -5,8 +5,6 @@
     <version value="1" />
 
     <list>
-        <mapping class="com.example.stonewang.gaodi.db.NewsList" />
-        <mapping class="com.example.stonewang.gaodi.db.GaoDiNews" />
 
         <mapping class="com.example.stonewang.gaodi.db.JunshiNews" />
         <mapping class="com.example.stonewang.gaodi.db.GuojiNews" />

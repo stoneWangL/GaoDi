@@ -30,11 +30,6 @@ import com.example.stonewang.gaodi.fragment.JunshiItemFragment;
 import com.example.stonewang.gaodi.util.JsonUtil;
 
 import org.litepal.crud.DataSupport;
-
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -184,29 +179,7 @@ public class MainActivity extends AppCompatActivity {
         saveNum(num);//记录number=2,即已經請求了1頁，下次請求2頁
 
 
-        /**军事
-         * 开个线程，向聚合数据API，发起请求，并处理返回的数据
-         */
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    OkHttpClient client = new OkHttpClient();
-                    Request request = new Request.Builder()
-                            //指定访问服务器地址
-                            .url("http://v.juhe.cn/toutiao/index?type=junshi&key=3425b3b2cd4d3227f7455377f6276bab")
-                            .build();
-                    Response response = client.newCall(request).execute();
-                    String responseData = response.body().string();
-                    //将服务器返回得到字符串传入处理函数
-                    JsonUtil jsonUtil = new JsonUtil();
-                    jsonUtil.parseJson(responseData);
 
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }).start();
 
         /**国际
          * 开个线程，向聚合数据API，发起请求，并处理返回的数据
