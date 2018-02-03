@@ -114,7 +114,8 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         Log.d("stone00","onDestroy");
 
-        DataSupport.deleteAll(JunshiNews.class);
+//        DataSupport.deleteAll(JunshiNews.class);
+        DataSupport.where("id > ?","10").find(JunshiNews.class);
         Log.d("stone00","删除了JunshiNews.class");
 
     }

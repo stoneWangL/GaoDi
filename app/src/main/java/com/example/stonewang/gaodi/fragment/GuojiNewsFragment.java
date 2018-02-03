@@ -35,7 +35,6 @@ import static java.lang.Thread.sleep;
  */
 
 public class GuojiNewsFragment extends Fragment {
-//    private int i=0;
 
     private SwipeRefreshLayout swipeRefresh;
     private GuojiItemAdapter adapter;
@@ -44,7 +43,6 @@ public class GuojiNewsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        i++;
     }
     @Nullable
     @Override
@@ -68,12 +66,6 @@ public class GuojiNewsFragment extends Fragment {
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
 
         return v;
-    }
-    /**
-     * 初始化
-     */
-    private void init(){
-
     }
 
     @Override
