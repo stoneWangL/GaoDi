@@ -79,4 +79,13 @@ public class JunshiNewsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //向后翻页
+    public void Comment_click(View view){
+        myViewPager.arrowScroll(2);
+    }
+    //向前翻页
+    public void News_click(View view){
+        myViewPager.arrowScroll(1);
+    }
+
 }

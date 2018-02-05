@@ -1,7 +1,6 @@
 package com.example.stonewang.gaodi.util;
 
 import android.support.v4.view.ViewPager;
-import android.widget.Toast;
 
 /**
  * Created by Lenovo on 2018/2/5.
