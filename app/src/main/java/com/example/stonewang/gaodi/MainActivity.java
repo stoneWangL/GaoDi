@@ -27,7 +27,7 @@ import com.example.stonewang.gaodi.db.LandArmyDescribe;
 import com.example.stonewang.gaodi.db.NavyDescribe;
 import com.example.stonewang.gaodi.fragment.GuojiNewsFragment;
 import com.example.stonewang.gaodi.fragment.LocalFragment;
-import com.example.stonewang.gaodi.fragment.JunshiItemFragment;
+import com.example.stonewang.gaodi.fragment.JunshiNewsFragment;
 import com.example.stonewang.gaodi.util.JsonUtil;
 
 import org.litepal.crud.DataSupport;
@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
      * 底部导航初始化
      */
     private void init(){
-        JunshiItemFragment firstFragment = new JunshiItemFragment();
+        JunshiNewsFragment firstFragment = new JunshiNewsFragment();
         firstFragment.setArguments(getIntent().getExtras());
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.view_fragment, firstFragment).commit();
@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(int position) {//未选中 -> 选中
                 switch (position){
-                    case 0:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment, new JunshiItemFragment()).commit();
+                    case 0:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment, new JunshiNewsFragment()).commit();
                         break;
                     case 1:getSupportFragmentManager().beginTransaction().replace(R.id.view_fragment,new GuojiNewsFragment()).commit();
                         break;

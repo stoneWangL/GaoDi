@@ -47,6 +47,7 @@
         <activity
             android:name=".LocalShowActivity.AirforceShowOneActivity">
         </activity>
+
     </application>
 
 </manifest>

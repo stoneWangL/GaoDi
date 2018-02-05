@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.example.stonewang.gaodi.JunshiNewsActivity;
 import com.example.stonewang.gaodi.R;
 import com.example.stonewang.gaodi.db.JunshiNews;
+import com.example.stonewang.gaodi.fragment.NewsPageFragment;
 
 import java.util.List;
 
@@ -82,6 +83,7 @@ public class JunshiItemAdapter extends RecyclerView.Adapter<JunshiItemAdapter.Vi
                 JunshiNews junshiNews = mJunshiNewsList.get(position);
                 Intent intent = new Intent(v.getContext(), JunshiNewsActivity.class);
                 intent.putExtra("NewsUrl", junshiNews.getUrl());
+                intent.putExtra("NewsTitle",junshiNews.getTitle());
                 v.getContext().startActivity(intent);
             }
         });

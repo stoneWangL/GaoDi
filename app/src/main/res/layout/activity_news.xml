@@ -1,11 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <WebView
-        android:id="@+id/news_web_view"
+    <!--顶部Toolbar-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_news"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.2"
+        android:background="@color/colorInActive"
         />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/myViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="13">
+
+
+        <!--<PagerTitleStrip-->
+        <!--<android.support.v4.view.PagerTitleStrip-->
+            <!--android:id="@+id/pagerTitle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
+
+        <!--</android.support.v4.view.PagerTitleStrip>-->
+    </android.support.v4.view.ViewPager>
+
+    <!--&lt;!&ndash;中部WebView&ndash;&gt;-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="13">-->
+
+    <!--</LinearLayout>-->
+    <!--&lt;!&ndash;下部评论&ndash;&gt;-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:background="@color/colorInActive">-->
+        <!--&lt;!&ndash;点赞&ndash;&gt;-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/am_tv_zan"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:drawableLeft="@drawable/thumb_normal"-->
+                <!--android:drawablePadding="16dp"-->
+                <!--android:text="点赞"-->
+                <!--android:textColor="#b9b6b6"-->
+                <!--android:textSize="20dp"/>-->
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1.1"-->
+            <!--android:gravity="center">-->
+            <!--&lt;!&ndash;评论&ndash;&gt;-->
+            <!--<TextView-->
+                <!--android:id="@+id/am_tv_comment"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:drawableLeft="@drawable/communtiy_icon_comment"-->
+                <!--android:drawablePadding="16dp"-->
+                <!--android:text="评论"-->
+                <!--android:textColor="#b9b6b6"-->
+                <!--android:textSize="20dp"/>-->
+        <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+
 </LinearLayout>
