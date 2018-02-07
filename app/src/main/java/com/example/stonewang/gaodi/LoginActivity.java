@@ -51,6 +51,10 @@ public class LoginActivity extends AppCompatActivity {
         LoginActivity.this.finish();
     }
 
+    /**
+     * 用户登录
+     * @param view
+     */
     public void login_button(View view){
         isGuestLogin = false;
 
@@ -131,5 +135,15 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     };
+
+    /**
+     * 注册
+     * @param view
+     */
+    public void register_button(View view){
+        Intent intent = new Intent();
+        intent.setClass(LoginActivity.this,RegisterActivity.class);
+        startActivity(intent);
+    }
 
 }

@@ -10,5 +10,8 @@
     <dimen name="item_size_small">15sp</dimen>
     <dimen name="show_title_text_size">23sp</dimen>
 
+    <dimen name="size_4">4dp</dimen>
+    
+
 
 </resources>
