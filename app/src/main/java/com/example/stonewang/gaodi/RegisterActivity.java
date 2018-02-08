@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -52,9 +53,9 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void agree_button(View view){
-        String userName = mUsername.getText().toString();
-        String passWord = mPassword.getText().toString();
-        String passWordNext = mPasswordNext.getText().toString();
+        final String userName = mUsername.getText().toString();
+        final String passWord = mPassword.getText().toString();
+        final String passWordNext = mPasswordNext.getText().toString();
         if (userName.isEmpty() || passWord.isEmpty() || passWordNext.isEmpty()){
             AlertDialog dialog = new AlertDialog.Builder(this)
                     .setTitle(R.string.register)//注册
@@ -109,6 +110,9 @@ public class RegisterActivity extends AppCompatActivity {
                         String responseData = response.body().string();
                         //将API返回的json数据传递给处理函数
                         Log.d("stone11","登录返回数据:"+responseData);
+                        if (responseData.equals('1')){
+                            saveUser(userName);
+                        }
                         Message message = new Message();
                         message.what = Integer.parseInt(responseData);
                         agree_next.sendMessage(message); //将Message对象发送出去
@@ -130,6 +134,7 @@ public class RegisterActivity extends AppCompatActivity {
                         public void run(){
                             try{
                                 SystemClock.sleep(1500);
+
                                 Intent intent = new Intent();
                                 intent.setClass(RegisterActivity.this,MainActivity.class);
                                 startActivity(intent);
@@ -169,5 +174,15 @@ public class RegisterActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * 保存用户名
+     * @param username
+     */
+    public void saveUser(String username){
+        SharedPreferences.Editor editor = getSharedPreferences("User",MODE_PRIVATE).edit();
+        editor.putString("userName",username);
+        editor.apply();
     }
 }

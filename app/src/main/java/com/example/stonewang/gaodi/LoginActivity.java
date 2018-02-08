@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -36,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mUserName = (EditText)findViewById(R.id.user_name);
         mPassword = (EditText)findViewById(R.id.password);
+
     }
 
     /**
@@ -58,8 +60,8 @@ public class LoginActivity extends AppCompatActivity {
     public void login_button(View view){
         isGuestLogin = false;
 
-        String user = mUserName.getText().toString();
-        String pass = mPassword.getText().toString();
+        final String user = mUserName.getText().toString();
+        final String pass = mPassword.getText().toString();
 
         if(user.isEmpty() || pass.isEmpty() ){//判断是否输入相关值
             AlertDialog dialog = new AlertDialog.Builder(this)
@@ -89,8 +91,13 @@ public class LoginActivity extends AppCompatActivity {
                         String responseData = response.body().string();
                         //将API返回的json数据传递给处理函数
                         Log.d("stone11","登录返回数据:"+responseData);
+
+                        int data = Integer.parseInt(responseData);
+                        if (data == 1){
+                            saveUser(user);
+                        }
                         Message message = new Message();
-                        message.what = Integer.parseInt(responseData);
+                        message.what = data;
                         login_next.sendMessage(message); //将Message对象发送出去
                     }catch(Exception e){
                         e.printStackTrace();
@@ -145,5 +152,18 @@ public class LoginActivity extends AppCompatActivity {
         intent.setClass(LoginActivity.this,RegisterActivity.class);
         startActivity(intent);
     }
+
+    /**
+     * 保存用户名
+     * @param username
+     */
+    public void saveUser(String username){
+        SharedPreferences.Editor editor = getSharedPreferences("User",MODE_PRIVATE).edit();
+        editor.putString("userName",username);
+        editor.putString("userImage","https://avatars2.githubusercontent.com/u/23133656?s=400&u=5c0bb835208a108eaadd9487287f074f479e513f&v=4");
+        editor.apply();
+    }
+
+
 
 }

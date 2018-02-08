@@ -15,10 +15,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.bumptech.glide.Glide;
 import com.example.stonewang.gaodi.LocalDBCreate.LocalDBCreate;
 import com.example.stonewang.gaodi.db.AirforceDescribe;
 import com.example.stonewang.gaodi.db.GuojiNews;
@@ -31,6 +35,7 @@ import com.example.stonewang.gaodi.fragment.JunshiNewsFragment;
 import com.example.stonewang.gaodi.util.JsonUtil;
 
 import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +48,7 @@ import static com.ashokvarma.bottomnavigation.BottomNavigationBar.BACKGROUND_STY
 public class MainActivity extends AppCompatActivity {
     public int firstTimes=1;
     private DrawerLayout mDrawerLayout;
+    private NavigationView navView;
     //下部导航栏
     private BottomNavigationBar bottom_navigation_bar;
     //数据库landArmy列表
@@ -59,11 +65,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d("stone00","onCreate");
 
+        SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
+        String url = pref.getString("userImage", "");
+        String usernameText = pref.getString("userName", "");
+        Log.d("stone33","xml:"+usernameText+"+url:"+url);
+
+//        username.setText(String.valueOf("haha"));
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
+        navView = (NavigationView) findViewById(R.id.nav_view);
+
+        View handerView = navView.getHeaderView(0);
+//        text_id=(TextView)headerView.findViewById(R.id.user_id);
+//        text_name=(TextView)headerView.findViewById(R.id.user_name);
+        ImageView userImage = (ImageView) handerView.findViewById(R.id.nav_user_image);
+        TextView username = (TextView) handerView.findViewById(R.id.nav_user_name);
+        Glide.with(this).load(url).into(userImage);
+        username.setText("欢迎："+usernameText);
+
+
+
+
 
         navView.setCheckedItem(R.id.nav_email);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -349,5 +374,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
 
 }

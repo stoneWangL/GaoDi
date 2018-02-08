@@ -4,38 +4,18 @@
     android:layout_height="200dp"
     android:padding="10dp"
     android:background="@color/colorBarBg">
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/icon_image"
+    <ImageView
+        android:id="@+id/nav_user_image"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/stongwang"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        />
+        android:layout_alignParentTop="true" />
+
     <TextView
-        android:id="@+id/myName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/suggest"
-        android:text="邮箱：stoneWang_L@163.com"
-        android:textSize="14sp"
-        android:textColor="#fff"
-        />
-    <TextView
-        android:id="@+id/mail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/myName"
-        android:text="作者：stoneWang"
-        android:textColor="#fff"
-        android:textSize="14sp"
-        />
-    <TextView
-        android:id="@+id/suggest"
+        android:id="@+id/nav_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/suggest"
         android:textColor="#fff"
         android:textSize="14sp"
         />
