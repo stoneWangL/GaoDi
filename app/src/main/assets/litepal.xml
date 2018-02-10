@@ -9,6 +9,8 @@
         <mapping class="com.example.stonewang.gaodi.db.JunshiNews" />
         <mapping class="com.example.stonewang.gaodi.db.GuojiNews" />
 
+        <mapping class="com.example.stonewang.gaodi.db.Comment" />
+
         <mapping class="com.example.stonewang.gaodi.db.LandArmyDescribe" />
         <mapping class="com.example.stonewang.gaodi.db.NavyDescribe" />
         <mapping class="com.example.stonewang.gaodi.db.AirforceDescribe" />

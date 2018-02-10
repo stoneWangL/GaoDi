@@ -8,6 +8,7 @@ import org.litepal.crud.DataSupport;
 
 public class JunshiNews extends DataSupport {
     private int id;
+    private int newsid;
     private String title;
     private String date;
     private String category;
@@ -21,6 +22,14 @@ public class JunshiNews extends DataSupport {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getNewsid() {
+        return newsid;
+    }
+
+    public void setNewsid(int newsid) {
+        this.newsid = newsid;
     }
 
     public String getTitle() {

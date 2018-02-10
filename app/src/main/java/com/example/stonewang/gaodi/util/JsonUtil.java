@@ -1,13 +1,18 @@
 package com.example.stonewang.gaodi.util;
 
 import android.text.TextUtils;
+import android.widget.TextView;
 
+import com.example.stonewang.gaodi.db.Comment;
 import com.example.stonewang.gaodi.db.GuojiNews;
 import com.example.stonewang.gaodi.db.JunshiNews;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -49,6 +54,45 @@ public class JsonUtil{
         return retBuf.toString();
     }
 
+    /**
+     * 评论 京东云返回评论数据
+     * @param jsonData
+     */
+    public static List<Comment> parseJsonComment(String jsonData){
+        List<Comment> commentList =new ArrayList<>();
+        if (!TextUtils.isEmpty(jsonData)){
+            try{
+                String jsonString = decode(jsonData);//转换编码
+
+                JSONArray AllComment = new JSONArray(jsonString);
+                for (int i=0; i<AllComment.length(); i++){
+                    JSONObject CommentObject = AllComment.getJSONObject(i);
+
+                    int commentId = CommentObject.getInt("id");
+                    String news = CommentObject.getString("news");
+                    int newsid = CommentObject.getInt("newsid");
+                    String author = CommentObject.getString("author");
+                    String content = CommentObject.getString("content");
+                    String time = CommentObject.getString("time");
+
+                    Comment comment = new Comment();
+
+                    comment.setCommentId(commentId);
+                    comment.setNews(news);
+                    comment.setNewsid(newsid);
+                    comment.setAuthor(author);
+                    comment.setContent(content);
+                    comment.setTime(time);
+
+                    commentList.add(comment);//没用存入数据库，仅仅是保存在List里
+                }
+                return commentList;
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 
 
     /**
@@ -67,7 +111,7 @@ public class JsonUtil{
 
                     JSONObject NewsObject = allNews.getJSONObject(i);
 
-                    int id = NewsObject.getInt("id");
+                    int newsid = NewsObject.getInt("id");
                     String title = NewsObject.getString("title");
                     String date = NewsObject.getString("date");
                     String category = NewsObject.getString("category");
@@ -77,7 +121,7 @@ public class JsonUtil{
 
                     GuojiNews News = new GuojiNews();
 
-                    News.setId(id);
+                    News.setNewsid(newsid);
                     News.setTitle(title);
                     News.setDate(date);
                     News.setCategory(category);
@@ -114,7 +158,8 @@ public class JsonUtil{
 
                     JSONObject NewsObject = allNews.getJSONObject(i);
 
-                    int id = NewsObject.getInt("id");
+//                    int id = NewsObject.getInt("id");
+                    int newsid = NewsObject.getInt("id");
                     String title = NewsObject.getString("title");
                     String date = NewsObject.getString("date");
                     String category = NewsObject.getString("category");
@@ -124,7 +169,8 @@ public class JsonUtil{
 
                     JunshiNews News = new JunshiNews();
 
-                    News.setId(id);
+//                    News.setId(id);
+                    News.setNewsid(newsid);
                     News.setTitle(title);
                     News.setDate(date);
                     News.setCategory(category);

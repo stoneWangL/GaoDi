@@ -84,6 +84,8 @@ public class JunshiItemAdapter extends RecyclerView.Adapter<JunshiItemAdapter.Vi
                 Intent intent = new Intent(v.getContext(), JunshiNewsActivity.class);
                 intent.putExtra("NewsUrl", junshiNews.getUrl());
                 intent.putExtra("NewsTitle",junshiNews.getTitle());
+                intent.putExtra("NewsId",junshiNews.getNewsid());
+                intent.putExtra("News","junshi");
                 v.getContext().startActivity(intent);
             }
         });

@@ -252,6 +252,7 @@ public class JunshiNewsFragment extends Fragment {
         Test = DataSupport.order("id desc").find(JunshiNews.class);
         for(JunshiNews Tests:Test){
             Log.d("stone002"," JunshiNews id :"+Tests.getId());
+            Log.d("stone002","JunshiNews newsid:"+Tests.getNewsid());
             Log.d("stone002"," JunshiNews title :"+Tests.getTitle());
         }
     }

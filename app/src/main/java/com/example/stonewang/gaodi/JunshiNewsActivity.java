@@ -43,6 +43,8 @@ public class JunshiNewsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String title = intent.getStringExtra("NewsTitle");
 
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_news);
         toolbar.setTitle(title);
         setSupportActionBar(toolbar);

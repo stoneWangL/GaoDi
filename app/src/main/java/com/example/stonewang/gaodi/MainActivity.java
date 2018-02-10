@@ -68,9 +68,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
         String url = pref.getString("userImage", "");
         String usernameText = pref.getString("userName", "");
-        Log.d("stone33","xml:"+usernameText+"+url:"+url);
-
-//        username.setText(String.valueOf("haha"));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -79,8 +76,6 @@ public class MainActivity extends AppCompatActivity {
         navView = (NavigationView) findViewById(R.id.nav_view);
 
         View handerView = navView.getHeaderView(0);
-//        text_id=(TextView)headerView.findViewById(R.id.user_id);
-//        text_name=(TextView)headerView.findViewById(R.id.user_name);
         ImageView userImage = (ImageView) handerView.findViewById(R.id.nav_user_image);
         TextView username = (TextView) handerView.findViewById(R.id.nav_user_name);
         Glide.with(this).load(url).into(userImage);
@@ -178,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
         /**
          * 京东云API_Junshi的返回结果
+         * http://114.67.243.127/index.php/API/Api/junshiTest/number/1
          */
         if (DataSupport.findAll(JunshiNews.class).size()==0){
             new Thread(new Runnable() {
