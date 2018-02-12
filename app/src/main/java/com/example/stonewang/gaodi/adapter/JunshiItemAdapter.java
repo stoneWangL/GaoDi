@@ -2,7 +2,9 @@ package com.example.stonewang.gaodi.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Message;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +14,21 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.stonewang.gaodi.JunshiNewsActivity;
 import com.example.stonewang.gaodi.R;
+import com.example.stonewang.gaodi.db.Comment;
 import com.example.stonewang.gaodi.db.JunshiNews;
 import com.example.stonewang.gaodi.fragment.NewsPageFragment;
+import com.example.stonewang.gaodi.util.JsonUtil;
 
+import org.litepal.crud.DataSupport;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import static java.lang.Thread.sleep;
 
 /**
  * Created by stoneWang on 2017/3/12.
@@ -26,6 +39,7 @@ import java.util.List;
 public class JunshiItemAdapter extends RecyclerView.Adapter<JunshiItemAdapter.ViewHolder>{
     private Context mContext;
     private List<JunshiNews> mJunshiNewsList;//全局变量mJunshiNewsesList
+    private List<Comment> commentList = new ArrayList<>(), temp = new ArrayList<>();//评论
 
     /**
      * View参数：通常就是RecyclerView子项的最外层布局，此处即choose_area.xml
@@ -87,10 +101,46 @@ public class JunshiItemAdapter extends RecyclerView.Adapter<JunshiItemAdapter.Vi
                 intent.putExtra("NewsId",junshiNews.getNewsid());
                 intent.putExtra("News","junshi");
                 v.getContext().startActivity(intent);
+//                RequestComment(junshiNews.getNewsid(),"junshi");
             }
         });
         return holder;//返回ViewHolder实例
     }
+    /**
+     * 请求评论数据
+     */
+//    private void RequestComment(int newsid,String news){
+//
+//        //http://114.67.243.127/index.php/API/Api/findComment/news/junshi/newsid/5420
+//        final String url = "http://114.67.243.127/index.php/API/Api/findComment/news/"+news+"/newsid/"+newsid;
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try{
+//                    OkHttpClient client = new OkHttpClient();
+//                    Request request = new Request.Builder()
+//                            //指定访问服务器地址
+//                            .url(url)
+//                            .build();
+//                    Response response = client.newCall(request).execute();
+//                    String responseData = response.body().string();
+//                    //将服务器返回得到字符串传入处理函数
+//
+//                    if (responseData.equals("0")){
+//                        Log.d("stone006","返回数据为空");
+//                    }else{
+//                        DataSupport.deleteAll(Comment.class);//先清空Comment本地数据库
+//                        Log.d("stone006",responseData);
+//                        JsonUtil jsonUtil = new JsonUtil();
+//                        jsonUtil.parseJsonComment(responseData);//将返回的数据按UTF-8编码后，解析存入本地数据库Comment
+//                    }
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
+//
+//    }
 
     /**
      * 由于NewsItemAdapter继承自RecyclerView.Adapter,所以必须重写onBindViewHolder

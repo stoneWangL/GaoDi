@@ -25,6 +25,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.bumptech.glide.Glide;
 import com.example.stonewang.gaodi.LocalDBCreate.LocalDBCreate;
 import com.example.stonewang.gaodi.db.AirforceDescribe;
+import com.example.stonewang.gaodi.db.Comment;
 import com.example.stonewang.gaodi.db.GuojiNews;
 import com.example.stonewang.gaodi.db.JunshiNews;
 import com.example.stonewang.gaodi.db.LandArmyDescribe;
@@ -165,8 +166,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * 初始化本地数据库(本地资料页面数据)
-     * 如果数据库存在则跳过，否者建立数据库
+     * 初始化数据库（新闻、评论、本地数据库）
+     * 如果本地数据库存在则跳过，否者建立数据库
+     *
      */
     private void initLocalDB() {
 
@@ -241,6 +243,37 @@ public class MainActivity extends AppCompatActivity {
         }
         saveGuojiNum(guojinum);//记录number=2,即已經請求了1頁，下次請求2頁
 
+        /**
+         * 评论
+         * 京东云API->Comment的返回结果
+         */
+        if(DataSupport.findAll(Comment.class).size()==0){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        OkHttpClient client = new OkHttpClient();
+                        Request request = new Request.Builder()
+                                .url("http://114.67.243.127/index.php/API/Api/findAllComment")
+                                .build();
+                        Response response = client.newCall(request).execute();
+                        String responseData = response.body().string();
+                        //将服务器返回得到字符串传入处理函数
+
+                        if (responseData.equals("0")){
+                            Log.d("stone006","返回数据为空");
+                        }else{
+                            DataSupport.deleteAll(Comment.class);//先清空Comment本地数据库
+                            Log.d("stone006",responseData);
+                            JsonUtil jsonUtil = new JsonUtil();
+                            jsonUtil.parseJsonComment(responseData);//将返回的数据按UTF-8编码后，解析存入本地数据库Comment
+                        }
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
 
 
 

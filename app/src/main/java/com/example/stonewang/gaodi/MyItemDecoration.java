@@ -22,4 +22,7 @@ public class MyItemDecoration extends RecyclerView.ItemDecoration {
         //设定底部边距为1px
         outRect.set(0,0,0,1);
     }
+
+
+
 }

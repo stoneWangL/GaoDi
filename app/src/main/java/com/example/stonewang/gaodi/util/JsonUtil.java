@@ -58,8 +58,8 @@ public class JsonUtil{
      * 评论 京东云返回评论数据
      * @param jsonData
      */
-    public static List<Comment> parseJsonComment(String jsonData){
-        List<Comment> commentList =new ArrayList<>();
+    public static void parseJsonComment(String jsonData){
+//        List<Comment> commentList =new ArrayList<>();
         if (!TextUtils.isEmpty(jsonData)){
             try{
                 String jsonString = decode(jsonData);//转换编码
@@ -84,14 +84,14 @@ public class JsonUtil{
                     comment.setContent(content);
                     comment.setTime(time);
 
-                    commentList.add(comment);//没用存入数据库，仅仅是保存在List里
+                    comment.save();
                 }
-                return commentList;
+
             }catch (Exception e){
                 e.printStackTrace();
             }
         }
-        return null;
+
     }
 
 
