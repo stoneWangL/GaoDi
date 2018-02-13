@@ -27,7 +27,7 @@ import okhttp3.Response;
 public class LoginActivity extends AppCompatActivity {
     private EditText mUserName = null;
     private EditText mPassword = null;
-    public static boolean isGuestLogin = false;//是否游客登录，这个变量用于其他界面数据的处理
+//    public static boolean isGuestLogin = false;//是否游客登录，这个变量用于其他界面数据的处理
     ProgressDialog mDialog;//对话框
 
     @Override
@@ -45,7 +45,8 @@ public class LoginActivity extends AppCompatActivity {
      * @param view
      */
     public void guest_button(View view){
-        isGuestLogin = true;
+//        isGuestLogin = true;
+        saveGuestLogin();//保存本地用户，到文件
         Intent intent = new Intent();
         intent.setClass(LoginActivity.this,MainActivity.class);
         startActivity(intent);
@@ -58,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param view
      */
     public void login_button(View view){
-        isGuestLogin = false;
+//        isGuestLogin = false;
 
         final String user = mUserName.getText().toString();
         final String pass = mPassword.getText().toString();
@@ -159,8 +160,20 @@ public class LoginActivity extends AppCompatActivity {
      */
     public void saveUser(String username){
         SharedPreferences.Editor editor = getSharedPreferences("User",MODE_PRIVATE).edit();
+        editor.putBoolean("notGuest",true);
         editor.putString("userName",username);
         editor.putString("userImage","https://avatars2.githubusercontent.com/u/23133656?s=400&u=5c0bb835208a108eaadd9487287f074f479e513f&v=4");
+        editor.apply();
+    }
+
+    /**
+     * 保存本地用户
+     */
+    public void saveGuestLogin(){
+        SharedPreferences.Editor editor = getSharedPreferences("User",MODE_PRIVATE).edit();
+        editor.putBoolean("notGuest",false);
+        editor.putString("userName","游客");
+        editor.putString("userImage","R.drawable.land_tank99");
         editor.apply();
     }
 

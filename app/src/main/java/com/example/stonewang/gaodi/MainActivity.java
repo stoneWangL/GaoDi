@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
         String url = pref.getString("userImage", "");
         String usernameText = pref.getString("userName", "");
+        Boolean notGuest = pref.getBoolean("notGuest",false);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -79,7 +80,12 @@ public class MainActivity extends AppCompatActivity {
         View handerView = navView.getHeaderView(0);
         ImageView userImage = (ImageView) handerView.findViewById(R.id.nav_user_image);
         TextView username = (TextView) handerView.findViewById(R.id.nav_user_name);
-        Glide.with(this).load(url).into(userImage);
+        if (notGuest){
+            Glide.with(this).load(url).into(userImage);
+        }else{
+            Glide.with(this).load(R.drawable.guest).into(userImage);
+        }
+
         username.setText("欢迎："+usernameText);
 
 
