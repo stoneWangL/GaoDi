@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,8 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import com.example.stonewang.gaodi.LoginActivity;
 import com.example.stonewang.gaodi.R;
 import com.example.stonewang.gaodi.adapter.CommentAdapter;
@@ -26,7 +25,6 @@ import com.example.stonewang.gaodi.db.Comment;
 import org.litepal.crud.DataSupport;
 import java.util.ArrayList;
 import java.util.List;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -64,7 +62,7 @@ public class CommentPageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.tab2, container, false);
-
+        Log.d("stone0066","view:"+v.toString());
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recycler_comment);
         final EditText commentEditText = (EditText) v.findViewById(R.id.comment_editText);
         Button commentButton = (Button) v.findViewById(R.id.upComment_button);
@@ -100,33 +98,15 @@ public class CommentPageFragment extends Fragment {
                                 String responseData = response.body().string();
                                 //将API返回的json数据传递给处理函数
                                 Log.d("stone11","登录返回数据:"+responseData);
+                                Message message = new Message();
                                 if (responseData.equals("1")){
-//                                    Log.d("stone007","提交成功");
-//                                    AlertDialog dialog = new AlertDialog.Builder(getContext())
-//                                            .setTitle("评论结果")
-//                                            .setMessage("恭喜您，评论成功！")
-//                                            .setPositiveButton("OK",
-//                                                    new DialogInterface.OnClickListener() {
-//                                                        @Override
-//                                                        public void onClick(DialogInterface dialog, int which) {
-//                                                            commentEditText.setText("");
-//                                                            Comment oneComment = new Comment();
-//                                                            oneComment.setNews(news);
-//                                                            oneComment.setNewsid(newsid);
-//                                                            oneComment.setAuthor(username);
-//                                                            oneComment.setContent(comment_content);
-//                                                            commentList.add(oneComment);
-//
-//                                                            adapter.notifyDataSetChanged();
-//
-//                                                            dialog.dismiss();
-//                                                        }
-//                                                    })
-//                                            .create();
-//                                    dialog.show();
+                                    Log.d("stone007","提交成功");
+                                    message.what = 1;
                                 }else{
                                     //提交失败
+                                    message.what = 0;
                                 }
+                                commentNext.sendMessage(message);
                             }catch(Exception e){
                                 e.printStackTrace();
                             }
@@ -164,19 +144,60 @@ public class CommentPageFragment extends Fragment {
         return v;
     }
 
+    /**
+     * 提交评论后的UI处理
+     */
+    private Handler commentNext= new Handler(){
 
-    @Override
-    public void onResume() {
-        super.onResume();
-//        adapter.notifyDataSetChanged();
-        Log.d("stone0066","onResume");
-    }
+        public void handleMessage(Message msg){
+            switch (msg.what){
+                case 1://评论提交成功
+                    AlertDialog dialog = new AlertDialog.Builder(getContext())
+                            .setTitle("评论结果")
+                            .setMessage("恭喜您，评论成功！")
+                            .setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Log.d("stone0066","handler:"+getView().toString());
+                                            EditText commentEditText = (EditText) getView().findViewById(R.id.comment_editText);
+                                            SharedPreferences pref = getActivity().getSharedPreferences("User",MODE_PRIVATE);
+                                            final String comment_content = commentEditText.getText().toString();
+                                            final String username = pref.getString("userName","");
+                                            commentEditText.setText("");
+                                            Comment oneComment = new Comment();
+                                            oneComment.setNews(news);
+                                            oneComment.setNewsid(newsid);
+                                            oneComment.setAuthor(username);
+                                            oneComment.setContent(comment_content);
+                                            commentList.add(oneComment);
 
+                                            adapter.notifyDataSetChanged();
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        temp.clear();commentList.clear();
-        Log.d("stone0066","onDetach");
-    }
+                                            dialog.dismiss();
+                                        }
+                                    })
+                            .create();
+                    dialog.show();
+                    break;
+                case 0://评论提交失败
+                    AlertDialog dialog2 = new AlertDialog.Builder(getContext())
+                            .setTitle("评论结果")
+                            .setMessage("评论失败！")
+                            .setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    })
+                            .create();
+                    dialog2.show();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
 }
