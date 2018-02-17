@@ -1,5 +1,6 @@
 package com.example.stonewang.gaodi.fragment;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,15 +10,21 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupWindow;
+import android.widget.Toast;
+
 import com.example.stonewang.gaodi.LoginActivity;
 import com.example.stonewang.gaodi.R;
 import com.example.stonewang.gaodi.adapter.CommentAdapter;
@@ -39,6 +46,8 @@ public class CommentPageFragment extends Fragment {
     private List<Comment> commentList = new ArrayList<>(),temp = new ArrayList<>();
     private CommentAdapter adapter;
 
+    private PopupWindow mPopWindow;
+
     private int newsid;
     private String news;
 
@@ -55,7 +64,6 @@ public class CommentPageFragment extends Fragment {
 
         commentList = DataSupport.where("newsid = " + newsid+ ";" +"news = "+news).find(Comment.class);
 
-
     }
 
     @Nullable
@@ -63,24 +71,117 @@ public class CommentPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.tab2, container, false);
         Log.d("stone0066","view:"+v.toString());
-        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recycler_comment);
-        final EditText commentEditText = (EditText) v.findViewById(R.id.comment_editText);
-        Button commentButton = (Button) v.findViewById(R.id.upComment_button);
 
+        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recycler_comment);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         adapter = new CommentAdapter(commentList);
         recyclerView.setAdapter(adapter);
 
-        commentButton.setOnClickListener(new View.OnClickListener() {
+
+        //悬浮球，写评论按钮
+        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.writeComment);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences pref = getActivity().getSharedPreferences("User",MODE_PRIVATE);
-                Boolean notGuest = pref.getBoolean("notGuest",false);
+                showPopupWindow();
+            }
+        });
+
+        return v;
+    }
+
+    /**
+     * 提交评论后的UI处理
+     */
+    private Handler commentNext= new Handler(){
+
+        public void handleMessage(Message msg){
+            switch (msg.what){
+                case 1://评论提交成功
+                    AlertDialog dialog = new AlertDialog.Builder(getContext())
+                            .setTitle("评论结果")
+                            .setMessage("恭喜您，评论成功！")
+                            .setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Log.d("stone0066","handler:"+getView().toString());
+
+                                            //设置contentView
+                                            View contentView = LayoutInflater.from(getContext()).inflate(R.layout.popup, null);
+
+                                            EditText commentEditText = (EditText) contentView.findViewById(R.id.pop_editText);
+                                            SharedPreferences pref = getActivity().getSharedPreferences("User",MODE_PRIVATE);
+
+                                            final String comment_content = commentEditText.getText().toString();
+                                            final String username = pref.getString("userName","");
+
+                                            Comment oneComment = new Comment();
+                                            oneComment.setNews(news);
+                                            oneComment.setNewsid(newsid);
+                                            oneComment.setAuthor(username);
+                                            oneComment.setContent(comment_content);
+                                            commentList.add(oneComment);
+
+                                            adapter.notifyDataSetChanged();
+
+                                            dialog.dismiss();
+                                        }
+                                    })
+                            .create();
+                    dialog.show();
+                    break;
+                case 0://评论提交失败
+                    AlertDialog dialog2 = new AlertDialog.Builder(getContext())
+                            .setTitle("评论结果")
+                            .setMessage("评论失败！")
+                            .setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    })
+                            .create();
+                    dialog2.show();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+    /**
+     * 点击悬浮按钮，显示popWindow的评论软键盘
+     * 判断是否具有评论权限，并给与提示
+     * 处理
+     */
+    private void showPopupWindow() {
+        //设置contentView
+        View contentView = LayoutInflater.from(getContext()).inflate(R.layout.popup, null);
+        mPopWindow = new PopupWindow(contentView,
+                ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT, true);
+        mPopWindow.setContentView(contentView);
+        //防止PopupWindow被软件盘挡住（可能只要下面一句，可能需要这两句）
+//        mPopWindow.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
+        mPopWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        //设置各个控件的点击响应
+        final EditText editText = (EditText) contentView.findViewById(R.id.pop_editText);
+        Button btn = (Button) contentView.findViewById(R.id.pop_btn);
+        //检查是否游客登录的凭证
+        final SharedPreferences pref = getActivity().getSharedPreferences("User",MODE_PRIVATE);
+        final Boolean notGuest = pref.getBoolean("notGuest",false);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String inputString = editText.getText().toString();
+                Toast.makeText(getContext(), inputString, Toast.LENGTH_SHORT).show();
                 if (notGuest){
                     //用户登录，可以评论
-                    final String comment_content = commentEditText.getText().toString();
-                    final String username = pref.getString("userName","");
+                    final String comment_content = editText.getText().toString();
+                    String username = pref.getString("userName","");
 
                     final String url = "http://114.67.243.127/index.php/API/Api/addComment/news/"+news+"/newsid/"+
                             newsid+"/author/"+username+"/content/"+comment_content;
@@ -140,64 +241,12 @@ public class CommentPageFragment extends Fragment {
             }
         });
 
-
-        return v;
+        //是否具有获取焦点的能力
+        mPopWindow.setFocusable(true);
+        //显示PopupWindow
+        View rootview = LayoutInflater.from(getContext()).inflate(R.layout.activity_main, null);
+        mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
     }
 
-    /**
-     * 提交评论后的UI处理
-     */
-    private Handler commentNext= new Handler(){
-
-        public void handleMessage(Message msg){
-            switch (msg.what){
-                case 1://评论提交成功
-                    AlertDialog dialog = new AlertDialog.Builder(getContext())
-                            .setTitle("评论结果")
-                            .setMessage("恭喜您，评论成功！")
-                            .setPositiveButton("OK",
-                                    new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            Log.d("stone0066","handler:"+getView().toString());
-                                            EditText commentEditText = (EditText) getView().findViewById(R.id.comment_editText);
-                                            SharedPreferences pref = getActivity().getSharedPreferences("User",MODE_PRIVATE);
-                                            final String comment_content = commentEditText.getText().toString();
-                                            final String username = pref.getString("userName","");
-                                            commentEditText.setText("");
-                                            Comment oneComment = new Comment();
-                                            oneComment.setNews(news);
-                                            oneComment.setNewsid(newsid);
-                                            oneComment.setAuthor(username);
-                                            oneComment.setContent(comment_content);
-                                            commentList.add(oneComment);
-
-                                            adapter.notifyDataSetChanged();
-
-                                            dialog.dismiss();
-                                        }
-                                    })
-                            .create();
-                    dialog.show();
-                    break;
-                case 0://评论提交失败
-                    AlertDialog dialog2 = new AlertDialog.Builder(getContext())
-                            .setTitle("评论结果")
-                            .setMessage("评论失败！")
-                            .setPositiveButton("OK",
-                                    new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                        }
-                                    })
-                            .create();
-                    dialog2.show();
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
 
 }

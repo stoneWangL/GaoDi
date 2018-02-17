@@ -10,16 +10,13 @@
         android:layout_height="wrap_content">
     </android.support.v7.widget.RecyclerView>
 
-    <EditText
-        android:id="@+id/comment_editText"
-        android:paddingTop="20dp"
-        android:layout_width="match_parent"
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/writeComment"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="在这里评论"/>
-    <Button
-        android:id="@+id/upComment_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/agree" />
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/write_comment"/>
 </LinearLayout>
 
