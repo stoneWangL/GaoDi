@@ -2,6 +2,7 @@ package com.example.stonewang.gaodi.fragment;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
@@ -29,14 +31,20 @@ import com.example.stonewang.gaodi.LoginActivity;
 import com.example.stonewang.gaodi.R;
 import com.example.stonewang.gaodi.adapter.CommentAdapter;
 import com.example.stonewang.gaodi.db.Comment;
+import com.example.stonewang.gaodi.db.JunshiNews;
+
 import org.litepal.crud.DataSupport;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 import static android.content.Context.MODE_PRIVATE;
+import static java.lang.Thread.sleep;
 
 /**
  * Created by Lenovo on 2018/2/5.
@@ -47,6 +55,7 @@ public class CommentPageFragment extends Fragment {
     private CommentAdapter adapter;
 
     private PopupWindow mPopWindow;
+
 
     private int newsid;
     private String news;
@@ -99,38 +108,30 @@ public class CommentPageFragment extends Fragment {
         public void handleMessage(Message msg){
             switch (msg.what){
                 case 1://评论提交成功
-                    AlertDialog dialog = new AlertDialog.Builder(getContext())
-                            .setTitle("评论结果")
-                            .setMessage("恭喜您，评论成功！")
-                            .setPositiveButton("OK",
-                                    new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            Log.d("stone0066","handler:"+getView().toString());
+                    final ProgressDialog progressDialog = new ProgressDialog(getContext());
+                    progressDialog.setTitle("提交中评论");
+                    progressDialog.setMessage("提交中...");
+                    progressDialog.setCancelable(true);
+                    progressDialog.show();
+                    commentList.clear();
+                    new Thread(){
+                        @Override
+                        public void run() {
+                            try{
+                                sleep(800);
+                            }catch (InterruptedException e){
+                                e.printStackTrace();
+                            }finally {
+                                progressDialog.dismiss();
+                            }
+                        }
+                    }.start();
+                    temp = DataSupport.where("newsid = " + newsid+ ";" +"news = "+news).find(Comment.class);
+                    for (Comment all:temp){
+                        commentList.add(all);
+                    }
+                    adapter.notifyDataSetChanged();
 
-                                            //设置contentView
-                                            View contentView = LayoutInflater.from(getContext()).inflate(R.layout.popup, null);
-
-                                            EditText commentEditText = (EditText) contentView.findViewById(R.id.pop_editText);
-                                            SharedPreferences pref = getActivity().getSharedPreferences("User",MODE_PRIVATE);
-
-                                            final String comment_content = commentEditText.getText().toString();
-                                            final String username = pref.getString("userName","");
-
-                                            Comment oneComment = new Comment();
-                                            oneComment.setNews(news);
-                                            oneComment.setNewsid(newsid);
-                                            oneComment.setAuthor(username);
-                                            oneComment.setContent(comment_content);
-                                            commentList.add(oneComment);
-
-                                            adapter.notifyDataSetChanged();
-
-                                            dialog.dismiss();
-                                        }
-                                    })
-                            .create();
-                    dialog.show();
                     break;
                 case 0://评论提交失败
                     AlertDialog dialog2 = new AlertDialog.Builder(getContext())
@@ -166,6 +167,10 @@ public class CommentPageFragment extends Fragment {
         //防止PopupWindow被软件盘挡住（可能只要下面一句，可能需要这两句）
 //        mPopWindow.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
         mPopWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        //弹出软键盘
+        final InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        //这里给它设置了弹出的时间，
+        imm.toggleSoftInput(1000, InputMethodManager.HIDE_NOT_ALWAYS);
         //设置各个控件的点击响应
         final EditText editText = (EditText) contentView.findViewById(R.id.pop_editText);
         Button btn = (Button) contentView.findViewById(R.id.pop_btn);
@@ -176,8 +181,6 @@ public class CommentPageFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String inputString = editText.getText().toString();
-                Toast.makeText(getContext(), inputString, Toast.LENGTH_SHORT).show();
                 if (notGuest){
                     //用户登录，可以评论
                     final String comment_content = editText.getText().toString();
@@ -202,7 +205,30 @@ public class CommentPageFragment extends Fragment {
                                 Message message = new Message();
                                 if (responseData.equals("1")){
                                     Log.d("stone007","提交成功");
+
+                                    final String comment_content = editText.getText().toString();
+                                    final String username = pref.getString("userName","");
+                                    //获取本地数据库最后一个评论id
+                                    Comment now = DataSupport.findLast(Comment.class);
+                                    int ComId = now.getCommentId()+1;
+
+                                    Comment oneComment = new Comment();
+                                    oneComment.setCommentId(ComId);
+                                    oneComment.setNews(news);
+                                    oneComment.setNewsid(newsid);
+                                    oneComment.setAuthor(username);
+                                    oneComment.setContent(comment_content);
+                                    oneComment.setTime(getNowTime());
+                                    oneComment.save();
+
+
+//                                    try{
+//                                        sleep(2000);
+//                                    }catch (InterruptedException e){
+//                                        e.printStackTrace();
+//                                    }
                                     message.what = 1;
+
                                 }else{
                                     //提交失败
                                     message.what = 0;
@@ -213,6 +239,10 @@ public class CommentPageFragment extends Fragment {
                             }
                         }
                     }).start();
+
+                    //参数：1，自己的EditText。2，时间。
+                    imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                    mPopWindow.dismiss();
                 }else {
                     //游客登录，没有权限评论
                     AlertDialog dialog = new AlertDialog.Builder(getContext())
@@ -247,6 +277,10 @@ public class CommentPageFragment extends Fragment {
         View rootview = LayoutInflater.from(getContext()).inflate(R.layout.activity_main, null);
         mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
     }
-
-
+    //获取Android系统当前时间
+    public static String getNowTime(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        return simpleDateFormat.format(date);
+    }
 }
