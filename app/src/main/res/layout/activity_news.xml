@@ -3,66 +3,42 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <!--顶部Toolbar-->
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_news"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.2"
-        android:background="@color/colorInActive"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBarBg"
         />
+    <!--上步导航-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorInActive">
+        <ImageView
+            android:id="@+id/comment_left_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/news_next"
+            android:layout_alignParentLeft="true"
+            android:onClick="News_left"
+            />
+        <ImageView
+            android:id="@+id/comment_right_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/comment_next"
+            android:onClick="Comment_right"/>
+    </RelativeLayout>
+
     <!--中部WebView/comment-->
     <android.support.v4.view.ViewPager
         android:id="@+id/myViewPager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="13">
+        android:layout_height="wrap_content">
     </android.support.v4.view.ViewPager>
-
-    <!--下部评论-->
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:background="@color/colorInActive">-->
-        <!--&lt;!&ndash;点赞&ndash;&gt;-->
-        <!--<LinearLayout-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="1"-->
-            <!--android:gravity="center">-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/am_tv_zan"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:drawableLeft="@drawable/thumb_normal"-->
-                <!--android:drawablePadding="16dp"-->
-                <!--android:text="新闻"-->
-                <!--android:textColor="@color/colorBlack"-->
-                <!--android:textSize="20dp"-->
-                <!--android:onClick="News_click"/>-->
-        <!--</LinearLayout>-->
-
-        <!--<LinearLayout-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="1.1"-->
-            <!--android:gravity="center">-->
-            <!--&lt;!&ndash;评论&ndash;&gt;-->
-            <!--<TextView-->
-                <!--android:id="@+id/am_tv_comment"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:drawableLeft="@drawable/communtiy_icon_comment"-->
-                <!--android:drawablePadding="16dp"-->
-                <!--android:text="评论"-->
-                <!--android:textColor="@color/colorBlack"-->
-                <!--android:textSize="20dp"-->
-                <!--android:onClick="Comment_click"/>-->
-        <!--</LinearLayout>-->
-    <!--</LinearLayout>-->
 
 </LinearLayout>

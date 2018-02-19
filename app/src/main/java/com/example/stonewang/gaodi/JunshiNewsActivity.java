@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.example.stonewang.gaodi.adapter.NewsFragmentAdapter;
 import com.example.stonewang.gaodi.fragment.CommentPageFragment;
@@ -54,7 +56,6 @@ public class JunshiNewsActivity extends AppCompatActivity {
         }
 
 
-
         myViewPager = (ViewPager) findViewById(R.id.myViewPager);
 
         mFragmentList = new ArrayList<>();
@@ -82,11 +83,13 @@ public class JunshiNewsActivity extends AppCompatActivity {
     }
 
     //向后翻页
-    public void Comment_click(View view){
+    public void Comment_right(View view){
+
         myViewPager.arrowScroll(2);
+
     }
     //向前翻页
-    public void News_click(View view){
+    public void News_left(View view){
         myViewPager.arrowScroll(1);
     }
 
