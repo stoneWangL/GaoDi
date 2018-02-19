@@ -20,21 +20,55 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/username"
-            android:maxLength="10"/>
+            android:maxLength="10"
+            android:textSize="@dimen/word_size_19"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sex"
+                android:textSize="@dimen/word_size_19"/>
+            <RadioGroup
+                android:id="@+id/sex_choose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <RadioButton
+                    android:id="@+id/man"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/man"
+                    android:textSize="@dimen/word_size_19"/>
+                <RadioButton
+                    android:id="@+id/female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/female"
+                    android:textSize="@dimen/word_size_19"/>
+            </RadioGroup>
+        </LinearLayout>
+
         <EditText
             android:id="@+id/re_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:maxLength="16"/>
+            android:maxLength="16"
+            android:textSize="@dimen/word_size_19"/>
         <EditText
             android:id="@+id/re_password_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password_next"
             android:inputType="textPassword"
-            android:maxLength="16"/>
+            android:maxLength="16"
+            android:textSize="@dimen/word_size_19"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/agree"
                 android:onClick="agree_button"
+                android:textSize="@dimen/word_size_19"
                 />
         </LinearLayout>
 

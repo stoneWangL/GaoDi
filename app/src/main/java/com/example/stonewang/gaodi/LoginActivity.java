@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.example.stonewang.gaodi.util.JsonUtil;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -79,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
             dialog.show();
         }else{
             final String url = "http://114.67.243.127/index.php/API/Api/checkLogin/user/"+user+"/password/"+pass;
+            //http://114.67.243.127/index.php/API/Api/checkLogin/user/stone/password/123456
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -92,10 +95,10 @@ public class LoginActivity extends AppCompatActivity {
                         String responseData = response.body().string();
                         //将API返回的json数据传递给处理函数
                         Log.d("stone11","登录返回数据:"+responseData);
-
-                        int data = Integer.parseInt(responseData);
-                        if (data == 1){
-                            saveUser(user);
+                        JsonUtil jsonUtil = new JsonUtil();
+                        int data = jsonUtil.parseJsonLogin(responseData);
+                        if (data == 2 || data == 3){
+                            saveUser(user,data);
                         }
                         Message message = new Message();
                         message.what = data;
@@ -113,7 +116,14 @@ public class LoginActivity extends AppCompatActivity {
     private Handler login_next = new Handler(){
         public void handleMessage(Message msg){
             switch (msg.what){
-                case 1://在这里可以进行UI操作
+                case 1:
+                    new AlertDialog.Builder(LoginActivity.this)
+                            .setTitle("登录失败")
+                            .setMessage("帐号或者密码不正确，\n请检查后重新输入！")
+                            .create().show();
+                    break;
+                case 3:
+                case 2://在这里可以进行UI操作
                     mDialog = ProgressDialog.show(LoginActivity.this,"请等待...", "正在登录...", true);
                     new Thread(){
                         public void run(){
@@ -131,12 +141,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }.start();
                     break;
-                case 0:
-                    new AlertDialog.Builder(LoginActivity.this)
-                            .setTitle("登录失败")
-                            .setMessage("帐号或者密码不正确，\n请检查后重新输入！")
-                            .create().show();
-                    break;
+
                 default:
                     break;
             }
@@ -158,11 +163,15 @@ public class LoginActivity extends AppCompatActivity {
      * 保存用户名
      * @param username
      */
-    public void saveUser(String username){
+    public void saveUser(String username,int num){
         SharedPreferences.Editor editor = getSharedPreferences("User",MODE_PRIVATE).edit();
         editor.putBoolean("notGuest",true);
         editor.putString("userName",username);
-        editor.putString("userImage","https://avatars2.githubusercontent.com/u/23133656?s=400&u=5c0bb835208a108eaadd9487287f074f479e513f&v=4");
+        if (num == 2){
+            editor.putString("sex","男");
+        }else{
+            editor.putString("sex","女");
+        }
         editor.apply();
     }
 
@@ -173,7 +182,6 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = getSharedPreferences("User",MODE_PRIVATE).edit();
         editor.putBoolean("notGuest",false);
         editor.putString("userName","游客");
-        editor.putString("userImage","R.drawable.land_tank99");
         editor.apply();
     }
 

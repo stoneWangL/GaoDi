@@ -67,9 +67,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d("stone00","onCreate");
 
         SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
-        String url = pref.getString("userImage", "");
+//        String url = pref.getString("userImage", "");
         String usernameText = pref.getString("userName", "");
         Boolean notGuest = pref.getBoolean("notGuest",false);
+        String sex = pref.getString("sex", "男");
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -81,7 +83,16 @@ public class MainActivity extends AppCompatActivity {
         ImageView userImage = (ImageView) handerView.findViewById(R.id.nav_user_image);
         TextView username = (TextView) handerView.findViewById(R.id.nav_user_name);
         if (notGuest){
-            Glide.with(this).load(url).into(userImage);
+//            加载网络图片
+//            Glide.with(this).load(url).into(userImage);
+            if (sex.equals("男")){
+                Glide.with(this).load(R.drawable.man).into(userImage);
+            }else if (sex.equals("女")){
+                Glide.with(this).load(R.drawable.female).into(userImage);
+            }else{
+                //挂上游客头像
+                Glide.with(this).load(R.drawable.guest).into(userImage);
+            }
         }else{
             Glide.with(this).load(R.drawable.guest).into(userImage);
         }

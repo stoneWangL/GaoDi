@@ -17,6 +17,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -28,6 +31,7 @@ import okhttp3.Response;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText mUsername;
+    private RadioGroup mSexGroup;
     private EditText mPassword;
     private EditText mPasswordNext;
 
@@ -40,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         mUsername = (EditText) findViewById(R.id.re_username);
+        mSexGroup = (RadioGroup) findViewById(R.id.sex_choose) ;
         mPassword = (EditText) findViewById(R.id.re_password);
         mPasswordNext = (EditText) findViewById(R.id.re_password_next);
 
@@ -53,9 +58,16 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void agree_button(View view){
-        final String userName = mUsername.getText().toString();
-        final String passWord = mPassword.getText().toString();
-        final String passWordNext = mPasswordNext.getText().toString();
+        String userName = mUsername.getText().toString();
+        String passWord = mPassword.getText().toString();
+        String passWordNext = mPasswordNext.getText().toString();
+        String sex="男";
+        for(int i=0;i<mSexGroup.getChildCount();i++){
+            RadioButton radioButton = (RadioButton)mSexGroup.getChildAt(i);
+            if(radioButton.isChecked()){
+                sex = (String) radioButton.getText();
+            }
+        }
         if (userName.isEmpty() || passWord.isEmpty() || passWordNext.isEmpty()){
             AlertDialog dialog = new AlertDialog.Builder(this)
                     .setTitle(R.string.register)//注册
@@ -96,7 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
                     .create();
             dialog.show();
         }else{
-            final String url = "http://114.67.243.127/index.php/API/Api/register/user/"+userName+"/password/"+passWord;
+            final String url = "http://114.67.243.127/index.php/API/Api/register/user/"+userName+"/password/"+passWord+"/sex/"+sex;
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -108,11 +120,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                         Response response = client.newCall(request).execute();
                         String responseData = response.body().string();
-                        //将API返回的json数据传递给处理函数
-                        Log.d("stone11","登录返回数据:"+responseData);
-                        if (responseData.equals('1')){
-                            saveUser(userName);
-                        }
+                        //将API返回的json数据给handler
+//                        Log.d("stone11","登录返回数据:"+responseData);
                         Message message = new Message();
                         message.what = Integer.parseInt(responseData);
                         agree_next.sendMessage(message); //将Message对象发送出去
@@ -129,6 +138,16 @@ public class RegisterActivity extends AppCompatActivity {
         public void handleMessage(Message msg){
             switch (msg.what){
                 case 1://在这里可以进行UI操作
+                    String userName = mUsername.getText().toString();
+                    String sex="男";
+                    for(int i=0;i<mSexGroup.getChildCount();i++){
+                        RadioButton radioButton = (RadioButton)mSexGroup.getChildAt(i);
+                        if(radioButton.isChecked()){
+                            sex = (String) radioButton.getText();
+                        }
+                    }
+//                    Log.d("stone0066","性别"+sex);
+                    saveUser(userName,sex);
                     mDialog = ProgressDialog.show(RegisterActivity.this,"请等待...", "注册成功，正在登录...", true);
                     new Thread(){
                         public void run(){
@@ -159,6 +178,12 @@ public class RegisterActivity extends AppCompatActivity {
                             .setMessage("注册失败")
                             .create().show();
                     break;
+                case 4:
+                    new AlertDialog.Builder(RegisterActivity.this)
+                            .setTitle("注册失败")
+                            .setMessage("性别只能为男/女")
+                            .create().show();
+                    break;
                 default:
                     break;
             }
@@ -180,9 +205,11 @@ public class RegisterActivity extends AppCompatActivity {
      * 保存用户名
      * @param username
      */
-    public void saveUser(String username){
+    public void saveUser(String username,String sex){
         SharedPreferences.Editor editor = getSharedPreferences("User",MODE_PRIVATE).edit();
         editor.putString("userName",username);
+        editor.putString("sex",sex);
+        editor.putBoolean("notGuest",true);
         editor.apply();
     }
 }

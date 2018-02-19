@@ -1,6 +1,7 @@
 package com.example.stonewang.gaodi.util;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.stonewang.gaodi.db.Comment;
@@ -52,6 +53,38 @@ public class JsonUtil{
             }
         }
         return retBuf.toString();
+    }
+
+    public static int parseJsonLogin(String jsonData){
+        if (!TextUtils.isEmpty(jsonData)){
+            try{
+                String jsonString = decode(jsonData);//转换编码
+                Log.d("stone11","转码后的json"+jsonString);
+                if (jsonString.equals('0')){
+                    return 1;
+                }else{
+                    JSONArray AllComment = new JSONArray(jsonString);
+                    for (int i=0; i<AllComment.length(); i++){
+                        JSONObject CommentObject = AllComment.getJSONObject(i);
+                        String sex = CommentObject.getString("sex");
+                        Log.d("stone11","转码后的json->sex"+sex);
+                        if (sex.equals("男")){
+                            Log.d("stone11","return sex");
+                            return 2;
+                        }else if(sex.equals("女")){
+                            return 3;
+                        }else{
+                            return 0;
+                        }
+                    }
+                }
+
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return 0;
     }
 
     /**
