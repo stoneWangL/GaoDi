@@ -177,7 +177,7 @@ public class CommentPageFragment extends Fragment {
         //检查是否游客登录的凭证
         final SharedPreferences pref = getActivity().getSharedPreferences("User",MODE_PRIVATE);
         final Boolean notGuest = pref.getBoolean("notGuest",false);
-
+        //提交评论按钮，点击事件
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,9 +185,10 @@ public class CommentPageFragment extends Fragment {
                     //用户登录，可以评论
                     final String comment_content = editText.getText().toString();
                     String username = pref.getString("userName","");
+                    final String sex = pref.getString("sex","男");
 
                     final String url = "http://114.67.243.127/index.php/API/Api/addComment/news/"+news+"/newsid/"+
-                            newsid+"/author/"+username+"/content/"+comment_content;
+                            newsid+"/author/"+username+"/content/"+comment_content+"/sex/"+sex;
 
                     //然后开一个线程，提交评论给服务器，如果提交成功，则在本地commentList增加一条，并且更新adapter，否则提示提交失败
                     new Thread(new Runnable() {
@@ -217,16 +218,12 @@ public class CommentPageFragment extends Fragment {
                                     oneComment.setNews(news);
                                     oneComment.setNewsid(newsid);
                                     oneComment.setAuthor(username);
+                                    oneComment.setAuthorSex(sex);
                                     oneComment.setContent(comment_content);
                                     oneComment.setTime(getNowTime());
                                     oneComment.save();
 
 
-//                                    try{
-//                                        sleep(2000);
-//                                    }catch (InterruptedException e){
-//                                        e.printStackTrace();
-//                                    }
                                     message.what = 1;
 
                                 }else{
@@ -239,7 +236,7 @@ public class CommentPageFragment extends Fragment {
                             }
                         }
                     }).start();
-
+                    //提交之后收回PopupWindow
                     //参数：1，自己的EditText。2，时间。
                     imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
                     mPopWindow.dismiss();

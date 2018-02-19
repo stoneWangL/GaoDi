@@ -55,6 +55,11 @@ public class JsonUtil{
         return retBuf.toString();
     }
 
+    /**
+     * 登录的时候，获取用户性别
+     * @param jsonData
+     * @return
+     */
     public static int parseJsonLogin(String jsonData){
         if (!TextUtils.isEmpty(jsonData)){
             try{
@@ -105,6 +110,7 @@ public class JsonUtil{
                     String news = CommentObject.getString("news");
                     int newsid = CommentObject.getInt("newsid");
                     String author = CommentObject.getString("author");
+                    String authorsex = CommentObject.getString("authorsex");
                     String content = CommentObject.getString("content");
                     String time = CommentObject.getString("time");
 
@@ -114,6 +120,7 @@ public class JsonUtil{
                     comment.setNews(news);
                     comment.setNewsid(newsid);
                     comment.setAuthor(author);
+                    comment.setAuthorSex(authorsex);
                     comment.setContent(content);
                     comment.setTime(time);
 

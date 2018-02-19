@@ -12,6 +12,7 @@ public class Comment extends DataSupport {
     private String news;
     private int newsid;
     private String author;
+    private String authorSex;
     private String content;
     private String time;
 
@@ -53,6 +54,14 @@ public class Comment extends DataSupport {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getAuthorSex() {
+        return authorSex;
+    }
+
+    public void setAuthorSex(String authorSex) {
+        this.authorSex = authorSex;
     }
 
     public String getContent() {

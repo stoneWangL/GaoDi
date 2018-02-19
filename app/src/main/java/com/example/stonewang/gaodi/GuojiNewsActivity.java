@@ -72,11 +72,13 @@ public class GuojiNewsActivity extends AppCompatActivity {
     }
 
     //向后翻页
-    public void Comment_click(View view){
+    public void Comment_right(View view){
+
         myViewPager.arrowScroll(2);
+
     }
     //向前翻页
-    public void News_click(View view){
+    public void News_left(View view){
         myViewPager.arrowScroll(1);
     }
 }

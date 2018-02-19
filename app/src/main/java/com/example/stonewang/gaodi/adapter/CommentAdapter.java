@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.stonewang.gaodi.R;
 import com.example.stonewang.gaodi.db.Comment;
 
@@ -54,6 +55,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         Comment comment = mCommentList.get(position);
 //        Glide.with(mContext).load(comment.get).into(holder.NewsImage);为头像留的位置
+        String sex = comment.getAuthorSex();
+        if (sex.equals("男")){
+            Glide.with(mContext).load(R.drawable.man).into(holder.commentImage);
+        }else if (sex.equals("女")){
+            Glide.with(mContext).load(R.drawable.female).into(holder.commentImage);
+        }else{
+            Glide.with(mContext).load(R.drawable.guest).into(holder.commentImage);
+        }
         holder.commentAuthor.setText(comment.getAuthor());
         holder.commentContent.setText(comment.getContent());
     }
