@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,16 +26,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
-import android.widget.Toast;
-
 import com.example.stonewang.gaodi.LoginActivity;
 import com.example.stonewang.gaodi.R;
 import com.example.stonewang.gaodi.adapter.CommentAdapter;
 import com.example.stonewang.gaodi.db.Comment;
-import com.example.stonewang.gaodi.db.JunshiNews;
-
 import org.litepal.crud.DataSupport;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,9 +38,7 @@ import java.util.List;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
 import static android.content.Context.MODE_PRIVATE;
-import static java.lang.Thread.sleep;
 
 /**
  * Created by Lenovo on 2018/2/5.
@@ -73,6 +67,13 @@ public class CommentPageFragment extends Fragment {
 
         commentList = DataSupport.where("newsid = " + newsid+ ";" +"news = "+news).find(Comment.class);
 
+        Message message = new Message();
+        if (commentList.size()==0){
+            message.what = 1;
+        }else {
+            message.what = 2;
+        }
+        backgroundNext.sendMessage(message);
     }
 
     @Nullable
@@ -99,6 +100,25 @@ public class CommentPageFragment extends Fragment {
 
         return v;
     }
+
+    private Handler backgroundNext = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            CoordinatorLayout coordinatorLayout = (CoordinatorLayout) getView().findViewById(R.id.comment_page);
+            switch (msg.what){
+                case 1:
+                    coordinatorLayout.setBackgroundResource(R.drawable.background01);
+//                    imageView.setBackgroundResource(R.drawable.background01);
+                    break;
+                case 2:
+//                    imageView.setBackgroundResource(R.drawable.background02);
+                    coordinatorLayout.setBackgroundResource(R.drawable.background02);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     /**
      * 提交评论后的UI处理
@@ -203,7 +223,10 @@ public class CommentPageFragment extends Fragment {
                                 String responseData = response.body().string();
                                 //将API返回的json数据传递给处理函数
                                 Log.d("stone11","登录返回数据:"+responseData);
-                                Message message = new Message();
+                                Message message = new Message();//提交后的提示
+                                Message message2 = new Message();//背景图片
+
+
                                 if (responseData.equals("1")){
                                     Log.d("stone007","提交成功");
 
@@ -225,12 +248,14 @@ public class CommentPageFragment extends Fragment {
 
 
                                     message.what = 1;
-
+                                    message2.what = 2;
                                 }else{
                                     //提交失败
                                     message.what = 0;
+                                    message2.what = 1;
                                 }
                                 commentNext.sendMessage(message);
+                                backgroundNext.sendMessage(message2);
                             }catch(Exception e){
                                 e.printStackTrace();
                             }
