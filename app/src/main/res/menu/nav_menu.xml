@@ -2,9 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_email"
-            android:title="邮箱：stoneWang_L@163.com"
-            android:icon="@drawable/nav_email"
+            android:id="@+id/nav_change_pass"
+            android:title="修改密码"
+            android:icon="@drawable/nav_change"
+            />
+        <item
+            android:id="@+id/nav_color"
+            android:title="设置主题"
+            android:icon="@drawable/nav_color"
             />
     </group>
 </menu>

@@ -1,6 +1,7 @@
 package com.example.stonewang.gaodi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -103,15 +104,21 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        navView.setCheckedItem(R.id.nav_email);
+        navView.setCheckedItem(R.id.nav_color);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.nav_email:
-                        Toast.makeText(MainActivity.this, "给这个邮箱发邮件吧", Toast.LENGTH_SHORT).show();
+                    case R.id.nav_change_pass:
+                        Intent intent = getIntent();
+                        intent.setClass(MainActivity.this,ChangPassActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.nav_color:
+                        Toast.makeText(MainActivity.this, "设置颜色", Toast.LENGTH_SHORT).show();
                         break;
                     default:
+                        break;
                 }
                 return true;
             }
