@@ -96,10 +96,11 @@ public class LoginActivity extends AppCompatActivity {
                         //将API返回的json数据传递给处理函数
                         Log.d("stone11","登录返回数据:"+responseData);
                         JsonUtil jsonUtil = new JsonUtil();
-                        int data = jsonUtil.parseJsonLogin(responseData);
+                        int data = jsonUtil.parseJsonLogin(responseData);//传入处理函数
                         if (data == 2 || data == 3){
                             saveUser(user,data);
                         }
+                        Log.d("stone666","返回的数字："+data);
                         Message message = new Message();
                         message.what = data;
                         login_next.sendMessage(message); //将Message对象发送出去

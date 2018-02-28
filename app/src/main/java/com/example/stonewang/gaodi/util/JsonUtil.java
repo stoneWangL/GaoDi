@@ -65,7 +65,7 @@ public class JsonUtil{
             try{
                 String jsonString = decode(jsonData);//转换编码
                 Log.d("stone11","转码后的json"+jsonString);
-                if (jsonString.equals('0')){
+                if (jsonString.equals("0")){
                     return 1;
                 }else{
                     JSONArray AllComment = new JSONArray(jsonString);

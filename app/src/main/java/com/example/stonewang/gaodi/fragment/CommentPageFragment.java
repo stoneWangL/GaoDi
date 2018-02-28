@@ -268,9 +268,9 @@ public class CommentPageFragment extends Fragment {
                 }else {
                     //游客登录，没有权限评论
                     AlertDialog dialog = new AlertDialog.Builder(getContext())
-                            .setTitle("评论需要登录")
-                            .setMessage("请登录")
-                            .setPositiveButton("登录",
+                            .setTitle(R.string.string_8)
+                            .setMessage(R.string.pleaseLogin)
+                            .setPositiveButton(R.string.login,
                                     new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
@@ -280,7 +280,7 @@ public class CommentPageFragment extends Fragment {
                                             getActivity().finish();
                                         }
                                     })
-                            .setNegativeButton("不登录",
+                            .setNegativeButton(R.string.loginNot,
                                     new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {

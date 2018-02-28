@@ -1,6 +1,8 @@
 package com.example.stonewang.gaodi;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -46,6 +48,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import static com.ashokvarma.bottomnavigation.BottomNavigationBar.BACKGROUND_STYLE_STATIC;
+import static org.litepal.LitePalApplication.getContext;
 
 public class MainActivity extends AppCompatActivity {
     public int firstTimes=1;
@@ -110,9 +113,39 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.nav_change_pass:
-                        Intent intent = getIntent();
-                        intent.setClass(MainActivity.this,ChangPassActivity.class);
-                        startActivity(intent);
+                        //检查是否游客登录的凭证
+                        SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
+                        Boolean notGuest = pref.getBoolean("notGuest",false);
+                        if(notGuest){
+                            Intent intent = getIntent();
+                            intent.setClass(MainActivity.this,ChangPassActivity.class);
+                            startActivity(intent);
+                        }else{
+                            //游客登录，没有权限评论
+                            AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
+                                    .setTitle(R.string.string_7)
+                                    .setMessage(R.string.pleaseLogin)
+                                    .setPositiveButton(R.string.login,
+                                            new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    Intent intent = getIntent();
+                                                    intent.setClass(MainActivity.this,LoginActivity.class);
+                                                    startActivity(intent);
+                                                    MainActivity.this.finish();
+                                                }
+                                            })
+                                    .setNegativeButton(R.string.loginNot,
+                                            new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            })
+                                    .create();
+                            dialog.show();
+                        }
+
                         break;
                     case R.id.nav_color:
                         Toast.makeText(MainActivity.this, "设置颜色", Toast.LENGTH_SHORT).show();
