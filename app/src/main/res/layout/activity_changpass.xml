@@ -16,9 +16,11 @@
         android:id="@+id/change_pass_first_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/size_ok"
         android:orientation="vertical"
         android:visibility="visible">
         <EditText
+            android:id="@+id/changePass_textOne"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/string_6"
@@ -37,6 +39,7 @@
         android:id="@+id/change_pass_next_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/size_ok"
         android:orientation="vertical"
         android:visibility="gone">
         <EditText
