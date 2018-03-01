@@ -2,6 +2,7 @@ package com.example.stonewang.gaodi;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -83,10 +84,78 @@ public class ChangPassActivity extends AppCompatActivity {
 
     /**
      * 输入原密码正确，后续操作
+     * 判断新密码，以及提交新密码，返回修改结果
      * @param view
      */
     public void AgreeNext(View view){
+        EditText editTextOne = (EditText) findViewById(R.id.changePass_newPass_one);
+        EditText editTextTwo = (EditText) findViewById(R.id.changePass_newPass_two);
+        String newPassOne = editTextOne.getText().toString();
+        String newPAssTwo = editTextTwo.getText().toString();
+        if (newPassOne.isEmpty() || newPAssTwo.isEmpty()){
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setTitle(R.string.changePass)
+                    .setMessage(R.string.string_11)
+                    .setPositiveButton(R.string.agree,//确认
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                    .create();
+            dialog.show();
+        }else if (!newPassOne.equals(newPAssTwo)){
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setTitle(R.string.changePass)
+                    .setMessage(R.string.string_2)
+                    .setPositiveButton(R.string.agree,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                    .create();
+            dialog.show();
+        }else if(newPassOne.length() < 6) {
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setTitle(R.string.changePass)
+                    .setMessage(R.string.string_3)
+                    .setPositiveButton(R.string.agree,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                    .create();
+            dialog.show();
+        }else{
+            SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
+            final String username = pref.getString("userName", "");//用户名
+            final String url = "http://114.67.243.127/index.php/API/Api/changePass/user/"+username+"/password/"+newPassOne;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        OkHttpClient client = new OkHttpClient();
+                        Request request = new Request.Builder()
+                                .url(url)
+                                .build();
 
+                        Response response = client.newCall(request).execute();
+                        String responseData = response.body().string();
+                        //将API返回的json数据给handler
+                        Message message = new Message();
+                        message.what = Integer.parseInt(responseData);
+                        handlerAgreeNext.sendMessage(message); //将Message对象发送出去,即修改的结果
+                    }catch(Exception e){
+                        e.printStackTrace();
+                   }
+                }
+            }).start();
+        }
     }
 
     /**
@@ -112,10 +181,16 @@ public class ChangPassActivity extends AppCompatActivity {
                     new AlertDialog.Builder(ChangPassActivity.this)
                             .setTitle(R.string.error)
                             .setMessage(R.string.string_9)
+                            .setPositiveButton(R.string.agree, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
                             .create().show();
                     break;
                 case 3:
-                case 2://在这里可以进行UI操作
+                case 2://在这里可以进行UI操作，将输入原密码隐藏，将输入新密码显示
                     LinearLayout firstLayout = (LinearLayout)findViewById(R.id.change_pass_first_layout);
                     LinearLayout nextLayout = (LinearLayout)findViewById(R.id.change_pass_next_layout);
                     firstLayout.setVisibility(View.GONE);
@@ -127,6 +202,54 @@ public class ChangPassActivity extends AppCompatActivity {
         }
     };
 
-
+    private Handler handlerAgreeNext = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 0://新密码与原密码相同
+                    new AlertDialog.Builder(ChangPassActivity.this)
+                            .setTitle(R.string.changePass)
+                            .setMessage(R.string.string_12)
+                            .setPositiveButton(R.string.agree, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .create().show();
+                    break;
+                case 1://修改成功
+                    new AlertDialog.Builder(ChangPassActivity.this)
+                            .setTitle(R.string.changePass)
+                            .setMessage(R.string.success)
+                            .setPositiveButton(R.string.agree, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = getIntent();
+                                    intent.setClass(ChangPassActivity.this,MainActivity.class);
+                                    startActivity(intent);
+                                    ChangPassActivity.this.finish();
+                                    dialog.dismiss();
+                                }
+                            })
+                            .create().show();
+                    break;
+                case 2://修改失败
+                    new AlertDialog.Builder(ChangPassActivity.this)
+                            .setTitle(R.string.changePass)
+                            .setMessage(R.string.error)
+                            .setPositiveButton(R.string.agree, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .create().show();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
 }

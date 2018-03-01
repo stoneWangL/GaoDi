@@ -119,8 +119,14 @@ public class LoginActivity extends AppCompatActivity {
             switch (msg.what){
                 case 1:
                     new AlertDialog.Builder(LoginActivity.this)
-                            .setTitle("登录失败")
-                            .setMessage("帐号或者密码不正确，\n请检查后重新输入！")
+                            .setTitle(R.string.errorLogin)
+                            .setMessage(R.string.string_10)
+                            .setPositiveButton(R.string.agree, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
                             .create().show();
                     break;
                 case 3:

@@ -14,6 +14,8 @@
     <string name="agree">确认</string>
     <string name="submit">提交</string>
     <string name="error">失败</string>
+    <string name="success">成功</string>
+    <string name="errorLogin">登录失败</string>
     <string name="changePass">修改密码</string>
     <string name="pleaseLogin">请登录</string>
     <string name="login">登录</string>
@@ -27,6 +29,9 @@
     <string name="string_7">修改密码需要先登录</string>
     <string name="string_8">评论需要登录</string>
     <string name="string_9">原密码不正确，\n请检查后重新输入！</string>
+    <string name="string_10">帐号或者密码不正确，\n请检查后重新输入！</string>
+    <string name="string_11">请检查输入是否完整！</string>
+    <string name="string_12">新密码与原密码相同!</string>
 
     <!--local的introduce内容-->
     <string name="itemLandIntroduce">中国人民解放军陆军是人民解放军的战略军种，是空中作战行动的主体力量，担负着保卫国家领空安全和领土主权、保持全国空防稳定等任务。空军主要由航空兵、地面防空兵、空降兵、通信兵、雷达兵、电子对抗兵、技术侦察兵、防化兵等兵种组成。</string>
