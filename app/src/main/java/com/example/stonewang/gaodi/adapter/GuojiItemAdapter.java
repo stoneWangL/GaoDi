@@ -81,6 +81,8 @@ public class GuojiItemAdapter extends RecyclerView.Adapter<GuojiItemAdapter.View
                 Intent intent = new Intent(v.getContext(), GuojiNewsActivity.class);
                 intent.putExtra("NewsUrl", guojiNews.getUrl());
                 intent.putExtra("NewsTitle",guojiNews.getTitle());
+                intent.putExtra("NewsId",guojiNews.getNewsid());
+                intent.putExtra("News","guoji");
                 v.getContext().startActivity(intent);
             }
         });

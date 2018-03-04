@@ -33,7 +33,6 @@ public class GuojiNewsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news);
 
         Intent intent = getIntent();
-        String url = intent.getStringExtra("NewsUrl");
         String title = intent.getStringExtra("NewsTitle");
 
 
