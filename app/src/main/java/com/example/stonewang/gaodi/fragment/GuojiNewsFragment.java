@@ -1,7 +1,10 @@
 package com.example.stonewang.gaodi.fragment;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.stonewang.gaodi.MyItemDecoration;
@@ -41,18 +45,26 @@ public class GuojiNewsFragment extends Fragment {
     private List<GuojiNews> guojiNewsList =new ArrayList<>(), Test=new ArrayList<>(), Temp=new ArrayList<>();
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        guojiNewsList.clear();
+        guojiNewsList = DataSupport.order("id desc").find(GuojiNews.class);
+
+        Message message = new Message();
+        if (guojiNewsList.size()==0){
+            message.what = 1;
+        }else {
+            message.what = 2;
+        }
+        backgroundNext.sendMessage(message);
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v =  inflater.inflate(R.layout.choose_area, container, false);
-
-//        init();//初始化
-        guojiNewsList.clear();
-        guojiNewsList = DataSupport.order("id desc").find(GuojiNews.class);
 
         //控件初始化，填充内容
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
@@ -79,6 +91,24 @@ public class GuojiNewsFragment extends Fragment {
         });
     }
 
+    private Handler backgroundNext = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.choose_area_layout);
+            switch (msg.what){
+                case 1:
+                    linearLayout.setBackgroundResource(R.drawable.background03);
+//                    imageView.setBackgroundResource(R.drawable.background01);
+                    break;
+                case 2:
+//                    imageView.setBackgroundResource(R.drawable.background02);
+                    linearLayout.setBackgroundResource(R.drawable.background02);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
     /**
      * 更新新闻列表
      */

@@ -163,11 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d("stone00","onStart");
-    }
+
 
     @Override
     protected void onResume() {
@@ -175,35 +171,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d("stone00","onResume");
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d("stone00","onPause");
-    }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d("stone00","onStop");
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("stone00","onDestroy");
 
-//        DataSupport.deleteAll(JunshiNews.class);
-        DataSupport.where("id > ?","10").find(JunshiNews.class);
-        Log.d("stone00","删除了JunshiNews.class");
 
-    }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.d("stone00","onRestart");
-
-    }
 
     /**
      * 用于创建保存文件

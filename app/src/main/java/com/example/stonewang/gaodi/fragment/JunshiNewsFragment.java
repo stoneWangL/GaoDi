@@ -3,7 +3,10 @@ package com.example.stonewang.gaodi.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.stonewang.gaodi.MyItemDecoration;
@@ -46,7 +50,17 @@ public class JunshiNewsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.d("stone00","声明周期->onAttach");
+
+        JunshiNewsList.clear();
+        JunshiNewsList = DataSupport.order("id desc").find(JunshiNews.class);
+
+        Message message = new Message();
+        if (JunshiNewsList.size()==0){
+            message.what = 1;
+        }else {
+            message.what = 2;
+        }
+        backgroundNext.sendMessage(message);
     }
 
     @Override
@@ -63,8 +77,7 @@ public class JunshiNewsFragment extends Fragment {
         Log.d("stone00","声明周期->onCreateView");
         View v =  inflater.inflate(R.layout.choose_area, container, false);
 //        init();//初始化
-        JunshiNewsList.clear();
-        JunshiNewsList = DataSupport.order("id desc").find(JunshiNews.class);
+
         stoneNum();
 
         //控件初始化，填充内容
@@ -82,11 +95,25 @@ public class JunshiNewsFragment extends Fragment {
         getNum();
         return v;
     }
-    /**
-     * 初始化
-     */
-    private void init(){
-    }
+
+    private Handler backgroundNext = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.choose_area_layout);
+            switch (msg.what){
+                case 1:
+                    linearLayout.setBackgroundResource(R.drawable.background03);
+//                    imageView.setBackgroundResource(R.drawable.background01);
+                    break;
+                case 2:
+//                    imageView.setBackgroundResource(R.drawable.background02);
+                    linearLayout.setBackgroundResource(R.drawable.background02);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
