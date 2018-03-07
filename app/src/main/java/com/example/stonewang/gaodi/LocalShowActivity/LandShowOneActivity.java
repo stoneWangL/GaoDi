@@ -116,4 +116,18 @@ public class LandShowOneActivity extends AppCompatActivity {
     }
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * 分享功能
+     * @param view
+     */
+    public void shareBtn(View view){
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("name");//武器名
+        String baseParameter = intent.getStringExtra("baseParameter");//基本参数
+        Intent textIntent = new Intent(Intent.ACTION_SEND);
+        textIntent.setType("text/plain");
+        textIntent.putExtra(Intent.EXTRA_TEXT, name + "\n基本参数\n"+ baseParameter );
+        startActivity(Intent.createChooser(textIntent, "分享"));
+    }
 }
