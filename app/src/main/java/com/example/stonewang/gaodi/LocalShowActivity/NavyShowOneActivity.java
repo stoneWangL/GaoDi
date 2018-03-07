@@ -2,6 +2,8 @@ package com.example.stonewang.gaodi.LocalShowActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
@@ -24,6 +26,7 @@ import com.example.stonewang.gaodi.R;
 public class NavyShowOneActivity extends AppCompatActivity {
     private boolean isVisible1 = true;
     private boolean isVisible2 = true;
+    private boolean isVisible3 = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,48 +60,75 @@ public class NavyShowOneActivity extends AppCompatActivity {
         Glide.with(this).load(imageId).into(landImageView);
 
 
-
-        //初始化并填充 基本参数(显示)
-        TextView landContentText = (TextView) findViewById(R.id.show_content_text_1);
-        landContentText.setText(baseParameter);
-
-        //初始化并填充 研发历史背景(隐藏/显示)
+        //基本参数(隐藏/显示)
         LinearLayout onOff1 = (LinearLayout) findViewById(R.id.show_on_off_1);
         final RelativeLayout contentOnOff1 = (RelativeLayout) findViewById(R.id.show_content_on_off_1);
-        TextView landContentText2 = (TextView) findViewById(R.id.show_content_text_2);
-        landContentText2.setText(historicalBackground);
+        TextView landContentText1 = (TextView) findViewById(R.id.show_content_text_1);
+        landContentText1.setText(baseParameter);
 
         contentOnOff1.setVisibility(cv.GONE);
         onOff1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Message message = new Message();
                 if (isVisible1) {
+                    message.what = 0;
                     isVisible1 = false;
                     contentOnOff1.setVisibility(View.VISIBLE);//这一句显示布局RelativeLayout区域
                 } else {
+                    message.what = 1;
                     contentOnOff1.setVisibility(View.GONE);//这一句即隐藏布局RelativeLayout区域
                     isVisible1 = true;
                 }
+                unfold01Next.sendMessage(message);
             }
         });
 
-        //详细介绍(隐藏/显示)
+        //历史背景(隐藏/显示)
         LinearLayout onOff2 = (LinearLayout) findViewById(R.id.show_on_off_2);
         final RelativeLayout contentOnOff2 = (RelativeLayout) findViewById(R.id.show_content_on_off_2);
-        TextView landContentText3 = (TextView) findViewById(R.id.show_content_text_3);
-        landContentText3.setText(detailedInstroduction);
+        TextView landContentText2 = (TextView) findViewById(R.id.show_content_text_2);
+        landContentText2.setText(historicalBackground);
 
         contentOnOff2.setVisibility(cv.GONE);
         onOff2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Message message = new Message();
                 if (isVisible2) {
+                    message.what = 0;
                     isVisible2 = false;
                     contentOnOff2.setVisibility(View.VISIBLE);//这一句显示布局RelativeLayout区域
                 } else {
+                    message.what = 1;
                     contentOnOff2.setVisibility(View.GONE);//这一句即隐藏布局RelativeLayout区域
                     isVisible2 = true;
                 }
+                unfold02Next.sendMessage(message);
+            }
+        });
+
+        //详细介绍(隐藏/显示)
+        LinearLayout onOff3 = (LinearLayout) findViewById(R.id.show_on_off_3);
+        final RelativeLayout contentOnOff3 = (RelativeLayout) findViewById(R.id.show_content_on_off_3);
+        TextView landContentText3 = (TextView) findViewById(R.id.show_content_text_3);
+        landContentText3.setText(detailedInstroduction);
+
+        contentOnOff3.setVisibility(cv.GONE);
+        onOff3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Message message = new Message();
+                if (isVisible3) {
+                    message.what = 0;
+                    isVisible3 = false;
+                    contentOnOff3.setVisibility(View.VISIBLE);//这一句显示布局RelativeLayout区域
+                } else {
+                    message.what = 1;
+                    contentOnOff3.setVisibility(View.GONE);//这一句即隐藏布局RelativeLayout区域
+                    isVisible3 = true;
+                }
+                unfold03Next.sendMessage(message);
             }
         });
 
@@ -130,4 +160,53 @@ public class NavyShowOneActivity extends AppCompatActivity {
         textIntent.putExtra(Intent.EXTRA_TEXT, name + "\n基本参数\n"+ baseParameter );
         startActivity(Intent.createChooser(textIntent, "分享"));
     }
+
+    /**
+     * 展开，隐藏UI处理
+     */
+    private Handler unfold01Next= new Handler(){
+        public void handleMessage(Message msg){
+            ImageView imageView01 = (ImageView) findViewById(R.id.unfold_image01);
+            switch (msg.what){
+                case 1://展开->隐藏
+                    imageView01.setImageResource(R.drawable.unfold_more);
+                    break;
+                case 0://隐藏->展开
+                    imageView01.setImageResource(R.drawable.unfold_less);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+    private Handler unfold02Next= new Handler(){
+        public void handleMessage(Message msg){
+            ImageView imageView02 = (ImageView) findViewById(R.id.unfold_image02);
+            switch (msg.what){
+                case 1://展开->隐藏
+                    imageView02.setImageResource(R.drawable.unfold_more);
+                    break;
+                case 0://隐藏->展开
+                    imageView02.setImageResource(R.drawable.unfold_less);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+    private Handler unfold03Next= new Handler(){
+        public void handleMessage(Message msg){
+            ImageView imageView03 = (ImageView) findViewById(R.id.unfold_image03);
+            switch (msg.what){
+                case 1://展开->隐藏
+                    imageView03.setImageResource(R.drawable.unfold_more);
+                    break;
+                case 0://隐藏->展开
+                    imageView03.setImageResource(R.drawable.unfold_less);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 }

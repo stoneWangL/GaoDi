@@ -4,6 +4,16 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="colorBlue">#8be9f5</color>
+    <color name="colorBlueDark">#75c4ce</color>
+    <color name="colorRed">#fcabb7</color>
+    <color name="colorRedDark">#bc8089</color>
+    <color name="colorGreen">#cdffbb</color>
+    <color name="colorGreenDark">#91b485</color>
+    <color name="colorAsh">#eceaea</color>
+    <color name="colorAshDark">#b7b7b7</color>
+
+
     <color name="colorBlack">#000</color>
     <color name="colorItem">#d1cccc</color>
     <color name="colorText">#3b3b37</color>

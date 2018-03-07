@@ -47,61 +47,105 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="30dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:paddingBottom="10dp">
+
+            <!--基本参数-->
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorItem">
-
-                <!--基本参数-->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/colorBlack" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:orientation="horizontal"
-                    android:background="@color/colorBarBg">
-                    <TextView
-                        android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
-                        android:text="基本参数"
-                        android:layout_marginLeft="@dimen/show_title_text_pad"
-                        android:textSize="@dimen/show_title_text_size"
-                        />
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/show_content_text_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/item_size"
-                    />
-
-                <!--研发历史背景-->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/colorBlack" />
+                android:layout_height="wrap_content"
+                android:background="@color/colorBlue">
                 <LinearLayout
                     android:id="@+id/show_on_off_1"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:orientation="horizontal"
-                    android:background="@color/colorBarBg">
-                    <TextView
+                    android:background="@color/colorBlueDark">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
-                        android:text="历史背景"
-                        android:layout_marginLeft="@dimen/show_title_text_pad"
-                        android:textSize="@dimen/show_title_text_size"
-                        />
+                        >
+                        <TextView
+                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:text="基本参数"
+                            android:layout_marginLeft="@dimen/show_title_text_pad"
+                            android:textSize="@dimen/show_title_text_size"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/unfold_image01"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="right"
+                            android:layout_marginRight="@dimen/show_title_text_pad"
+                            android:src="@drawable/unfold_more" />
+                    </LinearLayout>
                 </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/show_content_on_off_1"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    >
+                    <TextView
+                        android:id="@+id/show_content_text_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/item_size"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!--研发历史背景-->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorRed">
+
+                <LinearLayout
+                    android:id="@+id/show_on_off_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:background="@color/colorRedDark">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        >
+                        <TextView
+                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:text="历史背景"
+                            android:layout_marginLeft="@dimen/show_title_text_pad"
+                            android:textSize="@dimen/show_title_text_size"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/unfold_image02"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="right"
+                            android:layout_marginRight="@dimen/show_title_text_pad"
+                            android:src="@drawable/unfold_more" />
+                    </LinearLayout>
+                </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/show_content_on_off_2"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     >
@@ -112,31 +156,50 @@
                         android:textSize="@dimen/item_size"
                         />
                 </RelativeLayout>
+            </LinearLayout>
 
-                <!--详细介绍-->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/colorBlack" />
+            <!--详细介绍-->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorGreen">
                 <LinearLayout
-                    android:id="@+id/show_on_off_2"
+                    android:id="@+id/show_on_off_3"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:orientation="horizontal"
-                    android:background="@color/colorBarBg">
-                    <TextView
+                    android:background="@color/colorGreenDark">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:text="详细介绍"
+                            android:layout_marginLeft="@dimen/show_title_text_pad"
+                            android:textSize="@dimen/show_title_text_size"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
-                        android:text="详细介绍"
-                        android:layout_marginLeft="@dimen/show_title_text_pad"
-                        android:textSize="@dimen/show_title_text_size"
-                        />
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/unfold_image03"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="right"
+                            android:layout_marginRight="@dimen/show_title_text_pad"
+                            android:src="@drawable/unfold_more" />
+                    </LinearLayout>
                 </LinearLayout>
                 <RelativeLayout
-                    android:id="@+id/show_content_on_off_2"
+                    android:id="@+id/show_content_on_off_3"
                     android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    >
+                    android:layout_width="match_parent">
                     <TextView
                         android:id="@+id/show_content_text_3"
                         android:layout_width="match_parent"
@@ -144,17 +207,19 @@
                         android:textSize="@dimen/item_size"
                         />
                 </RelativeLayout>
+            </LinearLayout>
 
-                <!--总结-->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/colorBlack" />
+            <!--总结-->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAsh">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:orientation="horizontal"
-                    android:background="@color/colorBarBg">
+                    android:background="@color/colorAshDark">
                     <TextView
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
@@ -169,7 +234,6 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/item_size"
                     />
-
             </LinearLayout>
 
         </LinearLayout>
