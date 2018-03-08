@@ -2,6 +2,7 @@
     <string name="app_name">高地</string>
     <string name="mainActivity_title">主页</string>
     <string name="newsTitle">新闻列表</string>
+    <string name="LocalData">本地资料</string>
 
     <string name="register">注册</string>
     <string name="username">用户名</string>

@@ -1,8 +1,5 @@
 package com.example.stonewang.gaodi.LocalShowActivity;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,9 +18,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.stonewang.gaodi.R;
-import com.example.stonewang.gaodi.db.Comment;
-
-import org.litepal.crud.DataSupport;
 
 /**
  * Created by stoneWang on 2017/4/9.
@@ -37,7 +31,7 @@ public class LandShowOneActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_land_show_one);
+        setContentView(R.layout.activity_local_show_one);
         View cv = getWindow().getDecorView();//获取当前Activity的View
 
         //自定义toolbar

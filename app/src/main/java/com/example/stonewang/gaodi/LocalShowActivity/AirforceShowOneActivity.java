@@ -31,7 +31,7 @@ public class AirforceShowOneActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_land_show_one);
+        setContentView(R.layout.activity_local_show_one);
         View cv = getWindow().getDecorView();//获取当前Activity的View
 
         //自定义toolbar

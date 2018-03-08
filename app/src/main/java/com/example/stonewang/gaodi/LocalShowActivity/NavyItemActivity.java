@@ -2,9 +2,12 @@ package com.example.stonewang.gaodi.LocalShowActivity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.example.stonewang.gaodi.MyItemDecoration;
 import com.example.stonewang.gaodi.R;
@@ -24,7 +27,7 @@ public class NavyItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_land_item);
+        setContentView(R.layout.activity_local_item);
 
         initNavyItem();
 
@@ -34,6 +37,24 @@ public class NavyItemActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new MyItemDecoration());//添加装饰类,加横线
         NavyItemAdapter adapter = new NavyItemAdapter(navyList);
         recyclerView.setAdapter(adapter);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_local_item);
+        toolbar.setTitle(R.string.LocalData);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
