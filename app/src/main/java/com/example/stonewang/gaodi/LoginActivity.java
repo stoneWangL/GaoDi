@@ -29,7 +29,6 @@ import okhttp3.Response;
 public class LoginActivity extends AppCompatActivity {
     private EditText mUserName = null;
     private EditText mPassword = null;
-//    public static boolean isGuestLogin = false;//是否游客登录，这个变量用于其他界面数据的处理
     ProgressDialog mDialog;//对话框
 
     @Override
@@ -47,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param view
      */
     public void guest_button(View view){
-//        isGuestLogin = true;
+
         saveGuestLogin();//保存本地用户，到文件
         Intent intent = new Intent();
         intent.setClass(LoginActivity.this,MainActivity.class);
@@ -61,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
      * @param view
      */
     public void login_button(View view){
-//        isGuestLogin = false;
 
         final String user = mUserName.getText().toString();
         final String pass = mPassword.getText().toString();

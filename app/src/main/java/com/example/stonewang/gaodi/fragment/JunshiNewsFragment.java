@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -115,17 +114,6 @@ public class JunshiNewsFragment extends Fragment {
         }
     };
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Log.d("stone00","声明周期->onActivityCreated");
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d("stone00","声明周期->onStart");
-    }
 
     @Override
     public void onResume() {
@@ -139,39 +127,6 @@ public class JunshiNewsFragment extends Fragment {
         });
         stoneNum();
     }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("stone00","声明周期->onPause");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d("stone00","声明周期->onStop");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.d("stone00","声明周期->onDestroyView");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("stone00","声明周期->onDestroy");
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.d("stone00","声明周期->onDetach");
-
-    }
-
-
 
     /**
      * 更新新闻列表
