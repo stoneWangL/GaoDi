@@ -1,6 +1,7 @@
 package com.example.stonewang.gaodi;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -47,6 +48,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 import static com.ashokvarma.bottomnavigation.BottomNavigationBar.BACKGROUND_STYLE_STATIC;
 import static org.litepal.LitePalApplication.getContext;
 
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         String usernameText = pref.getString("userName", "");
         Boolean notGuest = pref.getBoolean("notGuest",false);
         String sex = pref.getString("sex", "男");
+
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -108,11 +112,11 @@ public class MainActivity extends AppCompatActivity {
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                //检查是否游客登录的凭证
+                SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
+                Boolean notGuest = pref.getBoolean("notGuest",false);
                 switch (item.getItemId()){
                     case R.id.nav_change_pass:
-                        //检查是否游客登录的凭证
-                        SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
-                        Boolean notGuest = pref.getBoolean("notGuest",false);
                         if(notGuest){
                             Intent intent = getIntent();
                             intent.setClass(MainActivity.this,ChangPassActivity.class);
@@ -148,12 +152,16 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "设置颜色", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.nav_exit:
-                        SharedPreferences.Editor editor = getSharedPreferences("User",MODE_PRIVATE).edit();
-                        editor.clear();
-                        editor.apply();
-                        Intent intent = new Intent (MainActivity.this,FirstActivity.class);
-                        startActivity(intent);//跳转界面
-                        MainActivity.this.finish();//关闭此界面
+                        if(notGuest){
+                            SharedPreferences.Editor editor = getSharedPreferences("User",MODE_PRIVATE).edit();
+                            editor.clear();
+                            editor.apply();
+                            Intent intent = new Intent (MainActivity.this,FirstActivity.class);
+                            startActivity(intent);//跳转界面
+                            MainActivity.this.finish();//关闭此界面
+                        }else{
+                            Toast.makeText(MainActivity.this, "游客模式，无需退出", Toast.LENGTH_SHORT).show();
+                        }
                     default:
                         break;
                 }
