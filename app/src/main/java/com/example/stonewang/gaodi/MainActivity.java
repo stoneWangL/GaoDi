@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
         username.setText("欢迎："+usernameText);
 
-
+        //侧滑界面按钮
         navView.setCheckedItem(R.id.nav_color);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -147,6 +147,13 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_color:
                         Toast.makeText(MainActivity.this, "设置颜色", Toast.LENGTH_SHORT).show();
                         break;
+                    case R.id.nav_exit:
+                        SharedPreferences.Editor editor = getSharedPreferences("User",MODE_PRIVATE).edit();
+                        editor.clear();
+                        editor.apply();
+                        Intent intent = new Intent (MainActivity.this,FirstActivity.class);
+                        startActivity(intent);//跳转界面
+                        MainActivity.this.finish();//关闭此界面
                     default:
                         break;
                 }
