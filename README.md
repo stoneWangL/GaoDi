@@ -2,5 +2,6 @@
 Android端军事APP“高地”简介
 #等一下要在下面插入一些图片
 1.界面简介
-![image]()
+![image](https://github.com/stoneWangL/GaoDi/blob/master/picture/gaodi01.png)
+![image](https://github.com/stoneWangL/GaoDi/blob/master/picture/gaodi01.png)
 
