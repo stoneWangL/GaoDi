@@ -8,8 +8,8 @@
 * User change password
 * Logout
 * One key switch theme of APP
-* News refresh
-* News review
+* Refresh the news
+* Comment on news
 * Share to other APP
 
 ## UI
