@@ -38,6 +38,7 @@ public class FirstActivity extends AppCompatActivity{
         //判断是否保存了用户信息，保存了就跳过登录界面，直接进入MainActivity，否则进入登录界面
         SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
         Boolean notGuest = pref.getBoolean("notGuest",false);
+        pref.getString("color","one");//初始化，如果color没有值则赋值one
         if(notGuest){
             //延迟一段时间后跳转到另一个界面
             new Handler().postDelayed(new Runnable(){

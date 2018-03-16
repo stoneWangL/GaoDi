@@ -8,8 +8,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,10 +20,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +47,7 @@ import com.example.stonewang.gaodi.fragment.JunshiNewsFragment;
 import com.example.stonewang.gaodi.util.JsonUtil;
 
 import org.litepal.crud.DataSupport;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navView;
     //下部导航栏
     private BottomNavigationBar bottom_navigation_bar;
+    //fragment栏
+    private FragmentTabHost fragmentTabHost;
     //数据库landArmy列表
     private List<LandArmyDescribe> landArmyDescribesList =new ArrayList<>();
     //数据库navyArmy列表
@@ -67,11 +77,11 @@ public class MainActivity extends AppCompatActivity {
     private List<AirforceDescribe> airforceDescribesList =new ArrayList<>();
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("stone00","onCreate");
 
         SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
 //        String url = pref.getString("userImage", "");
@@ -86,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navView = (NavigationView) findViewById(R.id.nav_view);
+        fragmentTabHost = (FragmentTabHost) findViewById(R.id.view_fragment);
 
         View handerView = navView.getHeaderView(0);
         ImageView userImage = (ImageView) handerView.findViewById(R.id.nav_user_image);
@@ -149,7 +160,17 @@ public class MainActivity extends AppCompatActivity {
 
                         break;
                     case R.id.nav_color:
-                        Toast.makeText(MainActivity.this, "设置颜色", Toast.LENGTH_SHORT).show();
+                        String color = pref.getString("color","one");
+                        if (color.equals("one")){
+                            SharedPreferences.Editor editor = getSharedPreferences("User",MODE_PRIVATE).edit();
+                            editor.putString("color","two");
+                            editor.apply();
+                        }else{
+                            SharedPreferences.Editor editor = getSharedPreferences("User",MODE_PRIVATE).edit();
+                            editor.putString("color","one");
+                            editor.apply();
+                        }
+                        MainActivity.this.recreate();//重绘所有控件
                         break;
                     case R.id.nav_exit:
                         if(notGuest){
@@ -180,7 +201,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("stone00","onResume");
+        SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
+        String color = pref.getString("color","one");
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        View handerView = navView.getHeaderView(0);
+        RelativeLayout relativeLayout = (RelativeLayout) handerView.findViewById(R.id.nav_header_layout);
+
+
+        if (color.equals("two")){
+            toolbar.setBackgroundResource(R.color.colorBarBg2);
+            navView.setBackgroundResource(R.color.colorWhite);
+            relativeLayout.setBackgroundResource(R.color.colorBarBg3);
+        }else{
+            toolbar.setBackgroundResource(R.color.colorBarBg);
+            navView.setBackgroundResource(R.color.colorItem);
+        }
+
     }
 
 
@@ -233,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
         bottom_navigation_bar
                 .setInActiveColor(R.color.colorInActive)//设置未选中的Item的颜色，包括图片和文字
                 .setActiveColor(R.color.colorActive)
-                .setBarBackgroundColor(R.color.colorBarBg);//设置整个控件的背景色
+                .setBarBackgroundColor(R.color.colorWhite);//设置整个控件的背景色
         //添加选项
         bottom_navigation_bar.addItem(new BottomNavigationItem(R.drawable.ic_stat_new, "军事"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_stat_new, "国际"))
@@ -316,6 +354,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
 
 
 }

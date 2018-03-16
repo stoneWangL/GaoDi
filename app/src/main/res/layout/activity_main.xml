@@ -29,12 +29,11 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
             <com.ashokvarma.bottomnavigation.BottomNavigationBar
+                android:id="@+id/bottom_navigation_bar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:layout_alignParentBottom="true"
-                android:id="@+id/bottom_navigation_bar"
-                />
-        </RelativeLayout>
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout >
     </LinearLayout>
 
     <!--侧面弹页-->

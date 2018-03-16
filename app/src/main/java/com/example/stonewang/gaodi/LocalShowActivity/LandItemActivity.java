@@ -101,4 +101,5 @@ public class LandItemActivity extends AppCompatActivity{
         Land helicopterm171 = new Land("米-171直升机", R.drawable.airforce_m171);
         landList.add(helicopterm171);
     }
+
 }

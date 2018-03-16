@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,9 +66,6 @@ public class JunshiNewsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("stone00","声明周期->onCreate");
-
-
     }
 
     @Nullable
@@ -89,7 +87,6 @@ public class JunshiNewsFragment extends Fragment {
 
         swipeRefresh = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
-
 
         getNum();
         return v;

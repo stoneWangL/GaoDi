@@ -3,6 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorAccentNight">#f982ab</color>
+
+    <color name="colorTopItem">#696868</color>
+    <color name="colorTopItemNight">#b4091f</color>
+    <color name="colorBarBg">#8f8c8c</color>
+    <color name="colorBarBg2">#f52835</color>
+    <color name="colorBarBg3">#f74853</color>
 
     <color name="colorBlue">#8be9f5</color>
     <color name="colorBlueDark">#75c4ce</color>
@@ -13,13 +20,17 @@
     <color name="colorAsh">#eceaea</color>
     <color name="colorAshDark">#b7b7b7</color>
 
-
+    <color name="colorWhite">#fff</color>
     <color name="colorBlack">#000</color>
     <color name="colorItem">#d1cccc</color>
+    <color name="colorItem2">#fff</color>
     <color name="colorText">#3b3b37</color>
 
-    <color name="colorTopItem">#696868</color>
-    <color name="colorBarBg">#8f8c8c</color>
+
+
+
     <color name="colorActive">#96f151</color>
     <color name="colorInActive">#d1cccc</color>
+
+
 </resources>
