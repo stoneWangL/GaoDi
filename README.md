@@ -35,4 +35,8 @@
 <br>
 ![image](https://github.com/stoneWangL/GaoDi/blob/master/picture/10.png)
 <br>
+## Last
+If you have issues or suggestions about this project, any kind of feedback is welcome.
+
+Email:stoneWang_L@163.com
 
