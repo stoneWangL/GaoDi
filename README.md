@@ -4,4 +4,5 @@ Android端军事APP“高地”简介
 1.界面简介
 ![image](https://github.com/stoneWangL/GaoDi/blob/master/picture/0.png)
 ![image](https://github.com/stoneWangL/GaoDi/blob/master/picture/1.png)
+![image](https://github.com/stoneWangL/GaoDi/blob/master/picture/2.png)
 
