@@ -1,7 +1,6 @@
-# GaoDi
-Android GaoDi<br>
+# GaoDi(Android)
 ![image](https://github.com/stoneWangL/GaoDi/blob/master/app/src/main/res/mipmap-xxhdpi/ic_launcher.png)
-
+<br>A simple military application
 ## 
 ## UI
 ![image](https://github.com/stoneWangL/GaoDi/blob/master/picture/0.png)
