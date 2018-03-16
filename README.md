@@ -1,5 +1,7 @@
 # GaoDi
-Android GaoDi
+Android GaoDi<br>
+![image](https://github.com/stoneWangL/GaoDi/blob/master/app/src/main/res/mipmap-xxhdpi/ic_launcher.png)
+
 ## 
 ## UI
 ![image](https://github.com/stoneWangL/GaoDi/blob/master/picture/0.png)
