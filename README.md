@@ -1,7 +1,17 @@
 # GaoDi(Android)
 ![image](https://github.com/stoneWangL/GaoDi/blob/master/app/src/main/res/mipmap-xxhdpi/ic_launcher.png)
 <br>A simple military application
-## 
+## Features Provided
+* User registration
+* User login
+* automatic logon
+* Modify the password
+* Logout
+* One key switch theme of APP
+* News refresh
+* News review
+* Share to other APP
+
 ## UI
 ![image](https://github.com/stoneWangL/GaoDi/blob/master/picture/0.png)
 <br>
