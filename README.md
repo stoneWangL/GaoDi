@@ -4,8 +4,8 @@
 ## Features Provided
 * User registration
 * User login
-* automatic logon
-* Modify the password
+* User login automatically
+* User change password
 * Logout
 * One key switch theme of APP
 * News refresh
