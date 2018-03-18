@@ -48,7 +48,7 @@ public class NavyItemAdapter extends RecyclerView.Adapter<NavyItemAdapter.ViewHo
         if (mContext == null){
             mContext = parent.getContext();
         }
-        View view = LayoutInflater.from(mContext).inflate(R.layout.land_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.local_two_item, parent, false);
         final ViewHolder holder = new NavyItemAdapter.ViewHolder(view);
 
         //点击陆军某武器

@@ -1,6 +1,8 @@
 package com.example.stonewang.gaodi.LocalShowActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -211,5 +213,18 @@ public class LandShowOneActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
+        String color = pref.getString("color","one");
 
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_land_show);
+
+        if (color.equals("two")){
+            collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.colorBarBg2));
+        }else{
+            collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.colorBarBg));
+        }
+    }
 }

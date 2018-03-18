@@ -13,6 +13,7 @@
         />
     <!--上步导航-->
     <RelativeLayout
+        android:id="@+id/relative_news"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

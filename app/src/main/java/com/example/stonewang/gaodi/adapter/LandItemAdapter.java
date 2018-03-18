@@ -51,7 +51,7 @@ public class LandItemAdapter extends RecyclerView.Adapter<LandItemAdapter.ViewHo
         if (mContext == null){
             mContext = parent.getContext();
         }
-        View view = LayoutInflater.from(mContext).inflate(R.layout.land_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.local_two_item, parent, false);
         final ViewHolder holder = new LandItemAdapter.ViewHolder(view);
 
         //点击陆军某武器

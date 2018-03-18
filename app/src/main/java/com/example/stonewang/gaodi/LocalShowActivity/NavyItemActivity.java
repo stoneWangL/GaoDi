@@ -1,5 +1,6 @@
 package com.example.stonewang.gaodi.LocalShowActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -108,5 +109,21 @@ public class NavyItemActivity extends AppCompatActivity {
         Navy airforceJ15 = new Navy("歼15舰载战斗机", R.drawable.airforce_j15);
         navyList.add(airforceJ15);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
+        String color = pref.getString("color","one");
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_local_item);
+
+
+        if (color.equals("two")){
+            toolbar.setBackgroundResource(R.color.colorBarBg2);
+        }else{
+            toolbar.setBackgroundResource(R.color.colorBarBg);
+        }
     }
 }

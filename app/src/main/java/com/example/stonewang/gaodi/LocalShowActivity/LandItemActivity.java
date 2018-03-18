@@ -1,13 +1,20 @@
 package com.example.stonewang.gaodi.LocalShowActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.stonewang.gaodi.MyItemDecoration;
 import com.example.stonewang.gaodi.R;
@@ -102,4 +109,19 @@ public class LandItemActivity extends AppCompatActivity{
         landList.add(helicopterm171);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
+        String color = pref.getString("color","one");
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_local_item);
+
+
+        if (color.equals("two")){
+            toolbar.setBackgroundResource(R.color.colorBarBg2);
+        }else{
+            toolbar.setBackgroundResource(R.color.colorBarBg);
+        }
+    }
 }

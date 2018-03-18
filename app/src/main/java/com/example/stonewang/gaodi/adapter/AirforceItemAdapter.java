@@ -51,7 +51,7 @@ public class AirforceItemAdapter extends RecyclerView.Adapter<AirforceItemAdapte
         if (mContext == null){
             mContext = parent.getContext();
         }
-        View view = LayoutInflater.from(mContext).inflate(R.layout.land_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.local_two_item, parent, false);
         final AirforceItemAdapter.ViewHolder holder = new AirforceItemAdapter.ViewHolder(view);
 
         //点击陆军某武器

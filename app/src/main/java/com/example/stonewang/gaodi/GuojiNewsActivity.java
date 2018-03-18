@@ -1,6 +1,7 @@
 package com.example.stonewang.gaodi;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.example.stonewang.gaodi.adapter.NewsFragmentAdapter;
 import com.example.stonewang.gaodi.fragment.CommentPageFragment;
@@ -79,5 +81,23 @@ public class GuojiNewsActivity extends AppCompatActivity {
     //向前翻页
     public void News_left(View view){
         myViewPager.arrowScroll(1);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
+        String color = pref.getString("color","one");
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_news);
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relative_news);
+
+        if (color.equals("two")){
+            toolbar.setBackgroundResource(R.color.colorBarBg2);
+            relativeLayout.setBackgroundResource(R.color.colorBarBg3);
+        }else{
+            toolbar.setBackgroundResource(R.color.colorBarBg);
+            relativeLayout.setBackgroundResource(R.color.colorInActive);
+        }
     }
 }

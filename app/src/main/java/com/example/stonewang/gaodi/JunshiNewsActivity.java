@@ -1,6 +1,7 @@
 package com.example.stonewang.gaodi;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.example.stonewang.gaodi.adapter.NewsFragmentAdapter;
 import com.example.stonewang.gaodi.fragment.CommentPageFragment;
@@ -93,4 +95,21 @@ public class JunshiNewsActivity extends AppCompatActivity {
         myViewPager.arrowScroll(1);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
+        String color = pref.getString("color","one");
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_news);
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relative_news);
+
+        if (color.equals("two")){
+            toolbar.setBackgroundResource(R.color.colorBarBg2);
+            relativeLayout.setBackgroundResource(R.color.colorBarBg3);
+        }else{
+            toolbar.setBackgroundResource(R.color.colorBarBg);
+            relativeLayout.setBackgroundResource(R.color.colorInActive);
+        }
+    }
 }

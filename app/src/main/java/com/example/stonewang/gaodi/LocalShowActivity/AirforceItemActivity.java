@@ -1,5 +1,6 @@
 package com.example.stonewang.gaodi.LocalShowActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -127,5 +128,21 @@ public class AirforceItemActivity extends AppCompatActivity {
         airforceList.add(airforcey8);
         Airforce airforcey20 = new Airforce("运20运输机", R.drawable.airforce_y20);
         airforceList.add(airforcey20);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
+        String color = pref.getString("color","one");
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_local_item);
+
+
+        if (color.equals("two")){
+            toolbar.setBackgroundResource(R.color.colorBarBg2);
+        }else{
+            toolbar.setBackgroundResource(R.color.colorBarBg);
+        }
     }
 }
