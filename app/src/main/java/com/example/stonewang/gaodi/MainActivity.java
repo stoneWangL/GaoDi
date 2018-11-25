@@ -1,15 +1,12 @@
 package com.example.stonewang.gaodi;
 
 import android.app.AlertDialog;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTabHost;
@@ -19,14 +16,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,30 +29,16 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.bumptech.glide.Glide;
 import com.example.stonewang.gaodi.LocalDBCreate.LocalDBCreate;
 import com.example.stonewang.gaodi.db.AirforceDescribe;
-import com.example.stonewang.gaodi.db.Comment;
-import com.example.stonewang.gaodi.db.GuojiNews;
-import com.example.stonewang.gaodi.db.JunshiNews;
 import com.example.stonewang.gaodi.db.LandArmyDescribe;
 import com.example.stonewang.gaodi.db.NavyDescribe;
 import com.example.stonewang.gaodi.fragment.GuojiNewsFragment;
 import com.example.stonewang.gaodi.fragment.LocalFragment;
 import com.example.stonewang.gaodi.fragment.JunshiNewsFragment;
-import com.example.stonewang.gaodi.util.JsonUtil;
 
 import org.litepal.crud.DataSupport;
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 import static com.ashokvarma.bottomnavigation.BottomNavigationBar.BACKGROUND_STYLE_STATIC;
-import static org.litepal.LitePalApplication.getContext;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -133,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                             intent.setClass(MainActivity.this,ChangPassActivity.class);
                             startActivity(intent);
                         }else{
-                            //游客登录，没有权限评论
+                            //游客登录，没有权限修改密码
                             AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
                                     .setTitle(R.string.string_7)
                                     .setMessage(R.string.pleaseLogin)

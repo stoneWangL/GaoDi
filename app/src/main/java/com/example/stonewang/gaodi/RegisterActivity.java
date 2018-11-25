@@ -26,7 +26,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Created by Lenovo on 2018/2/7.
+ * 注册
+ * Created by stoneWang on 2018/2/7.
  */
 
 public class RegisterActivity extends AppCompatActivity {

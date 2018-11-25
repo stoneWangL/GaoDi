@@ -156,6 +156,7 @@ public class JunshiNewsFragment extends Fragment {
                             }
                             Temp.clear();JunshiNewsList.clear();
                             Temp = DataSupport.order("id desc").find(JunshiNews.class);
+
                             for (JunshiNews all:Temp){
                                 JunshiNewsList.add(all);
                             }

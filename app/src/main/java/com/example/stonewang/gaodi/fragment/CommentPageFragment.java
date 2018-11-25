@@ -65,7 +65,8 @@ public class CommentPageFragment extends Fragment {
         newsid = intent.getIntExtra("NewsId",0);
         news = intent.getStringExtra("News");
 
-        commentList = DataSupport.where("newsid = " + newsid+ ";" +"news = "+news).find(Comment.class);
+        //多条件查询
+        commentList = DataSupport.where("newsid = ? and news = ?", ""+newsid, news).find(Comment.class);
 
         Message message = new Message();
         if (commentList.size()==0){
